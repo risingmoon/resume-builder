@@ -1,6 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+
 
 class Web(models.Model):
     account = models.CharField(max_length=50)
@@ -20,27 +22,28 @@ class Header(models.Model):
     zipcode = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
     region = models.CharField(max_length=50)
-    web = models.ManytoManyField(ForeignKey=Web)
+    web = models.ManyToManyField(Web)
+    user = models.ForeignKey(User)
 
 
-class Statement(models.Model):
-    description = models.CharField(max_length=100)
-
-
-
-
-
-class Contact(models.Model):
-   
+class Section(models.Model):
+    title = models.CharField(max_length=50)
     description = models.CharField(max_length=50)
-    person = models.ForeignKey(Person)
+    user = models.ForeignKey(User)
 
 
-class Skills(models.Model):
-    skill_type = models.CharField(max_length=20)
-    description = models.CharField(max_length=100)
-    person = models.ForeignKey(Person)
+class Entry(models.Model):
+    title = models.CharField(max_length=50)
+    subtitle = models.CharField(max_length=50, null=True)
+    city = models.CharField(max_length=50, null=True)
+    state = models.CharField(max_length=50, null=True)
+    contact = models.CharField(max_length=50, null=True)
+    description = models.CharField(max_length=50, null=True)
+    section = models.ForeignKey('Section')
 
+
+class Data(models.Model):
+    text = models.CharField(max_length=400)
 
 class Education(models.Model):
     certificate = models.CharField(max_length=50)
