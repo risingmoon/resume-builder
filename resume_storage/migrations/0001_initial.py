@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ("outline", '0001_initial'),
+    )
+
     def forwards(self, orm):
         # Adding model 'Resume'
         db.create_table(u'resume_storage_resume', (
