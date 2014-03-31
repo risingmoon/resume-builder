@@ -45,37 +45,37 @@ class Entry(models.Model):
 class Data(models.Model):
     text = models.CharField(max_length=400)
 
-class Education(models.Model):
-    certificate = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
-    organization = models.CharField(max_length=50)
-    #Change
-    date = models.CharField(max_length=50)
-    description = models.CharField(max_length=50)
-    person = models.ForeignKey(Person)
+# class Education(models.Model):
+#     certificate = models.CharField(max_length=50)
+#     city = models.CharField(max_length=50)
+#     state = models.CharField(max_length=50)
+#     organization = models.CharField(max_length=50)
+#     #Change
+#     date = models.CharField(max_length=50)
+#     description = models.CharField(max_length=50)
+#     person = models.ForeignKey(Person)
 
 
-class Experience(models.Model):
-    employer = models.CharField(max_length=50)
-    organization = models.CharField(max_length=50)
-    position = models.CharField(max_length=50)
-    date = models.CharField(max_length=50)
-    description = models.CharField(max_length=50)
-    person = models.ForeignKey(Person)
+# class Experience(models.Model):
+#     employer = models.CharField(max_length=50)
+#     organization = models.CharField(max_length=50)
+#     position = models.CharField(max_length=50)
+#     date = models.CharField(max_length=50)
+#     description = models.CharField(max_length=50)
+#     person = models.ForeignKey(Person)
 
 
-class Portfolio(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.CharField(max_length=50)
-    person = models.ForeignKey(Person)
+# class Portfolio(models.Model):
+#     name = models.CharField(max_length=50)
+#     description = models.CharField(max_length=50)
+#     person = models.ForeignKey(Person)
 
 
-class Activities(models.Model):
-    description = models.CharField(max_length=50)
-    person = models.ForeignKey(Person)
+# class Activities(models.Model):
+#     description = models.CharField(max_length=50)
+#     person = models.ForeignKey(Person)
 
 
-class Interests(models.Model):
-    description = models.CharField(max_length=50)
-    person = models.ForeignKey(Person)
+# class Interests(models.Model):
+#     description = models.CharField(max_length=50)
+#     person = models.ForeignKey(Person)
