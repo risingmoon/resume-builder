@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'registration',
     'outline',
     'resume_storage',
+    'south',
 )
 
 MIDDLEWARE_CLASSES = (
