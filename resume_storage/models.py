@@ -1,5 +1,5 @@
 from django.db import models
-from resume_builder.models import Header, Section, Entry, Data
+from outline.models import Header, Section, Entry, Data
 from django.contrib.auth.models import User
 
 
