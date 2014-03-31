@@ -58,7 +58,6 @@ class Entry(models.Model):
     # def month_year(self):
 
 
-
 class Data(models.Model):
     text = models.CharField(max_length=400)
     entry = models.ForeignKey('Entry')
