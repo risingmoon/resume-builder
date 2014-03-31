@@ -2,23 +2,17 @@ from django.db import models
 
 # Create your models here.
 
-
-class Person(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-
-
-class Statement(models.Model):
-    description = models.CharField(max_length=100)
-
-
-class Account(models.Model):
+class Web(models.Model):
     account = models.CharField(max_length=50)
-    person = models.ForeignKey(Person)
 
 
-class Contact(models.Model):
-    phone = models.CharField(max_length=15)
+class Header(models.Model):
+    first_name = models.CharField(max_length=50)
+    middle_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    cell = models.CharField(max_length=15)
+    home = models.CharField(max_length=15)
+    fax = models.CharField(max_length=15)
     address1 = models.CharField(max_length=50)
     address2 = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
@@ -26,6 +20,18 @@ class Contact(models.Model):
     zipcode = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
     region = models.CharField(max_length=50)
+    web = models.ManytoManyField(ForeignKey=Web)
+
+
+class Statement(models.Model):
+    description = models.CharField(max_length=100)
+
+
+
+
+
+class Contact(models.Model):
+   
     description = models.CharField(max_length=50)
     person = models.ForeignKey(Person)
 
