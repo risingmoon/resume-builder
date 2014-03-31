@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '4-#8j7ltddixmac=l1wn9h@9v!m#945!lir=89dq)7r1&#ipza'
+SECRET_KEY = "Justin's Social Security Number"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -83,3 +83,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 ACCOUNT_ACTIVATION_DAYS = 5
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'testing@example.com'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
