@@ -1,72 +1,64 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 
-class Person(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-
-
-class Statement(models.Model):
-    description = models.CharField(max_length=100)
-
-
-class Account(models.Model):
+class Web(models.Model):
     account = models.CharField(max_length=50)
-    person = models.ForeignKey(Person)
 
 
-class Contact(models.Model):
-    phone = models.CharField(max_length=15)
-    address1 = models.CharField(max_length=50)
-    address2 = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
-    zipcode = models.CharField(max_length=50)
-    email = models.CharField(max_length=50)
-    region = models.CharField(max_length=50)
-    description = models.CharField(max_length=50)
-    person = models.ForeignKey(Person)
+class Header(models.Model):
+    first_name = models.CharField(max_length=50)
+    middle_name = models.CharField(max_length=50, null=True)
+    last_name = models.CharField(max_length=50)
+    cell = models.CharField(max_length=15, null=True)
+    home = models.CharField(max_length=15, null=True)
+    fax = models.CharField(max_length=15, null=True)
+    address1 = models.CharField(max_length=50, null=True)
+    address2 = models.CharField(max_length=50, null=True)
+    city = models.CharField(max_length=50, null=True)
+    state = models.CharField(max_length=50, null=True)
+    zipcode = models.CharField(max_length=50, null=True)
+    email = models.CharField(max_length=50, null=True)
+    region = models.CharField(max_length=50, null=True)
+    web = models.ManyToManyField(Web, null=True)
+    user = models.ForeignKey(User)
+
+    def __unicode__(self):
+        return unicode(' '.join[
+            self.first_name,
+            self.middle_name,
+            self.last_name])
 
 
-class Skills(models.Model):
-    skill_type = models.CharField(max_length=20)
-    description = models.CharField(max_length=100)
-    person = models.ForeignKey(Person)
+class Section(models.Model):
+    title = models.CharField(max_length=50)
+    description = models.CharField(max_length=50, null=True)
+    user = models.ForeignKey(User)
+
+    def __unicode__(self):
+        return unicode(self.title)
 
 
-class Education(models.Model):
-    certificate = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
-    organization = models.CharField(max_length=50)
-    #Change
-    date = models.CharField(max_length=50)
-    description = models.CharField(max_length=50)
-    person = models.ForeignKey(Person)
+class Entry(models.Model):
+    title = models.CharField(max_length=50)
+    subtitle = models.CharField(max_length=50, null=True)
+    start_date = models.DateTimeField(null=True)
+    end_date = models.DateTimeField(null=True)
+    city = models.CharField(max_length=50, null=True)
+    state = models.CharField(max_length=50, null=True)
+    contact = models.CharField(max_length=50, null=True)
+    description = models.CharField(max_length=50, null=True)
+    section = models.ForeignKey('Section')
+
+    def __unicode__(self):
+        return unicode(self.title)
+
+    # def month_year(self):
 
 
-class Experience(models.Model):
-    employer = models.CharField(max_length=50)
-    organization = models.CharField(max_length=50)
-    position = models.CharField(max_length=50)
-    date = models.CharField(max_length=50)
-    description = models.CharField(max_length=50)
-    person = models.ForeignKey(Person)
 
-
-class Portfolio(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.CharField(max_length=50)
-    person = models.ForeignKey(Person)
-
-
-class Activities(models.Model):
-    description = models.CharField(max_length=50)
-    person = models.ForeignKey(Person)
-
-
-class Interests(models.Model):
-    description = models.CharField(max_length=50)
-    person = models.ForeignKey(Person)
+class Data(models.Model):
+    text = models.CharField(max_length=400)
+    entry = models.ForeignKey('Entry')
