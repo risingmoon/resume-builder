@@ -61,10 +61,11 @@ class Entry(models.Model):
     def __unicode__(self):
         return unicode(self.title)
 
-    # def yield_date(self):
-    #     if self.start_date and self.end_date:
-    #         return self.start_date.
-
+    def yield_date(self):
+        if self.start_date and self.end_date:
+            return unicode(" - ".join([
+                self.start_date,
+                self.end_date]))
 
 
 class Data(models.Model):
