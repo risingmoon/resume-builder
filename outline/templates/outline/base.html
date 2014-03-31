@@ -1,0 +1,23 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<!-- <link href= "{% static "outline/base.css" %}" rel="stylesheet" type="text/css"> -->
+<head>
+    <title>Resume Builder: {% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <div id='loginout'>
+        {% if user.is_authenticated %}
+        <a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a>
+        {% else %}
+        <a href="{% url 'django.contrib.auth.views.login' %}">Login</a>  |  <a href="/accounts/register/">Register</a>
+        {% endif %}
+        <br>
+        <a href="{% url 'outline.views.home_view' %}">Back to home</a>
+    </div>
+    <div id='content'>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

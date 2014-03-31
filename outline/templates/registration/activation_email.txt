@@ -1,0 +1,7 @@
+So you want help building your resume? Good plan. Click the link below to activate your account:
+
+http://{{ site.domain }}/accounts/activate/{{ activation_key }}
+
+You have {{ expiration_days }} day{% if expiration_days > 1 %}s{% endif %} to click.
+
+If you did not sign up for an account with Resume Builder, you can safely ignore this message.
