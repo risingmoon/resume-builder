@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Resume(models.Model):
     title = models.CharField(max_length=64)
-    header = models.ForeignKey(Header)
+    header = models.OneToOneField(Header)
 
 
 class Saved_Section(models.Model):
