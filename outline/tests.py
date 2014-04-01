@@ -1,11 +1,9 @@
 from django.test import TestCase
-from outline.models import Photo, Album, Tag
+from outline.models import Header, Web, Section, Entry, Data
 from django.contrib.auth.models import User
 
-# Create your tests here.
 
-
-class BasicTest(TestCase):
+class TestViews(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user(
@@ -14,7 +12,5 @@ class BasicTest(TestCase):
             "test")
         self.user.save()
 
-
-# class HeaderTest(self):
-
-#     def test_
+    def tearDown(self):
+        pass

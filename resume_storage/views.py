@@ -19,13 +19,35 @@ def stub_view(request, *args, **kwargs):
 def front_view(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('home'))
-    return render(request, 'outline/front.html', {})
+    return render(request, 'resume_storage/front.html', {})
 
 
 @login_required
 def home_view(request):
     all_resumes = Resume.objects.all().prefetch_related()
-    users_resumes = all_resumes.filter(user=request.user)
-    albums = users_resumes.order_by('-modified_date')
-    context = {'albums': albums, }
+    resumes = all_resumes.filter(user=request.user)
+    context = {'resumes': resumes, }
     return render(request, 'resume_storage/home.html', context)
+
+
+@login_required
+def resume_view(request, resume_no):
+    resume = Resume.objects.get(pk=resume_no)
+    return render(request, 'resume_storage/resume.html', {'resume': resume})
+
+
+@login_required
+def print_resume(request, resume_no):
+    pass
+
+
+@login_required
+def delete_resume(request, resume_no):
+    resume = Resume.objects.get(pk=resume_no)
+    return render(request, 'resume_storage/delete.html', {'resume': resume})
+
+
+@login_required
+def real_delete(request, resume_no):
+    Resume.objects.get(pk=resume_no).delete()
+    return HttpResponseRedirect(reverse('home'))
