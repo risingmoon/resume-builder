@@ -1,8 +1,7 @@
 from django.test import TestCase
-from outline.models import Profile, Section, Web, Entry, Data
+from outline.models import Header, Section, Web, Entry, Data
 from django.contrib.auth.models import User
 from datetime import date
-import pdb
 
 # Create your tests here.
 
@@ -16,14 +15,11 @@ class BasicTest(TestCase):
             "password")
         self.user.save()
 
-        w1 = Web.objects.create(account="http://www.twitter.com")
-        w1.save()
-        w2 = Web.objects.create(account="http://www.github.com")
-        w2.save()
-        w3 = Web.objects.create(account="http://www.linkedIn.com")
-        w3.save()
+        w1 = Web(text="http://www.twitter.com")
+        w2 = Web(text="http://www.github.com")
+        w3 = Web(text="http://www.linkedIn.com")
 
-        self.profile = Profile.objects.create(
+        header = Header(
             first_name="John",
             middle_name="Fake",
             last_name="Doe",
@@ -33,13 +29,13 @@ class BasicTest(TestCase):
             address1="1234 Spoon St.",
             address2="APT 5",
             city="Seattle",
-            state="WA",
+            State="WA",
             zipcode="98021",
             email="johndoe@gmail.com",
             region="Great Seattle Area",
             user=self.user)
-        self.profile.webs = [w1, w2, w3]
-        self.profile.save()
+
+        header.add([w1, w2, w3])
 
         objective = Section(
             title="objective",
@@ -57,66 +53,42 @@ class BasicTest(TestCase):
             user=self.user)
         experience.save()
 
-        # pdb.set_trace()
-
-        self.college = Entry(
+        college = Entry(
             title="Bachelor of Science in Pythonic Interpretation",
             start_date=date(2007, 9, 1),
-            end_date=date(2011, 5, 1),
+            end_date=date(20011, 5, 1),
             city="Baltimore",
             state="MD",
             section=education)
-        self.college.save()
+        college.save()
 
-        self.work = Entry(
+        work = Entry(
             title="Code Fellows",
             subtitle="Python Newbie",
-            start_date=date(2014, 2, 1),
-            present=True,
+            start_date=date(2007, 9, 1),
+            end_date=date(20011, 5, 1),
             city="Baltimore",
             state="MD",
             section=education)
-        self.work.save()
+        work.save()
 
         d1 = Data(
             text="Built Flask Microblog",
-            entry=self.work)
+            entry=work)
         d1.save()
 
         d2 = Data(
             text="Built Haikute",
-            entry=self.work)
+            entry=work)
         d2.save()
 
         d3 = Data(
             text="Built Django Sharing App",
-            entry=self.work)
+            entry=work)
         d3.save()
 
 
 class HeaderTest(BasicTest):
 
-    def test_middle_initial(self):
-        self.assertEqual(
-            "John F. Doe", self.profile.middle_initial())
-
-    def test_no_middle_initial(self):
-        user = User.objects.create_user(
-            "Jane",
-            "janedoe@gmail.com",
-            "password")
-        user.save()
-        profile = Profile.objects.create(
-            first_name="Jane",
-            last_name="Doe",
-            user=user)
-        profile.save()
-        self.assertEqual(
-            "Jane Doe", profile.middle_initial())
-    
-    def test_short_month(self):
-
-
-
-
-
+    def test_something(self):
+        pass

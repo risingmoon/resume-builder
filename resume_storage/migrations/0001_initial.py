@@ -7,94 +7,57 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ("outline", '0001_initial'),
+    )
+
     def forwards(self, orm):
-        # Adding model 'Web'
-        db.create_table(u'outline_web', (
+        # Adding model 'Resume'
+        db.create_table(u'resume_storage_resume', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('account', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=64)),
+            ('header', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['outline.Header'])),
         ))
-        db.send_create_signal(u'outline', ['Web'])
+        db.send_create_signal(u'resume_storage', ['Resume'])
 
-        # Adding model 'Header'
-        db.create_table(u'outline_header', (
+        # Adding model 'Saved_Section'
+        db.create_table(u'resume_storage_saved_section', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('middle_name', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('cell', self.gf('django.db.models.fields.CharField')(max_length=15, null=True)),
-            ('home', self.gf('django.db.models.fields.CharField')(max_length=15, null=True)),
-            ('fax', self.gf('django.db.models.fields.CharField')(max_length=15, null=True)),
-            ('address1', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('address2', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('city', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('state', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('zipcode', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('email', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('region', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-        ))
-        db.send_create_signal(u'outline', ['Header'])
-
-        # Adding M2M table for field webs on 'Header'
-        m2m_table_name = db.shorten_name(u'outline_header_webs')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('header', models.ForeignKey(orm[u'outline.header'], null=False)),
-            ('web', models.ForeignKey(orm[u'outline.web'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['header_id', 'web_id'])
-
-        # Adding model 'Section'
-        db.create_table(u'outline_section', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('description', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-        ))
-        db.send_create_signal(u'outline', ['Section'])
-
-        # Adding model 'Entry'
-        db.create_table(u'outline_entry', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('subtitle', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('start_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('end_date', self.gf('django.db.models.fields.DateTimeField')(null=True)),
-            ('city', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('state', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('contact', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
-            ('description', self.gf('django.db.models.fields.CharField')(max_length=50, null=True)),
+            ('resume', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['resume_storage.Resume'])),
             ('section', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['outline.Section'])),
         ))
-        db.send_create_signal(u'outline', ['Entry'])
+        db.send_create_signal(u'resume_storage', ['Saved_Section'])
 
-        # Adding model 'Data'
-        db.create_table(u'outline_data', (
+        # Adding model 'Saved_Entry'
+        db.create_table(u'resume_storage_saved_entry', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('text', self.gf('django.db.models.fields.CharField')(max_length=400)),
+            ('section', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['resume_storage.Saved_Section'])),
             ('entry', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['outline.Entry'])),
         ))
-        db.send_create_signal(u'outline', ['Data'])
+        db.send_create_signal(u'resume_storage', ['Saved_Entry'])
+
+        # Adding M2M table for field dataset on 'Saved_Entry'
+        m2m_table_name = db.shorten_name(u'resume_storage_saved_entry_dataset')
+        db.create_table(m2m_table_name, (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('saved_entry', models.ForeignKey(orm[u'resume_storage.saved_entry'], null=False)),
+            ('data', models.ForeignKey(orm[u'outline.data'], null=False))
+        ))
+        db.create_unique(m2m_table_name, ['saved_entry_id', 'data_id'])
 
 
     def backwards(self, orm):
-        # Deleting model 'Web'
-        db.delete_table(u'outline_web')
+        # Deleting model 'Resume'
+        db.delete_table(u'resume_storage_resume')
 
-        # Deleting model 'Header'
-        db.delete_table(u'outline_header')
+        # Deleting model 'Saved_Section'
+        db.delete_table(u'resume_storage_saved_section')
 
-        # Removing M2M table for field webs on 'Header'
-        db.delete_table(db.shorten_name(u'outline_header_webs'))
+        # Deleting model 'Saved_Entry'
+        db.delete_table(u'resume_storage_saved_entry')
 
-        # Deleting model 'Section'
-        db.delete_table(u'outline_section')
-
-        # Deleting model 'Entry'
-        db.delete_table(u'outline_entry')
-
-        # Deleting model 'Data'
-        db.delete_table(u'outline_data')
+        # Removing M2M table for field dataset on 'Saved_Entry'
+        db.delete_table(db.shorten_name(u'resume_storage_saved_entry_dataset'))
 
 
     models = {
@@ -169,7 +132,7 @@ class Migration(SchemaMigration):
             'region': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             'state': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
-            'webs': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['outline.Web']", 'symmetrical': 'False'}),
+            'web': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['outline.Web']", 'null': 'True', 'symmetrical': 'False'}),
             'zipcode': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'})
         },
         u'outline.section': {
@@ -183,7 +146,26 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Web'},
             'account': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+        },
+        u'resume_storage.resume': {
+            'Meta': {'object_name': 'Resume'},
+            'header': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['outline.Header']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '64'})
+        },
+        u'resume_storage.saved_entry': {
+            'Meta': {'object_name': 'Saved_Entry'},
+            'dataset': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['outline.Data']", 'symmetrical': 'False'}),
+            'entry': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['outline.Entry']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'section': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['resume_storage.Saved_Section']"})
+        },
+        u'resume_storage.saved_section': {
+            'Meta': {'object_name': 'Saved_Section'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'resume': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['resume_storage.Resume']"}),
+            'section': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['outline.Section']"})
         }
     }
 
-    complete_apps = ['outline']
+    complete_apps = ['resume_storage']

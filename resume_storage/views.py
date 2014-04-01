@@ -29,3 +29,4 @@ def home_view(request):
     albums = users_resumes.order_by('-modified_date')
     context = {'albums': albums, }
     return render(request, 'resume_storage/home.html', context)
+
