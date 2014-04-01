@@ -77,7 +77,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -88,7 +88,7 @@ STATIC_URL = '/static/'
 ACCOUNT_ACTIVATION_DAYS = 5
 
 LOGIN_URL = '/accounts/login'
-LOGIN_REDIRECT_URL = '/outline/home'
+LOGIN_REDIRECT_URL = '/resume_storage/home'
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025

@@ -1,0 +1,14 @@
+{% extends 'outline/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<p>Resume Storage Home page</p>
+
+{% for resume in resumes %}
+    <h5>{{ resume.title }}</h5>
+    <a href="{% url 'resume_storage.views.resume_view' resume.pk %}">Edit this resume</a>
+    <a href="{% url 'resume_storage.views.delete_resume' resume.pk %}">Delete this resume</a>
+{% endfor %}
+
+{% endblock %}

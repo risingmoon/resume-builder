@@ -14,7 +14,7 @@
         <a href="{% url 'django.contrib.auth.views.login' %}">Login</a>  |  <a href="/accounts/register/">Register</a>
         {% endif %}
         <br>
-        <a href="{% url 'outline.views.stub_view' %}">Back to home</a>
+        <a href="{% url 'resume_storage.views.home_view' %}">Back to home</a>
     </div>
     <div id='content'>
         {% block content %}{% endblock %}
