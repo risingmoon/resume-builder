@@ -8,7 +8,7 @@ class Web(models.Model):
     account = models.CharField(max_length=50)
 
 
-class Header(models.Model):
+class Profile(models.Model):
     first_name = models.CharField(max_length=50)
     middle_name = models.CharField(max_length=50, null=True)
     last_name = models.CharField(max_length=50)
@@ -72,7 +72,8 @@ class Entry(models.Model):
                 self.start_date.strftime(format[num]),
                 "Present"]
             return "-".join(dat_str)
-        
+
+
 class Data(models.Model):
     text = models.CharField(max_length=400)
     entry = models.ForeignKey('Entry')
