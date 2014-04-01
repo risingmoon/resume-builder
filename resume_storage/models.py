@@ -7,6 +7,9 @@ class Resume(models.Model):
     title = models.CharField(max_length=64)
     header = models.OneToOneField(Header)
 
+    def saveResume(self):
+        pass
+
 
 class Saved_Section(models.Model):
     resume = models.ForeignKey(Resume)
