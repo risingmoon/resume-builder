@@ -3,8 +3,6 @@ from outline.models import Profile, Section, Web, Entry, Data
 from django.contrib.auth.models import User
 from datetime import date
 
-# Create your tests here.
-
 
 class BasicTest(TestCase):
 
