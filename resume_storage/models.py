@@ -3,9 +3,14 @@ from outline.models import Header, Section, Entry, Data
 from django.contrib.auth.models import User
 
 
+# def get_user():
+#     return User.objects.get(pk=1)
+
+
 class Resume(models.Model):
     title = models.CharField(max_length=64)
     header = models.OneToOneField(Header)
+    user = models.ForeignKey(User)
 
     def saveResume(self):
         pass
