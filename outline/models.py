@@ -92,7 +92,7 @@ class Entry(models.Model):
             dat_str = [
                 self.start_date.strftime(format[num]),
                 "Present"]
-        return self.start_date
+            return "-".join(dat_str)
         
 
 class Data(models.Model):

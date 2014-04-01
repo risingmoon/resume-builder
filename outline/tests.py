@@ -114,7 +114,29 @@ class HeaderTest(BasicTest):
         self.assertEqual(
             "Jane Doe", profile.middle_initial())
     
+    def test_long_month(self):
+        self.assertEqual(
+            self.college.date_string(0),
+            "September 2007-May 2011")
+        self.assertEqual(
+            self.work.date_string(0),
+            "February 2014-Present")
+
     def test_short_month(self):
+        self.assertEqual(
+            self.college.date_string(1),
+            "Sep 2007-May 2011")
+        self.assertEqual(
+            self.work.date_string(1),
+            "Feb 2014-Present")
+
+    def test_standard_date(self):
+        self.assertEqual(
+            self.college.date_string(2),
+            "9/1/07-5/1/11")
+        self.assertEqual(
+            self.work.date_string(2),
+            "2/1/14-Present")
 
 
 
