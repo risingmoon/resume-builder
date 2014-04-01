@@ -67,7 +67,6 @@ class Entry(models.Model):
                 self.start_date,
                 self.end_date]))
 
-
 class Data(models.Model):
     text = models.CharField(max_length=400)
     entry = models.ForeignKey('Entry')
