@@ -31,7 +31,7 @@ class Header(models.Model):
             self.middle_name,
             self.last_name])
 
-    def middle_intial(self):
+    def middle_initial(self):
         return unicode(' '.join[
             self.first_name,
             self.middle_name[0] + '.',
