@@ -26,16 +26,28 @@ class Profile(models.Model):
     user = models.ForeignKey(User)
 
     def __unicode__(self):
-        return unicode(' '.join[
-            self.first_name,
-            self.middle_name,
-            self.last_name])
+        if self.middle_name:
+            return unicode(' '.join([
+                self.first_name,
+                self.middle_name,
+                self.last_name]))
+        else:
+            return unicode(' '.join([
+                self.first_name,
+                self.last_name]))
 
     def middle_initial(self):
-        return unicode(' '.join[
-            self.first_name,
-            self.middle_name[0] + '.',
-            self.last_name])
+        "Returns full name with middle initial"
+        if self.middle_name:
+             # pdb.set_trace()
+            return unicode(' '.join([
+                self.first_name,
+                self.middle_name[0] + '.',
+                self.last_name]))
+        else:
+            return unicode(' '.join([
+                self.first_name,
+                self.last_name]))
 
 
 class Section(models.Model):
@@ -52,6 +64,7 @@ class Entry(models.Model):
     subtitle = models.CharField(max_length=50, null=True)
     start_date = models.DateTimeField(null=True)
     end_date = models.DateTimeField(null=True)
+    present = models.NullBooleanField(null=True)
     city = models.CharField(max_length=50, null=True)
     state = models.CharField(max_length=50, null=True)
     contact = models.CharField(max_length=50, null=True)
@@ -61,7 +74,8 @@ class Entry(models.Model):
     def __unicode__(self):
         return unicode(self.title)
 
-    def yield_date(self, num):
+    def date_string(self, num):
+        format = {0: "%B %Y", 1: "%b %Y", 2: "%x"}
         if self.start_date and self.end_date:
             dat_str = [
                 self.start_date.strftime(format[num]),
