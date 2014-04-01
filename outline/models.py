@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+import pdb
 # Create your models here.
 
 
@@ -74,6 +74,10 @@ class Entry(models.Model):
     contact = models.CharField(max_length=50, null=True)
     description = models.CharField(max_length=50, null=True)
     section = models.ForeignKey('Section')
+    DISPLAY_CHOICES = (
+        ("L", "List"),
+        ("D", "Delimited"))
+    display = models.CharField(max_length=1, choices=DISPLAY_CHOICES, default="L")
 
     def __unicode__(self):
         return unicode(self.title)
@@ -91,6 +95,13 @@ class Entry(models.Model):
                 "Present"]
             return "-".join(dat_str)
 
+    def delimited(self):
+        return ', '.join(
+            [item.text for item in self.data_set.all()])
+
+    def listed(self, char):
+        return '\n'.join(
+            [char + item.text for item in self.data_set.all()])
 
 class Data(models.Model):
     text = models.CharField(max_length=400)

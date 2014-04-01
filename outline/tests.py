@@ -51,6 +51,11 @@ class BasicTest(TestCase):
             user=self.user)
         self.experience.save()
 
+        self.skills = Section.objects.create(
+            title="Skill",
+            user=self.user)
+        self.skills.save()
+
         self.college = Entry.objects.create(
             title="Bachelor of Science in Pythonic Interpretation",
             start_date=date(2007, 9, 1),
@@ -60,6 +65,11 @@ class BasicTest(TestCase):
             section=self.education)
         self.college.save()
 
+        self.programming = Entry.objects.create(
+            title="Programming",
+            section=self.skills)
+        self.programming.save()
+
         self.work = Entry.objects.create(
             title="Code Fellows",
             subtitle="Python Newbie",
@@ -67,8 +77,11 @@ class BasicTest(TestCase):
             present=True,
             city="Baltimore",
             state="MD",
-            section=self.experience)
+            section=self.experience,
+            display="L")
         self.work.save()
+
+        
 
         d1 = Data.objects.create(
             text="Built Flask Microblog",
@@ -85,52 +98,85 @@ class BasicTest(TestCase):
             entry=self.work)
         d3.save()
 
+        d4 = Data.objects.create(
+            text="Django",
+            entry=self.programming)
+        d4.save()
+
+        d5 = Data.objects.create(
+            text="Python",
+            entry=self.programming)
+        d5.save()
+
+        d6 = Data.objects.create(
+            text="Java",
+            entry=self.programming)
+        d6.save()
+
+        d7 = Data.objects.create(
+            text="iOS",
+            entry=self.programming)
+        d7.save()
+
 
 class HeaderTest(BasicTest):
 
-    def test_middle_initial(self):
-        self.assertEqual(
-            "John F. Doe", self.profile.middle_initial())
+    # def test_middle_initial(self):
+    #     self.assertEqual(
+    #         "John F. Doe", self.profile.middle_initial())
 
-    def test_no_middle_initial(self):
-        user = User.objects.create_user(
-            "Jane",
-            "janedoe@gmail.com",
-            "password")
-        user.save()
-        profile = Profile.objects.create(
-            first_name="Jane",
-            last_name="Doe",
-            user=user)
-        profile.save()
-        self.assertEqual(
-            "Jane Doe", profile.middle_initial())
+    # def test_no_middle_initial(self):
+    #     user = User.objects.create_user(
+    #         "Jane",
+    #         "janedoe@gmail.com",
+    #         "password")
+    #     user.save()
+    #     profile = Profile.objects.create(
+    #         first_name="Jane",
+    #         last_name="Doe",
+    #         user=user)
+    #     profile.save()
+    #     self.assertEqual(
+    #         "Jane Doe", profile.middle_initial())
 
-    def test_long_month(self):
-        self.assertEqual(
-            self.college.date_string(0),
-            "September 2007-May 2011")
-        self.assertEqual(
-            self.work.date_string(0),
-            "February 2014-Present")
+    # def test_long_month(self):
+    #     self.assertEqual(
+    #         self.college.date_string(0),
+    #         "September 2007-May 2011")
+    #     self.assertEqual(
+    #         self.work.date_string(0),
+    #         "February 2014-Present")
 
-    def test_short_month(self):
-        self.assertEqual(
-            self.college.date_string(1),
-            "Sep 2007-May 2011")
-        self.assertEqual(
-            self.work.date_string(1),
-            "Feb 2014-Present")
+    # def test_short_month(self):
+    #     self.assertEqual(
+    #         self.college.date_string(1),
+    #         "Sep 2007-May 2011")
+    #     self.assertEqual(
+    #         self.work.date_string(1),
+    #         "Feb 2014-Present")
 
-    def test_standard_date(self):
-        self.assertEqual(
-            self.college.date_string(2),
-            "09/01/07-05/01/11")
-        self.assertEqual(
-            self.work.date_string(2),
-            "02/01/14-Present")
+    # def test_standard_date(self):
+    #     self.assertEqual(
+    #         self.college.date_string(2),
+    #         "09/01/07-05/01/11")
+    #     self.assertEqual(
+    #         self.work.date_string(2),
+    #         "02/01/14-Present")
 
-    def test_city_state_zip(self):
+    # def test_city_state_zip(self):
+    #     self.assertEqual(
+    #         self.profile.city_state_zip(),
+    #         "Seattle, WA 98021")
+
+    def test_delimited(self):
         self.assertEqual(
-            self.profile.city_state_zip(),
-            "Seattle, WA 98021")
+            "iOS, Java, Python, Django",
+            self.programming.delimited())
+    
+    def test_listed(self):
+        self.assertEqual(
+            """-Built Django Sharing App
+-Built Haikute\n-Built Flask Microblog""",
+            self.work.listed('-'))
+
+
