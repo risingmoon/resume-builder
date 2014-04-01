@@ -10,21 +10,29 @@ class Resume(models.Model):
 
     #header fields
     first_name = models.CharField(max_length=50)
-    middle_name = models.CharField(max_length=50, null=True)
+    middle_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50)
-    cell = models.CharField(max_length=15, null=True)
-    home = models.CharField(max_length=15, null=True)
-    fax = models.CharField(max_length=15, null=True)
-    address1 = models.CharField(max_length=50, null=True)
-    address2 = models.CharField(max_length=50, null=True)
-    city = models.CharField(max_length=50, null=True)
-    state = models.CharField(max_length=50, null=True)
-    zipcode = models.CharField(max_length=50, null=True)
-    email = models.CharField(max_length=50, null=True)
-    region = models.CharField(max_length=50, null=True)
+    cell = models.CharField(max_length=15, blank=True)
+    home = models.CharField(max_length=15, blank=True)
+    fax = models.CharField(max_length=15, blank=True)
+    address1 = models.CharField(max_length=50, blank=True)
+    address2 = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=50, blank=True)
+    state = models.CharField(max_length=50, blank=True)
+    zipcode = models.CharField(max_length=50, blank=True)
+    email = models.CharField(max_length=50, blank=True)
+    region = models.CharField(max_length=50, blank=True)
 
-    def setResumeFields(self):
-        pass
+    def setResumeFields(self, sectionDict):
+        #first need to delete all the entries associated with this resume
+        Saved_Section.objects.filter(resume=self).delete()
+        #then create the new entries
+        for eachSection in sectionDict.keys():
+            Saved_Section.objects.create(resume=self, section=eachSection)
+            for eachEntry in sectionDict[eachSection].keys():
+                newEntry = Saved_Entry.objects.create(section=eachSection,
+                                                      entry=eachEntry)
+                newEntry.dataset.add(sectionDict[eachSection][eachEntry])
 
     def getResumeFields(self):
         secEntDats = {}
