@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required, permission_required
-from outline.models import Header, Web, Section, Entry, Data
+from outline.models import Profile, Web, Section, Entry, Data
 
 
 def stub_view(request, *args, **kwargs):
