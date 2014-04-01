@@ -31,7 +31,7 @@ class Header(models.Model):
             self.middle_name,
             self.last_name])
 
-    def middle_intial(self):
+    def middle_initial(self):
         return unicode(' '.join[
             self.first_name,
             self.middle_name[0] + '.',
@@ -61,10 +61,11 @@ class Entry(models.Model):
     def __unicode__(self):
         return unicode(self.title)
 
-    # def yield_date(self):
-    #     if self.start_date and self.end_date:
-    #         return self.start_date.
-
+    def yield_date(self):
+        if self.start_date and self.end_date:
+            return unicode(" - ".join([
+                self.start_date,
+                self.end_date]))
 
 class Data(models.Model):
     text = models.CharField(max_length=400)

@@ -3,7 +3,7 @@ from outline.models import Section, Entry, Data
 from django.contrib.auth.models import User
 
 
-class Web(models.Model):
+class Resume_Web(models.Model):
     account = models.CharField(max_length=50)
 
 
@@ -26,7 +26,7 @@ class Resume(models.Model):
     zipcode = models.CharField(max_length=50, null=True)
     email = models.CharField(max_length=50, null=True)
     region = models.CharField(max_length=50, null=True)
-    web = models.ManyToManyField(Web, null=True)
+    web = models.ManyToManyField(Resume_Web, null=True)
 
     def setResumeFields(self):
         pass
