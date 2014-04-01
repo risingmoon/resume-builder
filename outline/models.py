@@ -49,6 +49,10 @@ class Profile(models.Model):
                 self.first_name,
                 self.last_name]))
 
+    def city_state_zip(self):
+        if self.city and self.state and self.zipcode:
+            return self.city + ", " + self.state + " " + self.zipcode
+
 
 class Section(models.Model):
     title = models.CharField(max_length=50)

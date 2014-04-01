@@ -131,3 +131,8 @@ class HeaderTest(BasicTest):
         self.assertEqual(
             self.work.date_string(2),
             "02/01/14-Present")
+
+    def test_city_state_zip(self):
+        self.assertEqual(
+            self.profile.city_state_zip(),
+            "Seattle, WA 98021")
