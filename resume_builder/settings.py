@@ -38,7 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'registration',
     'outline',
-    'resume_storage',
+    # 'resume_storage',
     'south',
 )
 
@@ -95,3 +95,6 @@ EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'testing@example.com'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SOUTH_TESTS_MIGRATE = False
+USE_TZ = False
