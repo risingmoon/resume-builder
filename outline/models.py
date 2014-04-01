@@ -61,12 +61,18 @@ class Entry(models.Model):
     def __unicode__(self):
         return unicode(self.title)
 
-    def yield_date(self):
+    def yield_date(self, num):
         if self.start_date and self.end_date:
-            return unicode(" - ".join([
-                self.start_date,
-                self.end_date]))
-
+            dat_str = [
+                self.start_date.strftime(format[num]),
+                self.end_date.strftime(format[num])]
+            return "-".join(dat_str)
+        elif self.start_date and self.present:
+            dat_str = [
+                self.start_date.strftime(format[num]),
+                "Present"]
+            return "-".join(dat_str)
+        
 class Data(models.Model):
     text = models.CharField(max_length=400)
     entry = models.ForeignKey('Entry')
