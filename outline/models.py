@@ -25,17 +25,17 @@ class Profile(models.Model):
     web = models.ManyToManyField(Web, blank=True)
     user = models.ForeignKey(User)
 
-    def __unicode__(self):
-        return unicode(' '.join[
-            self.first_name,
-            self.middle_name,
-            self.last_name])
+    # def __unicode__(self):
+    #     return unicode(' '.join[
+    #         self.first_name,
+    #         self.middle_name,
+    #         self.last_name])
 
-    def middle_initial(self):
-        return unicode(' '.join[
-            self.first_name,
-            self.middle_name[0] + '.',
-            self.last_name])
+    # def middle_initial(self):
+    #     return unicode(' '.join[
+    #         self.first_name,
+    #         self.middle_name[0] + '.',
+    #         self.last_name])
 
 
 class Section(models.Model):

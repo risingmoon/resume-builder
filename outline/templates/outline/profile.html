@@ -1,0 +1,13 @@
+{% extends 'outline/base.html' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<p>Profile Edit page</p>
+
+<form action="{% url 'outline.views.profile' %}" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save changes"/>
+</form>
+
+{% endblock %}

@@ -15,7 +15,7 @@ urlpatterns = patterns(
         ),
     url(
         r'^profile/$',
-        'stub_view',
+        'profile',
         name='profile',
         ),
     url(
