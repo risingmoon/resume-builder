@@ -1,13 +1,13 @@
 from django.test import TestCase
 from outline.models import Section, Entry, Data
-from models import Resume, Web, Saved_Section, Saved_Entry
-from Django.contrib.auth.models import User
+from models import Resume, Resume_Web, Saved_Section, Saved_Entry
+from django.contrib.auth.models import User
 
 
 class ResumeStorageTestCase(TestCase):
 
     def setUp(self):
-        self.testUser = User.objects.create('testperson',
+        self.testUser = User.objects.create_user('testperson',
                                             'fake@email.ro',
                                             'badpass',)
         Resume.objects.create(first_name='test',
@@ -26,6 +26,11 @@ class ResumeStorageTestCase(TestCase):
                                           last_name='markley',
                                           user=self.testUser)
         self.assertEqual(newResume.getResumeFields(), (newResume, {}))
+        
+        newResume = Resume.objects.create(first_name='mark',
+                                          last_name='charyk',
+                                          user=self.testUser)
+        
 
     def testSetResume(self):
         pass
