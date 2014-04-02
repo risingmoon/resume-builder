@@ -28,11 +28,12 @@ class Resume(models.Model):
         Saved_Section.objects.filter(resume=self).delete()
         #then create the new entries
         for eachSection in sectionDict.keys():
-            Saved_Section.objects.create(resume=self, section=eachSection)
+            newSection = Saved_Section.objects.create(resume=self,
+                                                      section=eachSection)
             for eachEntry in sectionDict[eachSection].keys():
-                newEntry = Saved_Entry.objects.create(section=eachSection,
+                newEntry = Saved_Entry.objects.create(section=newSection,
                                                       entry=eachEntry)
-                newEntry.dataset.add(sectionDict[eachSection][eachEntry])
+                newEntry.dataset.add(*sectionDict[eachSection][eachEntry])
 
     def getResumeFields(self):
         secEntDats = {}
