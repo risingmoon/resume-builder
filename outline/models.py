@@ -56,7 +56,7 @@ class Profile(models.Model):
 
 class Section(models.Model):
     title = models.CharField(max_length=50)
-    description = models.CharField(max_length=50, null=True)
+    description = models.CharField(max_length=50, blank=True)
     user = models.ForeignKey(User)
 
     def __unicode__(self):
@@ -65,14 +65,14 @@ class Section(models.Model):
 
 class Entry(models.Model):
     title = models.CharField(max_length=50)
-    subtitle = models.CharField(max_length=50, null=True)
-    start_date = models.DateTimeField(null=True)
-    end_date = models.DateTimeField(null=True)
-    present = models.NullBooleanField(null=True)
-    city = models.CharField(max_length=50, null=True)
-    state = models.CharField(max_length=50, null=True)
-    contact = models.CharField(max_length=50, null=True)
-    description = models.CharField(max_length=50, null=True)
+    subtitle = models.CharField(max_length=50, blank=True)
+    start_date = models.DateTimeField(blank=True)
+    end_date = models.DateTimeField(blank=True)
+    present = models.NullBooleanField(blank=True)
+    city = models.CharField(max_length=50, blank=True)
+    state = models.CharField(max_length=50, blank=True)
+    contact = models.CharField(max_length=50, blank=True)
+    description = models.CharField(max_length=50, blank=True)
     section = models.ForeignKey('Section')
     DISPLAY_CHOICES = (
         ("L", "List"),
