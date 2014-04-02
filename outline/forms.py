@@ -1,5 +1,6 @@
 from django.forms import ModelForm
-from outline.models import Profile
+from django.forms.models import inlineformset_factory
+from outline.models import Profile, Web
 
 
 class ProfileForm(ModelForm):
@@ -20,3 +21,9 @@ class ProfileForm(ModelForm):
             'email',
             'region',
         ]
+
+
+class WebForm(ModelForm):
+    class Meta:
+        model = Web
+        fields = ['account']

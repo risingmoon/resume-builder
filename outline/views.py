@@ -3,7 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required, permission_required
 from outline.models import Profile, Web, Section, Entry, Data
-from outline.forms import ProfileForm
+from outline.forms import ProfileForm, WebForm
+from django.forms.models import inlineformset_factory
 
 
 def stub_view(request, *args, **kwargs):
@@ -17,12 +18,14 @@ def stub_view(request, *args, **kwargs):
     return HttpResponse(body, content_type='text/plain')
 
 
-@login_required
+@permission_required('outline.change_profile')
 def profile(request):
     prof = Profile.objects.get(user=request.user)
+    WebFormSet = inlineformset_factory(Profile, Web, extra=1)
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=prof)
-        if form.is_valid():
+        formset = WebFormSet(request.POST, instance=prof)
+        if form.is_valid() and formset.is_valid():
             prof.first_name = form.cleaned_data['first_name']
             prof.middle_name = form.cleaned_data['middle_name']
             prof.last_name = form.cleaned_data['last_name']
@@ -37,10 +40,13 @@ def profile(request):
             prof.email = form.cleaned_data['email']
             prof.region = form.cleaned_data['region']
             prof.save()
+            formset.save()
             return HttpResponseRedirect(reverse('home'))
     form = ProfileForm(instance=prof)
+    formset = WebFormSet(instance=prof)
+    context = {'form': form, 'formset': formset}
     return render(
         request,
         'outline/profile.html',
-        {'form': form},
+        context,
     )
