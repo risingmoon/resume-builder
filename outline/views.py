@@ -21,7 +21,7 @@ def stub_view(request, *args, **kwargs):
 @permission_required('outline.change_profile')
 def profile(request):
     prof = Profile.objects.get(user=request.user)
-    WebFormSet = inlineformset_factory(Profile, Web)
+    WebFormSet = inlineformset_factory(Profile, Web, extra=1)
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=prof)
         formset = WebFormSet(request.POST, instance=prof)
