@@ -5,33 +5,21 @@
 {% block css %}<link href="{% static "outline/css/signin.css" %}"  rel="stylesheet">{% endblock %}
 
 {% block content %}
-      <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+<form class="form-signin" role="form" method="post" action="{% url 'django.contrib.auth.views.login' %}">
 {% csrf_token %}
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
 
-<input type="submit" value="Login" />
-<input type="hidden" name="next" value="{{ next }}" />
+<h2 class="form-signin-heading">Please log in</h2>
+  <table>
+    <tr>
+      <td>{{ form.username.label_tag }}</td>
+      <td>{{ form.username }}</td>
+    </tr>
+    <tr>
+      <td>{{ form.password.label_tag }}</td>
+      <td>{{ form.password }}</td>
+    </tr>
+  </table>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  <input type="hidden" name="next" value="{{ next }}" />
 </form>
-
-
-
-      <form class="form-signin" role="form" action="{% url 'django.contrib.auth.views.login' %}">
-        {% csrf_token %}
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="form-control" placeholder="Email address" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" required>
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
 {% endblock %}
