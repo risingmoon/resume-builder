@@ -1,7 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
-import pdb
-# Create your models here.
+from django.contrib.auth.models import User, Group
+from registration.signals import user_activated
+from django.dispatch import receiver
 
 
 class Web(models.Model):
@@ -103,6 +103,25 @@ class Entry(models.Model):
         return '\n'.join(
             [char + item.text for item in self.data_set.all()])
 
+
 class Data(models.Model):
     text = models.CharField(max_length=400)
     entry = models.ForeignKey('Entry')
+
+
+@receiver(user_activated)
+def apply_perms(sender, **kwargs):
+    auths = Group.objects.get(name='Activated')
+    auths.user_set.add(kwargs['user'])
+
+
+@receiver(user_activated)
+def create_profile(sender, **kwargs):
+    user = kwargs['user']
+    if not Profile.objects.filter(user=user):
+        Profile(
+            user=user,
+            first_name=user.username,
+            last_name="LastName",
+            email=user.email,
+            ).save()
