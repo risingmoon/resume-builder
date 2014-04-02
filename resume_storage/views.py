@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required, permission_required
-from outline.models import Section, Entry, Data
+from outline.models import Section, Entry, Data, Profile
 from resume_storage.models import Resume, Saved_Entry, Saved_Section
 from resume_storage.forms import ResumeForm, SectionForm, EntryForm, DataForm
+from django.forms import model_to_dict
 
 
 def stub_view(request, *args, **kwargs):
@@ -30,6 +31,14 @@ def home_view(request):
     resumes = all_resumes.filter(user=request.user)
     context = {'resumes': resumes, }
     return render(request, 'resume_storage/home.html', context)
+
+
+@permission_required('resume_storage.add_resume')
+def create_resume(request):
+    prof = Profile.objects.get(user=request.user)
+    kwargs = model_to_dict(prof, exclude=['user', 'id'])
+    res = Resume.objects.create(user=request.user, **kwargs)
+    return HttpResponseRedirect(reverse('resume_view', args=(res.pk,)))
 
 
 @permission_required('resume_storage.change_resume')
