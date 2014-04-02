@@ -20,6 +20,7 @@ def stub_view(request, *args, **kwargs):
 @login_required
 def profile(request):
     prof = Profile.objects.get(user=request.user)
+    # web = Web.objects.filter()
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=prof)
         if form.is_valid():
