@@ -1,6 +1,8 @@
 {% extends 'outline/base.html' %}
 
 {% block title %}Edit Profile{% endblock %}
+{% load staticfiles %}
+{% block css %}<link href="{% static "outline/css/signin.css" %}" rel="stylesheet"> {% endblock %}
 
 {% block content %}
 <p>Profile Edit page</p>

@@ -1,10 +1,14 @@
 {% extends 'outline/base.html' %}
 
 {% block title %}Home{% endblock %}
+{% load staticfiles %}
+{% block css %}<link href="{% static "outline/css/starter-template.css" %}"  rel="stylesheet">{% endblock %}
 
 {% block content %}
-<p>Resume Storage Home page</p>
-
+<div class="starter-template">
+        <h1>Resume Storage</h1>
+        <p class="lead">This is where we will store our resume templates.</p>
+      </div>
 {% for resume in resumes %}
     <h5>{{ resume.title }}</h5>
     <a href="{% url 'resume_storage.views.resume_view' resume.pk %}">Edit this resume</a>
