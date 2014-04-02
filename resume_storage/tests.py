@@ -46,4 +46,22 @@ class ResumeStorageTestCase(TestCase):
             assert savesect.section in sectdict.keys()
 
     def testSetResume(self):
-        pass
+        newResume = Resume.objects.create(first_name='jack',
+                                          last_name='markley',
+                                          user=self.testUser)
+        Section.objects.create(user=self.testUser, title='invissection')
+        mysection = Section.objects.create(user=self.testUser,
+                                           title='vissection')
+        Entry.objects.create(section=mysection, title='invisentry')
+        myentry = Entry.objects.create(section=mysection,
+                                       title='visentry')
+        Data.objects.create(entry=myentry, text='invisdata')
+        mydata = Data.objects.create(entry=myentry,
+                                     text='visdata')
+        fieldDict = {mysection: {myentry: [mydata]}}
+
+        newResume.setResumeFields(fieldDict)
+        for eachSection in Saved_Section.objects.filter(resume=newResume):
+            assert eachSection.section in fieldDict.keys()
+            for eachEntry in Saved_Entry.objects.filter(section=eachSection):
+                assert eachEntry.entry in fieldDict[eachSection.section].keys()
