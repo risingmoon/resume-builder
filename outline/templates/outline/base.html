@@ -7,14 +7,15 @@
 </head>
 
 <body>
-    <div id='loginout'>
+    <div id='header'>
         {% if user.is_authenticated %}
         <a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a>
         {% else %}
         <a href="{% url 'django.contrib.auth.views.login' %}">Login</a>  |  <a href="/accounts/register/">Register</a>
         {% endif %}
         <br>
-        <a href="{% url 'resume_storage.views.home_view' %}">Back to home</a>
+        <a href="{% url 'resume_storage.views.home_view' %}">Back to home</a><br>
+        <a href="{% url 'outline.views.profile' %}">Edit profile</a>
     </div>
     <div id='content'>
         {% block content %}{% endblock %}
