@@ -68,28 +68,12 @@ class ProfileForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 'class': 'col-sm-4 form-control',
-                'placeholder': 'region'}))
-
-    # class Meta:
-    #     model = Profile
-    #     fields = [
-    #         'first_name',
-    #         'middle_name',
-    #         'last_name',
-    #         'cell',
-    #         'home',
-    #         'fax',
-    #         'address1',
-    #         'address2',
-    #         'city',
-    #         'state',
-    #         'zipcode',
-    #         'email',
-    #         'region',
-    #     ]
+                'placeholder': 'Region'}))
 
 
 class WebForm(ModelForm):
-    class Meta:
-        model = Web
-        fields = ['account']
+    account = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'col-sm-4 form-control',
+                'placeholder': 'Account'}))
