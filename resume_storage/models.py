@@ -53,10 +53,7 @@ class Resume(models.Model):
         for eachSection in Saved_Section.objects.filter(resume=self):
             EntDats = {}
             for eachEntry in Saved_Entry.objects.filter(section=eachSection):
-                Dats = []
-                for eachData in Data.objects.filter(entry=eachEntry):
-                    Dats.append(eachData)
-                EntDats[eachEntry] = Dats
+                EntDats[eachEntry] = eachEntry.dataset.all()
             secEntDats[eachSection] = EntDats
         return secEntDats
 
