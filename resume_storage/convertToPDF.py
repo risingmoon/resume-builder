@@ -1,7 +1,7 @@
 from models import Resume, Resume_Web, Saved_Section, Saved_Entry
 from outline.models import Section, Entry, Data
 from reportlab.platypus import SimpleDocTemplate, PageTemplate, Frame
-from reportlab.platypus import Paragraph, Table, Spacer
+from reportlab.platypus import Paragraph, Table, Spacer, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.rl_config import defaultPageSize
 from reportlab.lib.units import inch
@@ -68,6 +68,10 @@ def writeResumePDF(resumeEntry, outputFile):
         HeaderData[i].append(citstazip)
         i += 1
 
-    Document.append(Table(HeaderData))
+    headerStyle = TableStyle([('ALIGN', (0, 0), (0, -1), 'LEFT'),
+                              ('ALIGN', (1, 0), (1, -1), 'RIGHT'), ])
+    Document.append(Table(HeaderData,
+                          colWidths=[doc.width/2, doc.width/2],
+                          style=headerStyle))
     doc.build(Document)
     return outputFile
