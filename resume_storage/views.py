@@ -61,7 +61,6 @@ def resume_view(request, resume_no):
         websites.update({'account%d' % i: accts[i].account})
     if request.method == 'POST':
         data.update(request.POST)
-        # import pdb; pdb.set_trace()
         form = ResumeForm(data)
         form.data['title'] = form.data['title'][0]
         if form.is_valid():
