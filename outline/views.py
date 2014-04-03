@@ -6,7 +6,6 @@ from outline.models import Profile, Web
 from outline.forms import ProfileForm
 from django.forms.models import inlineformset_factory
 from django import forms
-import pdb
 
 
 def stub_view(request, *args, **kwargs):
@@ -22,7 +21,6 @@ def stub_view(request, *args, **kwargs):
 
 @permission_required('outline.change_profile')
 def profile(request):
-    # pdb.set_trace()
     prof = Profile.objects.get(user=request.user)
     WebFormSet = inlineformset_factory(
         Profile, Web, extra=1,
@@ -50,7 +48,6 @@ def profile(request):
             prof.save()
             formset.save()
             return HttpResponseRedirect(reverse('home'))
-    # pdb.set_trace()
     form = ProfileForm(instance=prof)
     formset = WebFormSet(instance=prof)
     context = {'form': form, 'formset': formset}
@@ -67,7 +64,6 @@ def section(request, pk):
     if request.method == 'POST':
         form = SectionForm(request.POST, instance=sect)
         # formset = EntryFormSet(request.POST, instance=sect)
-        # pdb.set_trace()
         if form.is_valid(): #and formset.is_valid():
             sect.title = form.cleaned_data['title']
             sect.description = form.cleaned_data['description']
