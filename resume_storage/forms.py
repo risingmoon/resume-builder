@@ -6,7 +6,7 @@ from resume_storage.models import Resume
 class ResumeForm(ModelForm):
     class Meta:
         model = Resume
-        exclude = ['user', ]
+        exclude = ['user']
 
 
 class SectionForm(ModelForm):

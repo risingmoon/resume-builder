@@ -51,7 +51,6 @@ def create_resume(request):
 
 @permission_required('resume_storage.change_resume')
 def resume_view(request, resume_no):
-    sections = Section.objects.filter(user=request.user).prefetch_related()
     resume = Resume.objects.get(pk=resume_no)
     data = model_to_dict(resume)
     data.pop('title')
@@ -59,13 +58,15 @@ def resume_view(request, resume_no):
     websites = {}
     for i in range(len(accts)):
         websites.update({'account%d' % i: accts[i].account})
+    sections = Section.objects.filter(user=request.user).prefetch_related()
     if request.method == 'POST':
         data.update(request.POST)
         form = ResumeForm(data)
+        form.data['title'] = form.data['title'][0]  # <--- What.
 
-        # Edit the stuff in the resume
+        # Edit the profile stuff in the resume
         if form.is_valid():
-            resume.title = form.cleaned_data['title'][3:-2]
+            resume.title = form.cleaned_data['title']
             if not form.data.get('Middle name', False):
                 resume.middle_name = ''
             if not form.data.get('Cell', False):
@@ -100,10 +101,18 @@ def resume_view(request, resume_no):
 
             return HttpResponseRedirect(reverse('home'))
     form = ResumeForm(data=data)
+
+    print resume.getResumeFields()
+
     return render(
         request,
         'resume_storage/resume.html',
-        {'form': form, 'websites': websites, 'resume': resume, 'sections': sections}
+        {
+            'form': form,
+            'websites': websites,
+            'resume': resume,
+            'sections': sections
+        }
     )
 
 

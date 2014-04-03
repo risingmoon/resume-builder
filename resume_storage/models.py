@@ -58,7 +58,7 @@ class Resume(models.Model):
                     Dats.append(eachData)
                 EntDats[eachEntry] = Dats
             secEntDats[eachSection] = EntDats
-        return self, secEntDats
+        return secEntDats
 
 
 class Resume_Web(models.Model):
