@@ -7,8 +7,8 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     '',
-    url(r'^', include('outline.urls')),
-    url(r'^', include('resume_storage.urls')),
+    url(r'^outline/', include('outline.urls')),
+    url(r'^resume_storage/', include('resume_storage.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('registration.backends.default.urls')),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
