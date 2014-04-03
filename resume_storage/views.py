@@ -44,25 +44,18 @@ def create_resume(request):
 @permission_required('resume_storage.change_resume')
 def resume_view(request, resume_no):
     resume = Resume.objects.get(pk=resume_no)
-    section = Section.objects.get(pk=1)
-    entry = Entry.objects.get(pk=1)
-    datum = Data.objects.get(pk=1)
     if request.method == 'POST':
         form = ResumeForm(request.POST, instance=resume)
         if form.is_valid():
+            if not form.cleaned_data['Include middle_name?']:
+                resume.middle_name = ''
             resume.save()
             return HttpResponseRedirect(reverse('home'))
     form = ResumeForm(instance=resume)
-    form_s = SectionForm(instance=section)
-    form_e = EntryForm(instance=entry)
-    form_d = DataForm(instance=datum)
     form
     context = {
         'resume': resume,
         'form': form,
-        'form_s': form_s,
-        'form_e': form_e,
-        'form_d': form_d,
     }
     return render(request, 'resume_storage/resume.html', context)
 
