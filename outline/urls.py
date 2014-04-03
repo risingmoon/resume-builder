@@ -19,9 +19,9 @@ urlpatterns = patterns(
         name='profile',
         ),
     url(
-        r'^section/(\d+)/$',
-        'section',
-        name='section',
+        r'^outline/$',
+        'outline',
+        name='outline',
         ),
     url(
         r'^edit/$',

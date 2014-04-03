@@ -1,0 +1,29 @@
+{% extends 'outline/base.html' %}
+
+{% block title %}Edit Outline{% endblock %}
+{% load staticfiles %}
+{% block css %}<link href="{% static "outline/css/starter-template.css" %}" rel="stylesheet"> {% endblock %}
+
+{% block content %}
+<div class="starter-template">
+    <h1>Outline</h1>
+    <p class="lead">Please fill out your Resume Outline</p>
+    <div class="profile">
+    <p class="name">{{ profile.first_name }} {{ prof.middle_name }} {{ profile.last_name }}</p>
+    <p class="cell">{{ profile.cell }}</p>
+    <p class="home">{{ profile.home }}</p>
+    <p class="fax">{{ profile.fax }}</p>
+    <p class="address1">{{ profile.address1 }}</p>
+    <p class="address1">{{ profile.address2 }}</p>
+    <p class="city-state-zip">{{ profile.city }}, {{ prof.state }} {{ profile.zipcode }}</p>
+    <p class="email">{{ profile.email }}</p>
+    <p class="region">{{ profile.region }}</p>
+    {% for web in web_set %}
+    <p class="account">{{ web.account }}</p>
+    {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}
