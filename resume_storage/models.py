@@ -23,6 +23,19 @@ class Resume(models.Model):
     email = models.CharField(max_length=50, blank=True)
     region = models.CharField(max_length=50, blank=True)
 
+    def middle_initial(self):
+        "Returns full name with middle initial"
+        if self.middle_name:
+             # pdb.set_trace()
+            return unicode(' '.join([
+                self.first_name,
+                self.middle_name[0] + '.',
+                self.last_name]))
+        else:
+            return unicode(' '.join([
+                self.first_name,
+                self.last_name]))
+
     def setResumeFields(self, sectionDict):
         #first need to delete all the entries associated with this resume
         Saved_Section.objects.filter(resume=self).delete()
