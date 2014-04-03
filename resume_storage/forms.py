@@ -9,10 +9,6 @@ class ResumeForm(ModelForm):
         exclude = ['user', ]
 
 
-class InclusionForm(Form):
-    include = BooleanField(required=False)
-
-
 class SectionForm(ModelForm):
     class Meta:
         model = Section

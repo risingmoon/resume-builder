@@ -1,22 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required, permission_required
-from outline.models import Section, Entry, Data, Profile
-from resume_storage.models import Resume, Saved_Entry, Saved_Section
+from outline.models import Section, Entry, Data, Profile, Web
+from resume_storage.models import Resume, Saved_Entry, Saved_Section, Resume_Web
 from resume_storage.forms import ResumeForm, SectionForm, EntryForm, DataForm
 from django.forms import model_to_dict
-
-
-def stub_view(request, *args, **kwargs):
-    body = "Resume Storage stub view\n\n"
-    if args:
-        body += "Args:\n"
-        body += "\n".join(["\t%s" % a for a in args])
-    if kwargs:
-        body += "Kwargs:\n"
-        body += "\n".join(["\t%s: %s" % i for i in kwargs.items()])
-    return HttpResponse(body, content_type='text/plain')
 
 
 def front_view(request):
@@ -36,28 +25,16 @@ def home_view(request):
 @permission_required('resume_storage.add_resume')
 def create_resume(request):
     prof = Profile.objects.get(user=request.user)
+    webs = Web.objects.filter(profile=prof)
     kwargs = model_to_dict(prof, exclude=['user', 'id'])
-    res = Resume.objects.create(user=request.user, title='Placeholder', **kwargs)
+    res = Resume.objects.create(
+        user=request.user,
+        title='New Resume',
+        **kwargs
+    )
+    for item in webs:
+        Resume_Web.objects.create(resume=res, account=item.account)
     return HttpResponseRedirect(reverse('resume_view', args=(res.pk,)))
-
-
-# @permission_required('resume_storage.change_resume')
-# def resume_view(request, resume_no):
-#     resume = Resume.objects.get(pk=resume_no)
-#     if request.method == 'POST':
-#         form = ResumeForm(request.POST, instance=resume)
-#         if form.is_valid():
-#             if not form.cleaned_data['Include middle_name?']:
-#                 resume.middle_name = ''
-#             resume.save()
-#             return HttpResponseRedirect(reverse('home'))
-#     form = ResumeForm(instance=resume)
-#     form
-#     context = {
-#         'resume': resume,
-#         'form': form,
-#     }
-#     return render(request, 'resume_storage/resume.html', context)
 
 
 @permission_required('resume_storage.change_resume')
@@ -65,27 +42,15 @@ def resume_view(request, resume_no):
     resume = Resume.objects.get(pk=resume_no)
     data = model_to_dict(resume)
     data.pop('title')
+    accts = Resume_Web.objects.filter(resume=resume)
+    websites = {}
+    for i in range(len(accts)):
+        websites.update({'account%d' % i: accts[i].account})
     if request.method == 'POST':
-        # form_names = {
-        #     'Middle name': resume.middle_name,
-        #     'Cell': resume.cell,
-        #     'Home': resume.home,
-        #     'Fax': resume.fax,
-        #     'Address1': resume.address1,
-        #     'Address2': resume.address2,
-        #     'City': resume.city,
-        #     'State': resume.state,
-        #     'Zipcode': resume.zipcode,
-        #     'Email': resume.email,
-        #     'Region': resume.region,
-        # }
         data.update(request.POST)
         form = ResumeForm(data)
         if form.is_valid():
             resume.title = form.cleaned_data['title'][3:-2]
-            # for key, val in form_names.iteritems():
-                # if not form.data.get(key, False):
-                #     val = ''
             if not form.data.get('Middle name', False):
                 resume.middle_name = ''
             if not form.data.get('Cell', False):
@@ -109,9 +74,16 @@ def resume_view(request, resume_no):
             if not form.data.get('Region', False):
                 resume.region = ''
             resume.save()
+            for i in range(len(websites)):
+                # import pdb; pdb.set_trace()
+                if not form.data.get('account%d' % i, False):
+                    Resume_Web.objects.filter(
+                        resume=resume,
+                        account=websites['account%d' % i]
+                    ).delete()
             return HttpResponseRedirect(reverse('home'))
     form = ResumeForm(data=data)
-    return render(request, 'resume_storage/resume.html', {'form': form, 'resume': resume})
+    return render(request, 'resume_storage/resume.html', {'form': form, 'websites': websites, 'resume': resume})
 
 
 @login_required
