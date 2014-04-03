@@ -61,78 +61,64 @@ def resume_view(request, resume_no):
         websites.update({'account%d' % i: accts[i].account})
     if request.method == 'POST':
         data.update(request.POST)
+        # import pdb; pdb.set_trace()
         form = ResumeForm(data)
-        _edit_resume_profile(resume, form)
-        # # Edit the stuff in the resume
-        # if form.is_valid():
-        #     resume.title = form.cleaned_data['title'][3:-2]
-        #     if not form.data.get('Middle name', False):
-        #         resume.middle_name = ''
-        #     if not form.data.get('Cell', False):
-        #         resume.cell = ''
-        #     if not form.data.get('Home', False):
-        #         resume.home = ''
-        #     if not form.data.get('Fax', False):
-        #         resume.fax = ''
-        #     if not form.data.get('Address1', False):
-        #         resume.address1 = ''
-        #     if not form.data.get('Address2', False):
-        #         resume.address2 = ''
-        #     if not form.data.get('City', False):
-        #         resume.city = ''
-        #     if not form.data.get('State', False):
-        #         resume.state = ''
-        #     if not form.data.get('Zipcode', False):
-        #         resume.zipcode = ''
-        #     if not form.data.get('Email', False):
-        #         resume.email = ''
-        #     if not form.data.get('Region', False):
-        #         resume.region = ''
-        #     resume.save()
-
+        form.data['title'] = form.data['title'][0]
         if form.is_valid():
-            for i in range(len(websites)):
-                if not form.data.get('account%d' % i, False):
-                    Resume_Web.objects.filter(
-                        resume=resume,
-                        account=websites['account%d' % i]
-                    ).delete()
-
+            _edit_resume_profile(resume, form)
+            _edit_resume_webs(resume, form, websites)
             return HttpResponseRedirect(reverse('home'))
     form = ResumeForm(data=data)
+    saved = resume.getResumeFields()
+    for key in saved.iterkeys():
+        sections = sections.exclude(pk=key.section.pk)
     return render(
         request,
         'resume_storage/resume.html',
-        {'form': form, 'websites': websites, 'resume': resume, 'sections': sections}
+        {
+            'form': form,
+            'websites': websites,
+            'resume': resume,
+            'sections': sections,
+            'saved': saved,
+        }
     )
 
 
 def _edit_resume_profile(resume, form):
-        if form.is_valid():
-            resume.title = form.cleaned_data['title'][3:-2]
-            if not form.data.get('Middle name', False):
-                resume.middle_name = ''
-            if not form.data.get('Cell', False):
-                resume.cell = ''
-            if not form.data.get('Home', False):
-                resume.home = ''
-            if not form.data.get('Fax', False):
-                resume.fax = ''
-            if not form.data.get('Address1', False):
-                resume.address1 = ''
-            if not form.data.get('Address2', False):
-                resume.address2 = ''
-            if not form.data.get('City', False):
-                resume.city = ''
-            if not form.data.get('State', False):
-                resume.state = ''
-            if not form.data.get('Zipcode', False):
-                resume.zipcode = ''
-            if not form.data.get('Email', False):
-                resume.email = ''
-            if not form.data.get('Region', False):
-                resume.region = ''
-            resume.save()
+    resume.title = form.cleaned_data['title']
+    if not form.data.get('Middle name', False):
+        resume.middle_name = ''
+    if not form.data.get('Cell', False):
+        resume.cell = ''
+    if not form.data.get('Home', False):
+        resume.home = ''
+    if not form.data.get('Fax', False):
+        resume.fax = ''
+    if not form.data.get('Address1', False):
+        resume.address1 = ''
+    if not form.data.get('Address2', False):
+        resume.address2 = ''
+    if not form.data.get('City', False):
+        resume.city = ''
+    if not form.data.get('State', False):
+        resume.state = ''
+    if not form.data.get('Zipcode', False):
+        resume.zipcode = ''
+    if not form.data.get('Email', False):
+        resume.email = ''
+    if not form.data.get('Region', False):
+        resume.region = ''
+    resume.save()
+
+
+def _edit_resume_webs(resume, form, websites):
+    for i in range(len(websites)):
+        if not form.data.get('account%d' % i, False):
+            Resume_Web.objects.filter(
+                resume=resume,
+                account=websites['account%d' % i]
+            ).delete()
 
 
 @login_required
