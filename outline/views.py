@@ -78,3 +78,30 @@ def section(request, pk):
         context,
     )
 
+
+def entry(request, pk):
+    entry = Entry.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = EntryForm(request.POST, instance=entry)
+        if form.is_valid():
+            entry.title = form.cleaned_data['title']
+            entry.subtitle = form.cleaned_data['subtitle']
+            entry.start_date = form.cleaned_data['start_date']
+            entry.end_date = form.cleaned_data['end_date']
+            entry.present = form.cleaned_data['present']
+            entry.city = form.cleaned_data['city']
+            entry.state = form.cleaned_data['state']
+            entry.contact = form.cleaned_data['contact']
+            entry.description = form.cleaned_data['description']
+            entry.display = form.cleaned_data['display']
+            entry.save()
+            return HttpResponseRedirect(reverse('home'))
+    form = EntryForm(instance=entry)
+    context = {
+        'form': form,
+        'pk': pk}
+    return render(
+        request,
+        'outline/entry.html',
+        context,
+    )
