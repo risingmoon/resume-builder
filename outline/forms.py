@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django.forms.models import inlineformset_factory
 from outline.models import Profile, Web
 
 
@@ -25,4 +26,4 @@ class ProfileForm(ModelForm):
 class WebForm(ModelForm):
     class Meta:
         model = Web
-        fields = '__all__'
+        fields = ['account']
