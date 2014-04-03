@@ -75,3 +75,11 @@ class Saved_Entry(models.Model):
     section = models.ForeignKey(Saved_Section)
     entry = models.ForeignKey(Entry)
     dataset = models.ManyToManyField(Data)
+
+    def delimited(self):
+        return ', '.join(
+            [item.text for item in self.dataset.all()])
+
+    def listed(self, char):
+        return '\n'.join(
+            [char + item.text for item in self.dataset.all()])
