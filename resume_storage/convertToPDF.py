@@ -28,6 +28,8 @@ def writeResumePDF(resumeEntry, outputFile):
     doc.addPageTemplates([page, ])
 
     Document = []  # list of flowables for doc.build
+
+    #begin with the resume's header data, piece-by-piece
     HeaderData = []
     for column in [resumeEntry.middle_initial(),
                    resumeEntry.title,
@@ -73,5 +75,25 @@ def writeResumePDF(resumeEntry, outputFile):
     Document.append(Table(HeaderData,
                           colWidths=[doc.width/2, doc.width/2],
                           style=headerStyle))
+
+    #now for the sections, entries, and datums
+    outline = resumeEntry.getResumeFields()
+    for section in outline.keys():
+        Document.append(KeepTogether([Paragraph(section.section.title),
+                                      Paragraph(section.section.description)]))
+        for entry in outline[section].keys():
+            entryHeader = []
+            for item in [entry.title, entry.subtitle]:
+                if item != '':
+                    entryHeader.append([item])
+            i = 0
+            for item in [entry.date_string(), entry.cityState()]:
+                if i == len(entryHeader):
+                    entryHeader.append([''])
+                entryHeader[i].append(item)
+            Document.append(Table(entryHeader,
+                                  colWidths=[doc.width/2, doc.width/2],
+                                  style=headerStyle))
+
     doc.build(Document)
     return outputFile
