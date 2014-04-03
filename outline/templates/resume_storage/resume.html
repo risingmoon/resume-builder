@@ -16,4 +16,16 @@
     <input type="submit" value="Save changes"/>
 </form>
 <a href="{% url 'resume_storage.views.delete_resume' resume.pk %}">Delete this resume</a>
+<div id="stuffz">
+{% for sect in sections %}
+    <b>{{ sect.title }}</b>
+    <p>{{ sect.description }}</p>
+    {% for ent in sect.entry_set.all %}
+        <p>&#160;&#160;&#160;&#160;{{ ent.title }} {% if ent.subtitle %}({{ ent.subtitle}}){% endif %}</p>
+        {% for dat in ent.data_set.all %}
+            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{{ dat.text }}</p>
+        {% endfor %}
+    {% endfor %}
+{% endfor %}
+</div>
 {% endblock %}

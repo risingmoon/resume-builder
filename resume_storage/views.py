@@ -7,6 +7,7 @@ from resume_storage.models import Resume, Resume_Web
 from resume_storage.models import Saved_Entry, Saved_Section
 from resume_storage.forms import ResumeForm, SectionForm, EntryForm, DataForm
 from django.forms import model_to_dict
+from django.contrib.auth.models import User
 
 #report lab imports for making pdfs
 from reportlab.platypus import SimpleDocTemplate, PageTemplate, Frame
@@ -50,6 +51,7 @@ def create_resume(request):
 
 @permission_required('resume_storage.change_resume')
 def resume_view(request, resume_no):
+    sections = Section.objects.filter(user=request.user).prefetch_related()
     resume = Resume.objects.get(pk=resume_no)
     data = model_to_dict(resume)
     data.pop('title')
@@ -60,6 +62,8 @@ def resume_view(request, resume_no):
     if request.method == 'POST':
         data.update(request.POST)
         form = ResumeForm(data)
+
+        # Edit the stuff in the resume
         if form.is_valid():
             resume.title = form.cleaned_data['title'][3:-2]
             if not form.data.get('Middle name', False):
@@ -85,16 +89,22 @@ def resume_view(request, resume_no):
             if not form.data.get('Region', False):
                 resume.region = ''
             resume.save()
+
+            # Edit the web accounts associated with the resume
             for i in range(len(websites)):
-                # import pdb; pdb.set_trace()
                 if not form.data.get('account%d' % i, False):
                     Resume_Web.objects.filter(
                         resume=resume,
                         account=websites['account%d' % i]
                     ).delete()
+
             return HttpResponseRedirect(reverse('home'))
     form = ResumeForm(data=data)
-    return render(request, 'resume_storage/resume.html', {'form': form, 'websites': websites, 'resume': resume})
+    return render(
+        request,
+        'resume_storage/resume.html',
+        {'form': form, 'websites': websites, 'resume': resume, 'sections': sections}
+    )
 
 
 @login_required
