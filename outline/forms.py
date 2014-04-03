@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm
-from outline.models import Web
+from outline.models import Section, Entry, Data
+
 
 class ProfileForm(forms.Form):
 
@@ -77,3 +78,38 @@ class WebForm(ModelForm):
             attrs={
                 'class': 'col-sm-4 form-control',
                 'placeholder': 'Account'}))
+
+
+class SectionForm(ModelForm):
+    class Meta:
+        model = Section
+        field = [
+            'title',
+            'description',
+        ]
+
+
+class EntryForm(ModelForm):
+    class Meta:
+        model = Entry
+        fields = [
+            'title',
+            'subtitle',
+            'start_date',
+            'end_date',
+            'present',
+            'city',
+            'state',
+            'contact',
+            'description',
+            'display',
+        ]
+
+
+class DataForm(ModelForm):
+    class Meta:
+        model = Data
+        field = [
+            'text'
+        ]
+
