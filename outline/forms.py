@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 # from django.forms.models import inlineformset_factory
-from outline.models import Profile, Web, Section, Data
+from outline.models import Profile, Web, Section, Entry, Data
 
 
 class ProfileForm(ModelForm):
@@ -40,7 +40,7 @@ class SectionForm(ModelForm):
 
 class EntryForm(ModelForm):
     class Meta:
-        model = Section
+        model = Entry
         fields = [
             'title',
             'subtitle',

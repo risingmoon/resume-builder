@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from outline.models import Profile, Web, Section, Entry, Data
 from outline.forms import ProfileForm, WebForm, SectionForm, EntryForm, DataForm
 from django.forms.models import inlineformset_factory
+import pdb
 
 
 def stub_view(request, *args, **kwargs):
@@ -51,22 +52,26 @@ def profile(request):
         context,
     )
 
-
-def section(request):
-    sect = Section.objects.get(user=request.user)
-    EntryFormSet = inlineformset_factory(Section, Entry, extra=1)
+#NOT WORKING
+def section(request, pk):
+    sect = Section.objects.get(pk=pk)
+    # EntryFormSet = inlineformset_factory(Section, Entry, extra=1)
     if request.method == 'POST':
-        form = SectionForm(request.Post, instance=sect)
-        formset = EntryFormSet(request.POST, instance=sect)
-        if form.is_valid() and formset.is_valid():
+        form = SectionForm(request.POST, instance=sect)
+        # formset = EntryFormSet(request.POST, instance=sect)
+        # pdb.set_trace()
+        if form.is_valid(): #and formset.is_valid():
             sect.title = form.cleaned_data['title']
             sect.description = form.cleaned_data['description']
             sect.save()
-            formset.save()
+            # formset.save()
             return HttpResponseRedirect(reverse('home'))
     form = SectionForm(instance=sect)
-    formset = EntryForm(instance=sect)
-    context = {'form': form, 'formset': formset}
+    # formset = EntryForm(instance=sect)
+    context = {
+        'form': form,
+        # 'formset': formset,
+        'pk': pk}
     return render(
         request,
         'outline/section.html',
