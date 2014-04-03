@@ -67,6 +67,13 @@ def resume_view(request, resume_no):
         if form.is_valid():
             _edit_resume_profile(resume, form)
             _edit_resume_webs(resume, form, websites)
+            _build_resume_fields(
+                resume,
+                request.user,
+                request.POST.getlist('sections'),
+                request.POST.getlist('entries'),
+                request.POST.getlist('datas')
+            )
             return HttpResponseRedirect(reverse('home'))
     form = ResumeForm(data=data)
     saved = resume.getResumeFields()
@@ -119,6 +126,21 @@ def _edit_resume_webs(resume, form, websites):
                 resume=resume,
                 account=websites['account%d' % i]
             ).delete()
+
+
+def _build_resume_fields(resume, usr, sect_list, ent_list, dat_list):
+    sect_dict = {}
+    for title in sect_list:
+        sect = Section.objects.get(user=usr, title=title)
+        ent_dict = {}
+        for ent_title in ent_list:
+            ent = Entry.objects.get(section=sect, title=ent_title)
+            dat_rtn_list = []
+            for text in dat_list:
+                dat_rtn_list.append(Data.objects.get(entry=ent, text=text))
+            ent_dict[ent] = dat_rtn_list
+        sect_dict[sect] = ent_dict
+    resume.setResumeFields(sect_dict)
 
 
 @login_required
