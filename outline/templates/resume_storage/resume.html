@@ -3,15 +3,14 @@
 {% block title %}Edit Resume{% endblock %}
 
 {% block content %}
-    <h3>{{ resume.title }}</h3>
-
 <form action="{% url 'resume_storage.views.resume_view' resume.pk %}" method="post">{% csrf_token %}
-    {% for field in obj %}
+    <input type="text" name="title" value="{{ resume.title }}"><br>
+    {% for field in form %}
         {% if field.data %}
-        <input type="checkbox" value="{{ field.label }}" checked>{{ field.data }}<br>
+            <input type="checkbox" name="{{ field.label }}" checked>{{ field.data }}<br>
         {% endif %}
     {% endfor %}
     <input type="submit" value="Save changes"/>
 </form>
-    <a href="{% url 'resume_storage.views.delete_resume' resume.pk %}">Delete this resume</a>
+<a href="{% url 'resume_storage.views.delete_resume' resume.pk %}">Delete this resume</a>
 {% endblock %}
