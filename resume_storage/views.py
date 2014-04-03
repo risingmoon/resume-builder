@@ -41,23 +41,30 @@ def create_resume(request):
     return HttpResponseRedirect(reverse('resume_view', args=(res.pk,)))
 
 
+# @permission_required('resume_storage.change_resume')
+# def resume_view(request, resume_no):
+#     resume = Resume.objects.get(pk=resume_no)
+#     if request.method == 'POST':
+#         form = ResumeForm(request.POST, instance=resume)
+#         if form.is_valid():
+#             if not form.cleaned_data['Include middle_name?']:
+#                 resume.middle_name = ''
+#             resume.save()
+#             return HttpResponseRedirect(reverse('home'))
+#     form = ResumeForm(instance=resume)
+#     form
+#     context = {
+#         'resume': resume,
+#         'form': form,
+#     }
+#     return render(request, 'resume_storage/resume.html', context)
+
+
 @permission_required('resume_storage.change_resume')
 def resume_view(request, resume_no):
     resume = Resume.objects.get(pk=resume_no)
-    if request.method == 'POST':
-        form = ResumeForm(request.POST, instance=resume)
-        if form.is_valid():
-            if not form.cleaned_data['Include middle_name?']:
-                resume.middle_name = ''
-            resume.save()
-            return HttpResponseRedirect(reverse('home'))
-    form = ResumeForm(instance=resume)
-    form
-    context = {
-        'resume': resume,
-        'form': form,
-    }
-    return render(request, 'resume_storage/resume.html', context)
+    obj = ResumeForm(data=model_to_dict(resume))
+    return render(request, 'resume_storage/resume.html', {'obj': obj, 'resume': resume})
 
 
 @login_required

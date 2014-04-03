@@ -1,4 +1,4 @@
-from django.forms import BooleanField, ModelForm
+from django.forms import Form, BooleanField, ModelForm
 from outline.models import Section, Entry, Data
 from resume_storage.models import Resume
 
@@ -6,21 +6,11 @@ from resume_storage.models import Resume
 class ResumeForm(ModelForm):
     class Meta:
         model = Resume
-        exclude = ['user', ]
+        exclude = ['user', 'title', ]
 
-    def __init__(self, *args, **kwargs):
-        super(ResumeForm, self).__init__(*args, **kwargs)
-        readonlies = self.fields.copy()
-        order = ['title']
-        for item in readonlies:
-            if item != 'title':
-                self.fields[item].widget.attrs['readonly'] = True
-                self.fields["Include %s?" % item] = BooleanField(
-                    required=False,
-                    initial=True
-                )
-                order.extend([item, "Include %s?" % item])
-        self.fields.keyOrder = order
+
+class InclusionForm(Form):
+    include = BooleanField(required=False)
 
 
 class SectionForm(ModelForm):
