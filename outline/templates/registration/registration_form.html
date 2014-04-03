@@ -1,17 +1,24 @@
 {% extends 'outline/base.html' %}
 
 {% block title %}Register{% endblock %}
+{% load staticfiles %}
+{% block css %}<link href="{% static "outline/css/signin.css" %}"  rel="stylesheet">{% endblock %}
 
 {% block content %}
 
-{% if form.errors %}
-<p>Your registration was not pulled off very well. Please try again.</p>
-{% endif %}
 
-<form action="/accounts/register/" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Create" />
+
+<form class="form-signin" role="form" method="post" action="/accounts/register/">
+{% csrf_token %}
+ {% if form.errors %}
+<p class="error">Your registration was not pulled off very well. Please try again.</p>
+{% endif %}
+<h2 class="form-signin-heading">Please register</h2>
+  {{ form.as_p }}
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+ 
 </form>
-</form>
+
+
 
 {% endblock %}

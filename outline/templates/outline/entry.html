@@ -1,0 +1,13 @@
+{% extends 'outline/base.html' %}
+
+{% block title %}Edit Entry{% endblock %}
+
+{% block content %}
+<p>Entry Edit page</p>
+
+<form action="{% url 'outline.views.entry' pk %}" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save changes"/>
+</form>
+
+{% endblock %}

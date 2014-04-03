@@ -19,6 +19,11 @@ urlpatterns = patterns(
         name='profile',
         ),
     url(
+        r'^section/(\d+)/$',
+        'section',
+        name='section',
+        ),
+    url(
         r'^edit/$',
         'stub_view',
         name='edit',
