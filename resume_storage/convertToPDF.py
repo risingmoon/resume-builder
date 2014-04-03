@@ -1,12 +1,13 @@
 from models import Resume, Resume_Web, Saved_Section, Saved_Entry
 from outline.models import Section, Entry, Data
 from reportlab.platypus import SimpleDocTemplate, PageTemplate, Frame
-from reportlab.platypus import Paragraph, Spacer
+from reportlab.platypus import Paragraph, Table, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.rl_config import defaultPageSize
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import ParagraphStyle
 
 PAGE_HEIGHT = defaultPageSize[1]
 PAGE_WIDTH = defaultPageSize[0]
@@ -27,21 +28,46 @@ def writeResumePDF(resumeEntry, outputFile):
     doc.addPageTemplates([page, ])
 
     Document = []  # list of flowables for doc.build
-    for column in [resumeEntry.first_name,
-                   resumeEntry.middle_name,
-                   resumeEntry.last_name,
-                   resumeEntry.cell,
+    HeaderData = []
+    for column in [resumeEntry.middle_initial(),
+                   resumeEntry.title,
+                   resumeEntry.email, ]:
+        if column != '':
+            HeaderData.append([column])
+    for website in resumeEntry.resume_web_set.all():
+        HeaderData.append([website.account])
+
+    i = 0
+    for column in [resumeEntry.cell,
                    resumeEntry.home,
                    resumeEntry.fax,
                    resumeEntry.address1,
                    resumeEntry.address2,
-                   resumeEntry.city,
-                   resumeEntry.state,
-                   resumeEntry.zipcode,
-                   resumeEntry.email,
-                   resumeEntry.region,
-                   resumeEntry.user, ]:
-        Document.append(Paragraph(column))
+                   resumeEntry.region, ]:
+        if column != '':
+            if i == len(HeaderData):
+                HeaderData.append(['', ])
+            HeaderData[i].append(column)
+            i += 1
 
+    citstazip = ''
+    if resumeEntry.city != '':
+        citstazip += resumeEntry.city
+    if resumeEntry.state != '':
+        if citstazip != '':
+            citstazip += ', '
+        citstazip += resumeEntry.state
+    if resumeEntry.zipcode != '':
+        if citstazip != '':
+            citstazip += ' '
+        citstazip += resumeEntry.zipcode
+
+    if citstazip != '':
+        if i == len(HeaderData):
+            HeaderData.append(['', ])
+        HeaderData[i].append(citstazip)
+        i += 1
+
+    Document.append(Table(HeaderData))
     doc.build(Document)
     return outputFile
