@@ -44,8 +44,8 @@
           <ul class="nav navbar-nav">
             {% if user.is_authenticated %}
             <li class="active"><a href="{% url 'resume_storage.views.home_view' %}">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            {% block menu %}
+            {% endblock %}
             <li><a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
           {% else %}
         <li><a href="{% url 'django.contrib.auth.views.login' %}">Login</a></li>

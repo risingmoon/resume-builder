@@ -5,3 +5,11 @@ body {
   padding: 40px 15px;
   text-align: center;
 }
+
+.resume {
+    text-align:center;
+}
+
+input {
+    text-align: center
+}

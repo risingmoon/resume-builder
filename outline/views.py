@@ -42,9 +42,11 @@ def profile(request):
             prof.save()
             formset.save()
             return HttpResponseRedirect(reverse('home'))
-    form = ProfileForm(instance=prof)
-    formset = WebFormSet(instance=prof)
-    context = {'form': form, 'formset': formset}
+    # form = ProfileForm(instance=prof)
+    form = ProfileForm()
+    # formset = WebFormSet(instance=prof)
+    # context = {'form': form, 'formset': formset}
+    context = {'form': form}
     return render(
         request,
         'outline/profile.html',
