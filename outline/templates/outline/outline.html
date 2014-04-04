@@ -27,6 +27,7 @@
     {% for sect in sections %}
         <div class="section" id="{{ sect.title }}">
         <h2>{{ sect.title }}</h2>
+        <a href="{% url 'outline.views.section' sect.pk %}"><b>Edit</b></a>
         <hr/>
         {% if sect.description %}
         <p class="section description">{{sect.description}}<p>

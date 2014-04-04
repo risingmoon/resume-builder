@@ -71,10 +71,11 @@ def section(request, section_no):
                 contact=form.cleaned_data['contact'],
                 description=form.cleaned_data['description'],
                 display=form.cleaned_data['display'],
+                section=section,
                 )
             ent.save()
             return HttpResponseRedirect(reverse('outline'))
-    context = {'section', section, 'form', EntryForm()}
+    context = {'section': section, 'form': EntryForm()}
     return render(
         request,
         'outline/section.html',
@@ -82,8 +83,28 @@ def section(request, section_no):
         )
 
 
-def entry(request):
-    pass
+def entry(request, entry_no):
+    try:
+        entry = Entry.objects.get(pk=entry_no)
+    except Entry.DoesNotExist:
+        raise Http404
+    if entry.section.user != request.user:
+        raise PermissionDenied
+    if request.method == 'POST':
+        form = DataForm(request.POST)
+        if form.is_valid():
+            dat = Data(text=form.cleaned_data['text'])
+            dat.save()
+            return HttpResponseRedirect(reverse(
+                'section',
+                args=(entry.section.pk, )
+                ))
+    context = {'entry': entry, 'form': DataForm()}
+    return render(
+        request,
+        'outline/entry.html',
+        context,
+        )
 
 
 @permission_required('outline.change_profile')
