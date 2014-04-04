@@ -59,7 +59,7 @@ def resume_view(request, resume_no):
     sections = Section.objects.filter(user=request.user).prefetch_related()
     if request.method == 'POST':
         _save_resume(request, resume, data, websites)
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('resume_view', args=(resume_no,)))
     form = ResumeForm(data=data)
     saved = _build_saved(resume)
     return render(

@@ -24,8 +24,7 @@ def writeResumePDF(resumeEntry, outputFile):
                         doc.rightMargin,
                         doc.width,
                         doc.height,
-                        id='normal',
-                        showBoundary=1)
+                        id='normal',)
     page = PageTemplate(frames=[normalFrame])
     doc.addPageTemplates([page, ])
 
@@ -38,9 +37,9 @@ def writeResumePDF(resumeEntry, outputFile):
     for column in [resumeEntry.middle_initial(),
                    resumeEntry.email, ]:
         if column != '':
-            HeaderData.append([column])
+            HeaderData.append([column, []])
     for website in resumeEntry.resume_web_set.all():
-        HeaderData.append([website.account])
+        HeaderData.append([website.account, []])
 
     i = 0
     for column in [resumeEntry.cell,
@@ -51,8 +50,8 @@ def writeResumePDF(resumeEntry, outputFile):
                    resumeEntry.region, ]:
         if column != '':
             if i == len(HeaderData):
-                HeaderData.append(['', ])
-            HeaderData[i].append(column)
+                HeaderData.append(['', []])
+            HeaderData[i][1] = column
             i += 1
 
     citstazip = ''
@@ -69,8 +68,8 @@ def writeResumePDF(resumeEntry, outputFile):
 
     if citstazip != '':
         if i == len(HeaderData):
-            HeaderData.append(['', ])
-        HeaderData[i].append(citstazip)
+            HeaderData.append(['', []])
+        HeaderData[i][1] = citstazip
         i += 1
 
     headerStyle = TableStyle([('ALIGN', (0, 0), (0, -1), 'LEFT'),
@@ -91,12 +90,12 @@ def writeResumePDF(resumeEntry, outputFile):
             entryHeader = []
             for item in [entry.entry.title, entry.entry.subtitle]:
                 if item != '':
-                    entryHeader.append([item, ])
+                    entryHeader.append([item, []])
             i = 0
             for item in [entry.date_string(0), entry.cityState()]:
                 if i == len(entryHeader):
-                    entryHeader.append(['', ])
-                entryHeader[i].append(item)
+                    entryHeader.append(['', []])
+                entryHeader[i][1] = item
                 i += 1
             Document.append(Table(entryHeader,
                                   colWidths=[doc.width/2, doc.width/2],
