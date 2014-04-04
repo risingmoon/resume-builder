@@ -1,41 +1,44 @@
 {% extends 'outline/base.html' %}
-
+{% load staticfiles %}
 {% block title %}Edit Resume{% endblock %}
+{% block css %}<link href="{% static "outline/css/outline.css" %}" rel="stylesheet"> {% endblock %}
 
 {% block content %}
-<form action="{% url 'resume_storage.views.resume_view' resume.pk %}" method="post">{% csrf_token %}
-    <input type="text" name="title" value="{{ resume.title }}"><br>
-    {% for field in form %}
-        {% if field.data %}
-            <input type="checkbox" name="{{ field.label }}" checked>{{ field.data }}<br>
-        {% endif %}
-    {% endfor %}
-    {% for key, val in websites.iteritems %}
-        <input type="checkbox" name="{{ key }}" checked>{{ val }}<br>
-    {% endfor %}
+<div class="starter-template-res">
+    <form action="{% url 'resume_storage.views.resume_view' resume.pk %}" method="post">{% csrf_token %}
+        <input type="text" name="title" value="{{ resume.title }}"><br>
+        {% for field in form %}
+            {% if field.data %}
+                <input type="checkbox" name="{{ field.label }}" checked>{{ field.data }}<br>
+            {% endif %}
+        {% endfor %}
+        {% for key, val in websites.iteritems %}
+            <input type="checkbox" name="{{ key }}" checked>{{ val }}<br>
+        {% endfor %}
 
-    <h3>Resume Information</h3>
+        <h3>Resume Information</h3>
 
-    {% for sect in sections %}
-        <input type="checkbox" name="sections" id="sect{{ sect.pk }}" value="{{ sect.title }}"
-                    {% if sect in saved %}checked{% endif %}>
-        <label for="sect{{ sect.pk }}"><b>{{ sect.title }}</b></label><br>
-        <a>{{ sect.description }}</a><br>
-        {% for ent in sect.entry_set.all %}
-            <input type="checkbox" name="entries" id="ent{{ ent.pk }}" value="{{ ent.title }}"
-                        {% if ent in saved %}checked{% endif %}>
-            <label for="ent{{ ent.pk }}"><a>{{ ent.title }}</a></label><br>
-            <a>{% if ent.subtitle %}({{ ent.subtitle}}){% endif %}</a><br>
-            {% for dat in ent.data_set.all %}
-                <input type="checkbox" name="datas" id="data{{ dat.pk }}" value="{{ dat.text }}"
-                            {% if dat in saved %}checked{% endif %}>
-                <label for="data{{ dat.pk }}"><a>{{ dat.text }}</a></label><br>
+        {% for sect in sections %}
+            <input type="checkbox" name="sections" id="sect{{ sect.pk }}" value="{{ sect.title }}"
+                        {% if sect in saved %}checked{% endif %}>
+            <label for="sect{{ sect.pk }}"><b>{{ sect.title }}</b></label><br>
+            <a>{{ sect.description }}</a><br>
+            {% for ent in sect.entry_set.all %}
+                <input type="checkbox" name="entries" id="ent{{ ent.pk }}" value="{{ ent.title }}"
+                            {% if ent in saved %}checked{% endif %}>
+                <label for="ent{{ ent.pk }}"><a>{{ ent.title }}</a></label><br>
+                <a>{% if ent.subtitle %}({{ ent.subtitle}}){% endif %}</a><br>
+                {% for dat in ent.data_set.all %}
+                    <input type="checkbox" name="datas" id="data{{ dat.pk }}" value="{{ dat.text }}"
+                                {% if dat in saved %}checked{% endif %}>
+                    <label for="data{{ dat.pk }}"><a>{{ dat.text }}</a></label><br>
+                {% endfor %}
             {% endfor %}
         {% endfor %}
-    {% endfor %}
-    <input type="submit" value="Save changes"/>
-</form>
+        <input type="submit" value="Save changes"/>
+    </form>
 
-<a href="{% url 'resume_storage.views.print_resume' resume.pk %}">Print this resume</a> (Remember to save your changes before printing!)<br>
-<a href="{% url 'resume_storage.views.delete_resume' resume.pk %}">Delete this resume</a>
+    <a href="{% url 'resume_storage.views.print_resume' resume.pk %}">Print this resume</a> (Remember to save your changes before printing!)<br>
+    <a href="{% url 'resume_storage.views.delete_resume' resume.pk %}">Delete this resume</a>
+</div>
 {% endblock %}

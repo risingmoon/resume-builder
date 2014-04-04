@@ -1,39 +1,42 @@
 {% extends 'outline/base.html' %}
 
-{% block title %}Edit Section{% endblock %}
+{% block title %}Edit Section {{ section.title }}{% endblock %}
 {% load staticfiles %}
 {% block css %}<link href="{% static "outline/css/outline.css" %}" rel="stylesheet"> {% endblock %}
 
 {% block content %}
-<form action="{% url 'outline.views.section' section.pk %}" method="post" class="form-horizontal" role="form">{% csrf_token %}
-{% for ent in section.entry_set.all %}
-    <div class="entry" id="{{ ent.title }}">
-        {% if 'D' in ent.display %}
-            {% if ent.start_date %}
-        <h3><a href="{% url 'outline.views.entry' ent.pk %}">{{ ent.title }}</a>: {{ent.subtitle}}, {{ent.city}}, {{ent.state}}, {{ent.date_string}}</h3>
+<div class="starter-template">
+    <h1>{{ section.title }}</h1>
+    <form action="{% url 'outline.views.section' section.pk %}" method="post" class="form-horizontal" role="form">{% csrf_token %}
+    {% for ent in section.entry_set.all %}
+        <div class="entry" id="{{ ent.title }}">
+            {% if 'D' in ent.display %}
+                {% if ent.start_date %}
+            <h3><a href="{% url 'outline.views.entry' ent.pk %}">{{ ent.title }}</a>: {{ent.subtitle}}, {{ent.city}}, {{ent.state}}, {{ent.date_string}}</h3>
+                {% else %}
+            <h3><a href="{% url 'outline.views.entry' ent.pk %}">{{ ent.title }}</a>: {{ent.delimited}}</h3>
+                {% endif %}
             {% else %}
-        <h3><a href="{% url 'outline.views.entry' ent.pk %}">{{ ent.title }}</a>: {{ent.delimited}}</h3>
+            <h3><a href="{% url 'outline.views.entry' ent.pk %}">{{ ent.title }}</a></h3>
+                <div class="entry" id="{{ ent.title }}">
+                    {{ ent.listed|linebreaksbr }}
+                </div>
             {% endif %}
-        {% else %}
-        <h3><a href="{% url 'outline.views.entry' ent.pk %}">{{ ent.title }}</a>
-            <div class="entry" id="{{ ent.title }}">
-            {{ ent.listed|linebreaksbr }}</h3>
+        </div>
+    {% endfor %}
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-4">
+            {{ form.as_p }} 
             </div>
-        {% endif %}
-    </div>
-{% endfor %}
+        </div>
 
-<div class="form-group">
-    <div class="col-sm-offset-4 col-sm-4">
-    {{ form.as_p }} 
-    </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">Save</button>
+            </div>
+        </div>
+    </form>
 </div>
-
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Save</button>
-    </div>
-</div>
-</form>
 
 {% endblock %}

@@ -9,40 +9,39 @@
     <h1>Outline</h1>
     <p class="lead">Please fill out your Resume Outline</p>
     <div class="profile">
-    <h1 class="name">{{ profile.first_name }} {{ prof.middle_name }} {{ profile.last_name }}</h1>
-    <p class="cell">{{ profile.cell }}</p>
-    <p class="home">{{ profile.home }}</p>
-    <p class="fax">{{ profile.fax }}</p>
-    <p class="address1">{{ profile.address1 }}</p>
-    <p class="address1">{{ profile.address2 }}</p>
-    <p class="city-state-zip">{{ profile.city }}, {{ prof.state }} {{ profile.zipcode }}</p>
-    <p class="email">{{ profile.email }}</p>
-    <p class="region">{{ profile.region }}</p>
-    {% for web in web_set %}
-    <p class="account">{{ web.account }}</p>
-    {% endfor %}
+        <h1 class="name">{{ profile.first_name }} {{ prof.middle_name }} {{ profile.last_name }}</h1>
+        <p class="cell">{{ profile.cell }}</p>
+        <p class="home">{{ profile.home }}</p>
+        <p class="fax">{{ profile.fax }}</p>
+        <p class="address1">{{ profile.address1 }}</p>
+        <p class="address1">{{ profile.address2 }}</p>
+        <p class="city-state-zip">{{ profile.city }}, {{ prof.state }} {{ profile.zipcode }}</p>
+        <p class="email">{{ profile.email }}</p>
+        <p class="region">{{ profile.region }}</p>
+        {% for web in web_set %}
+        <p class="account">{{ web.account }}</p>
+        {% endfor %}
     </div>
 
-<form action="{% url 'outline.views.outline' %}" method="post" class="form-horizontal" role="form">{% csrf_token %}
     {% for sect in sections %}
         <div class="section" id="{{ sect.title }}">
-        <a href="{% url 'outline.views.section' sect.pk %}"><h2>{{ sect.title }}</h2></a>
-        <hr/>
-        {% if sect.description %}
-        <p class="section description">{{sect.description}}<p>
-        {% endif %}
+            <a href="{% url 'outline.views.section' sect.pk %}"><h2>{{ sect.title }}</h2></a>
+            <hr/>
+            {% if sect.description %}
+                <p class="section description">{{sect.description}}<p>
+            {% endif %}
             {% for ent in sect.entry_set.all %}
                 <div class="entry" id="{{ ent.title }}">
                     {% if 'D' in ent.display %}
                         {% if ent.start_date %}
-                    <h3>{{ ent.title }}: {{ent.subtitle}}, {{ent.city}}, {{ent.state}}, {{ent.date_string}}</h3>
+                            <h3>{{ ent.title }}: {{ent.subtitle}}, {{ent.city}}, {{ent.state}}, {{ent.date_string}}</h3>
                         {% else %}
-                    <h3>{{ ent.title }}: {{ent.delimited}}</h3>
+                            <h3>{{ ent.title }}: {{ent.delimited}}</h3>
                         {% endif %}
                     {% else %}
-                    <h3>{{ ent.title }}
+                        <h3>{{ ent.title }}</h3>
                         <div class="entry" id="{{ ent.title }}">
-                        {{ ent.listed|linebreaksbr }}</h3>
+                            {{ ent.listed|linebreaksbr }}
                         </div>
                     {% endif %}
                 </div>
@@ -51,17 +50,18 @@
     {% endfor %}
 </div>
 
-<div class="form-group">
-    <div class="col-sm-offset-4 col-sm-4">
-    {{ form.as_p }} 
+<form action="{% url 'outline.views.outline' %}" method="post" class="form-horizontal" role="form">{% csrf_token %}
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-4">
+            {{ form.as_p }} 
+        </div>
     </div>
-</div>
 
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Save</button>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-default">Save</button>
+        </div>
     </div>
-</div>
 </form>
 
 
