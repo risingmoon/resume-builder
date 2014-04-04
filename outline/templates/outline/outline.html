@@ -26,8 +26,8 @@
 <form action="{% url 'outline.views.outline' %}" method="post" class="form-horizontal" role="form">{% csrf_token %}
     {% for sect in sections %}
         <div class="section" id="{{ sect.title }}">
-        <h2>{{ sect.title }}</h2>
-        <a href="{% url 'outline.views.section' sect.pk %}"><b>Edit</b></a>
+        <a href="{% url 'outline.views.section' sect.pk %}"><h2>{{ sect.title }}</h2></a>
+        <b>Edit</b>
         <hr/>
         {% if sect.description %}
         <p class="section description">{{sect.description}}<p>

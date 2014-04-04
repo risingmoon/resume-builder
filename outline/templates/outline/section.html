@@ -1,10 +1,10 @@
 {% extends 'outline/base.html' %}
 
 {% block title %}Edit Section{% endblock %}
+{% load staticfiles %}
+{% block css %}<link href="{% static "outline/css/outline.css" %}" rel="stylesheet"> {% endblock %}
 
 {% block content %}
-<p>Section Edit page</p>
-
 <form action="{% url 'outline.views.section' section.pk %}" method="post" class="form-horizontal" role="form">{% csrf_token %}
 {% for ent in section.entry_set.all %}
     <div class="entry" id="{{ ent.title }}">
