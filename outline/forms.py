@@ -121,7 +121,7 @@ class WebForm(ModelForm):
 class SectionForm(ModelForm):
     class Meta:
         model = Section
-        field = [
+        fields = [
             'title',
             'description',
         ]
@@ -147,7 +147,7 @@ class EntryForm(ModelForm):
 class DataForm(ModelForm):
     class Meta:
         model = Data
-        field = [
+        fields = [
             'text'
         ]
 

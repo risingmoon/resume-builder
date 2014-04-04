@@ -23,32 +23,46 @@
     {% endfor %}
     </div>
 
+<form action="{% url 'outline.views.outline' %}" method="post" class="form-horizontal" role="form">{% csrf_token %}
     {% for sect in sections %}
-    <div class="section" id="{{ sect.title }}">
-    <h2>{{ sect.title }}</h2>
-    <hr/>
-    {% if sect.description %}
-    <p class="section description">{{sect.description}}<p>
-    {% endif %}
-    {% for ent in sect.entry_set.all %}
-        <div class="entry" id="{{ sect.title }}">
-            {% if 'D' in ent.display %}
-                {% if ent.start_date %}
-            <h3>{{ ent.title }}: {{ent.subtitle}}, {{ent.city}}, {{ent.state}}, {{ent.date_string}}</h3>
-                {% else %}
-            <h3>{{ ent.title }}: {{ent.delimited}}</h3>
-                {% endif %}
-            {% else %}
-            <h3>{{ ent.title }}
+        <div class="section" id="{{ sect.title }}">
+        <h2>{{ sect.title }}</h2>
+        <hr/>
+        {% if sect.description %}
+        <p class="section description">{{sect.description}}<p>
+        {% endif %}
+            {% for ent in sect.entry_set.all %}
                 <div class="entry" id="{{ sect.title }}">
-                {{ent.limited}}</h3>
+                    {% if 'D' in ent.display %}
+                        {% if ent.start_date %}
+                    <h3>{{ ent.title }}: {{ent.subtitle}}, {{ent.city}}, {{ent.state}}, {{ent.date_string}}</h3>
+                        {% else %}
+                    <h3>{{ ent.title }}: {{ent.delimited}}</h3>
+                        {% endif %}
+                    {% else %}
+                    <h3>{{ ent.title }}
+                        <div class="entry" id="{{ sect.title }}">
+                        {{ent.listed}}</h3>
+                        </div>
+                    {% endif %}
                 </div>
-            {% endif %}
+            {% endfor %}
         </div>
     {% endfor %}
-    </div>
-    {% endfor %}
 </div>
+
+<div class="form-group">
+    <div class="col-sm-offset-4 col-sm-4">
+    {{ form }} 
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Save</button>
+    </div>
+</div>
+</form>
 
 
 

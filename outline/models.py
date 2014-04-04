@@ -102,7 +102,7 @@ class Entry(models.Model):
         return ', '.join(
             [item.text for item in self.data_set.all()])
 
-    def listed(self, char):
+    def listed(self, char='-'):
         return '\n'.join(
             [char + item.text for item in self.data_set.all()])
 
