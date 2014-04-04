@@ -39,7 +39,7 @@ urlpatterns = patterns(
         'real_delete',
         name='real_delete',
         ),
-    url(r'^print/$',
+    url(r'^resume/(\d+)/print/$',
         'print_resume',
         name='print_resume',
         ),

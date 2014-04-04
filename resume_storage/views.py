@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required, permission_required
 from outline.models import Section, Entry, Data, Profile, Web
@@ -8,6 +8,7 @@ from resume_storage.models import Saved_Entry, Saved_Section
 from resume_storage.forms import ResumeForm, SectionForm, EntryForm, DataForm
 from django.forms import model_to_dict
 from convertToPDF import writeResumePDF
+from django.core.exceptions import PermissionDenied
 
 
 def front_view(request):
@@ -41,7 +42,10 @@ def create_resume(request):
 
 @permission_required('resume_storage.change_resume')
 def resume_view(request, resume_no):
-    resume = Resume.objects.get(pk=resume_no)
+    try:
+        resume = Resume.objects.get(pk=resume_no)
+    except Resume.DoesNotExist:
+        raise Http404
     data = model_to_dict(resume)
     data.pop('title')
     accts = Resume_Web.objects.filter(resume=resume)
@@ -50,7 +54,6 @@ def resume_view(request, resume_no):
         websites.update({'account%d' % i: accts[i].account})
     sections = Section.objects.filter(user=request.user).prefetch_related()
     if request.method == 'POST':
-        
         data.update(request.POST)
         form = ResumeForm(data)
         form.data['title'] = form.data['title'][0]
@@ -151,21 +154,37 @@ def _build_saved(resume):
 
 
 @login_required
-def print_resume(request):
+def print_resume(request, resume_no):
+    try:
+        resume = Resume.objects.get(pk=resume_no)
+    except Resume.DoesNotExist:
+        raise Http404
+    if resume.user != request.user:
+        raise PermissionDenied
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
-    existingresume = Resume.objects.filter(title='myFavoriteResume')[0]
-    writeResumePDF(existingresume, response)
+    writeResumePDF(resume, response)
     return response
 
 
 @permission_required('resume_storage.delete_resume')
 def delete_resume(request, resume_no):
-    resume = Resume.objects.get(pk=resume_no)
+    try:
+        resume = Resume.objects.get(pk=resume_no)
+    except Resume.DoesNotExist:
+        raise Http404
+    if resume.user != request.user:
+        raise PermissionDenied
     return render(request, 'resume_storage/delete.html', {'resume': resume})
 
 
 @permission_required('resume_storage.delete_resume')
 def real_delete(request, resume_no):
-    Resume.objects.get(pk=resume_no).delete()
+    try:
+        resume = Resume.objects.get(pk=resume_no)
+    except Resume.DoesNotExist:
+        raise Http404
+    if resume.user != request.user:
+        raise PermissionDenied
+    resume.delete()
     return HttpResponseRedirect(reverse('home'))
