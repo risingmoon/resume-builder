@@ -2,6 +2,7 @@ from models import Resume, Resume_Web, Saved_Section, Saved_Entry
 from outline.models import Section, Entry, Data
 from reportlab.platypus import SimpleDocTemplate, PageTemplate, Frame
 from reportlab.platypus import Paragraph, Table, Spacer, TableStyle
+from reportlab.platypus import KeepTogether
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.rl_config import defaultPageSize
 from reportlab.lib.units import inch
@@ -23,7 +24,8 @@ def writeResumePDF(resumeEntry, outputFile):
                         doc.rightMargin,
                         doc.width,
                         doc.height,
-                        id='normal')
+                        id='normal',
+                        showBoundary=1)
     page = PageTemplate(frames=[normalFrame])
     doc.addPageTemplates([page, ])
 
@@ -79,21 +81,25 @@ def writeResumePDF(resumeEntry, outputFile):
     #now for the sections, entries, and datums
     outline = resumeEntry.getResumeFields()
     for section in outline.keys():
-        Document.append(KeepTogether([Paragraph(section.section.title),
-                                      Paragraph(section.section.description)]))
+        Document.append(KeepTogether([Paragraph(section.section.title,
+                                                styles['Normal']),
+                                      Paragraph(section.section.description,
+                                                styles['Normal'])]))
+        Document.append(Spacer(height=0.25*inch, width=1))
         for entry in outline[section].keys():
             entryHeader = []
-            for item in [entry.title, entry.subtitle]:
+            for item in [entry.entry.title, entry.entry.subtitle]:
                 if item != '':
-                    entryHeader.append([item])
+                    entryHeader.append([item, ])
             i = 0
-            for item in [entry.date_string(), entry.cityState()]:
+            for item in [entry.date_string(0), entry.cityState()]:
                 if i == len(entryHeader):
-                    entryHeader.append([''])
+                    entryHeader.append(['', ])
                 entryHeader[i].append(item)
             Document.append(Table(entryHeader,
                                   colWidths=[doc.width/2, doc.width/2],
                                   style=headerStyle))
+            Document.append(Spacer(height=0.25*inch, width=1))
 
     doc.build(Document)
     return outputFile

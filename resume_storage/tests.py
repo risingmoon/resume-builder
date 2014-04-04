@@ -25,7 +25,7 @@ class ResumeStorageTestCase(TestCase):
         newResume = Resume.objects.create(first_name='jack',
                                           last_name='markley',
                                           user=self.testUser)
-        self.assertEqual(newResume.getResumeFields(), (newResume, {}))
+        self.assertEqual(newResume.getResumeFields(), {})
 
         newResume = Resume.objects.create(first_name='mark',
                                           last_name='charyk',
@@ -42,7 +42,7 @@ class ResumeStorageTestCase(TestCase):
                     newdata = Data.objects.create(text=atext, entry=anentry)
                     sectdict[asection][anentry].append(newdata)
         result = newResume.getResumeFields()
-        for savesect in result[1].keys():
+        for savesect in result.keys():
             assert savesect.section in sectdict.keys()
 
     def testSetResume(self):

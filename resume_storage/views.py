@@ -2,23 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required, permission_required
-from outline.models import Section, Entry, Data, Profile
+from outline.models import Section, Entry, Data, Profile, Web
 from resume_storage.models import Resume, Resume_Web
 from resume_storage.models import Saved_Entry, Saved_Section
 from resume_storage.forms import ResumeForm, SectionForm, EntryForm, DataForm
 from django.forms import model_to_dict
 from convertToPDF import writeResumePDF
-
-
-def stub_view(request, *args, **kwargs):
-    body = "Resume Storage stub view\n\n"
-    if args:
-        body += "Args:\n"
-        body += "\n".join(["\t%s" % a for a in args])
-    if kwargs:
-        body += "Kwargs:\n"
-        body += "\n".join(["\t%s: %s" % i for i in kwargs.items()])
-    return HttpResponse(body, content_type='text/plain')
 
 
 def front_view(request):
@@ -38,28 +27,110 @@ def home_view(request):
 @permission_required('resume_storage.add_resume')
 def create_resume(request):
     prof = Profile.objects.get(user=request.user)
+    webs = Web.objects.filter(profile=prof)
     kwargs = model_to_dict(prof, exclude=['user', 'id'])
-    res = Resume.objects.create(user=request.user, **kwargs)
+    res = Resume.objects.create(
+        user=request.user,
+        title='New Resume',
+        **kwargs
+    )
+    for item in webs:
+        Resume_Web.objects.create(resume=res, account=item.account)
     return HttpResponseRedirect(reverse('resume_view', args=(res.pk,)))
 
 
 @permission_required('resume_storage.change_resume')
 def resume_view(request, resume_no):
     resume = Resume.objects.get(pk=resume_no)
+    data = model_to_dict(resume)
+    data.pop('title')
+    accts = Resume_Web.objects.filter(resume=resume)
+    websites = {}
+    for i in range(len(accts)):
+        websites.update({'account%d' % i: accts[i].account})
+    sections = Section.objects.filter(user=request.user).prefetch_related()
     if request.method == 'POST':
-        form = ResumeForm(request.POST, instance=resume)
+        
+        data.update(request.POST)
+        form = ResumeForm(data)
+        form.data['title'] = form.data['title'][0]
         if form.is_valid():
-            if not form.cleaned_data['Include middle_name?']:
-                resume.middle_name = ''
-            resume.save()
+            _edit_resume_profile(resume, form)
+            _edit_resume_webs(resume, form, websites)
+            _build_resume_fields(
+                resume,
+                request.user,
+                request.POST.getlist('sections'),
+                request.POST.getlist('entries'),
+                request.POST.getlist('datas')
+            )
             return HttpResponseRedirect(reverse('home'))
-    form = ResumeForm(instance=resume)
-    form
-    context = {
-        'resume': resume,
-        'form': form,
-    }
-    return render(request, 'resume_storage/resume.html', context)
+    form = ResumeForm(data=data)
+    saved = resume.getResumeFields()
+    for key in saved.iterkeys():
+        sections = sections.exclude(pk=key.section.pk)
+    return render(
+        request,
+        'resume_storage/resume.html',
+        {
+            'form': form,
+            'websites': websites,
+            'resume': resume,
+            'sections': sections,
+            'saved': saved,
+        }
+    )
+
+
+def _edit_resume_profile(resume, form):
+    resume.title = form.cleaned_data['title']
+    if not form.data.get('Middle name', False):
+        resume.middle_name = ''
+    if not form.data.get('Cell', False):
+        resume.cell = ''
+    if not form.data.get('Home', False):
+        resume.home = ''
+    if not form.data.get('Fax', False):
+        resume.fax = ''
+    if not form.data.get('Address1', False):
+        resume.address1 = ''
+    if not form.data.get('Address2', False):
+        resume.address2 = ''
+    if not form.data.get('City', False):
+        resume.city = ''
+    if not form.data.get('State', False):
+        resume.state = ''
+    if not form.data.get('Zipcode', False):
+        resume.zipcode = ''
+    if not form.data.get('Email', False):
+        resume.email = ''
+    if not form.data.get('Region', False):
+        resume.region = ''
+    resume.save()
+
+
+def _edit_resume_webs(resume, form, websites):
+    for i in range(len(websites)):
+        if not form.data.get('account%d' % i, False):
+            Resume_Web.objects.filter(
+                resume=resume,
+                account=websites['account%d' % i]
+            ).delete()
+
+
+def _build_resume_fields(resume, usr, sect_list, ent_list, dat_list):
+    sect_dict = {}
+    for title in sect_list:
+        sect = Section.objects.get(user=usr, title=title)
+        ent_dict = {}
+        for ent_title in ent_list:
+            ent = Entry.objects.get(section=sect, title=ent_title)
+            dat_rtn_list = []
+            for text in dat_list:
+                dat_rtn_list.append(Data.objects.get(entry=ent, text=text))
+            ent_dict[ent] = dat_rtn_list
+        sect_dict[sect] = ent_dict
+    resume.setResumeFields(sect_dict)
 
 
 @login_required
