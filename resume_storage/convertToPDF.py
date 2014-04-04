@@ -96,6 +96,7 @@ def writeResumePDF(resumeEntry, outputFile):
                 if i == len(entryHeader):
                     entryHeader.append(['', ])
                 entryHeader[i].append(item)
+                i += 1
             Document.append(Table(entryHeader,
                                   colWidths=[doc.width/2, doc.width/2],
                                   style=headerStyle))
