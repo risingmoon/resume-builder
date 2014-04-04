@@ -3,7 +3,7 @@ from outline.models import Section, Entry, Data
 from reportlab.platypus import SimpleDocTemplate, PageTemplate, Frame
 from reportlab.platypus import Paragraph, Table, Spacer, TableStyle
 from reportlab.platypus import KeepTogether
-from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.rl_config import defaultPageSize
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
@@ -28,6 +28,8 @@ def writeResumePDF(resumeEntry, outputFile):
                         showBoundary=1)
     page = PageTemplate(frames=[normalFrame])
     doc.addPageTemplates([page, ])
+
+    bulletStyle = ParagraphStyle(name='bulletStyle', leftIndent=0.25*inch)
 
     Document = []  # list of flowables for doc.build
 
@@ -101,10 +103,11 @@ def writeResumePDF(resumeEntry, outputFile):
                                   style=headerStyle))
             for item in [entry.entry.contact, entry.entry.description]:
                 if item != '':
-                    Document.append(Paragraph(item, styles['Normal']))
+                    Document.append(Paragraph(item, bulletStyle))
             if entry.entry.display == 'L':
-                Document.append(Paragraph(entry.listed('-\t'),
-                                          styles['Normal']))
+                for datum in entry.dataset.all():
+                    Document.append(Paragraph(datum.text,
+                                    bulletStyle))
             else:  # remaining option is display set to 'D' for delimited
                 Document.append(Paragraph('\t'+entry.delimited(),
                                           styles['Normal']))
