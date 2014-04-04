@@ -1,9 +1,13 @@
 {% extends 'outline/base.html' %}
 
 {% block title %}Delete Resume{% endblock %}
+{% load staticfiles %}
+{% block css %}<link href="{% static "outline/css/outline.css" %}" rel="stylesheet"> {% endblock %}
 
 {% block content %}
+<div class="starter-template">
     <p>Are you sure you want to delete {{ resume.title }}?</p>
     <a href="{% url 'resume_storage.views.real_delete' resume.pk %}">Yes</a>
     <a href="{% url 'resume_storage.views.home_view' %}">No</a>
+</div>
 {% endblock %}
