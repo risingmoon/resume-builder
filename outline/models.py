@@ -71,8 +71,10 @@ class Entry(models.Model):
     city = models.CharField(max_length=50, blank=True)
     state = models.CharField(max_length=50, blank=True)
     contact = models.CharField(max_length=50, blank=True)
+    #Change to TextField
     description = models.CharField(max_length=50, blank=True)
     section = models.ForeignKey('Section')
+    #Add NULL SECTION
     DISPLAY_CHOICES = (
         ("L", "List"),
         ("D", "Delimited"))
@@ -81,7 +83,7 @@ class Entry(models.Model):
     def __unicode__(self):
         return unicode(self.title)
 
-    def date_string(self, num):
+    def date_string(self, num=0):
         format = {0: "%B %Y", 1: "%b %Y", 2: "%x"}
         if self.start_date and self.end_date:
             dat_str = [
