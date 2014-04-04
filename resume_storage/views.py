@@ -62,48 +62,22 @@ def resume_view(request, resume_no):
     if request.method == 'POST':
         data.update(request.POST)
         form = ResumeForm(data)
-        form.data['title'] = form.data['title'][0]  # <--- What.
-
-        # Edit the profile stuff in the resume
+        form.data['title'] = form.data['title'][0]
         if form.is_valid():
-            resume.title = form.cleaned_data['title']
-            if not form.data.get('Middle name', False):
-                resume.middle_name = ''
-            if not form.data.get('Cell', False):
-                resume.cell = ''
-            if not form.data.get('Home', False):
-                resume.home = ''
-            if not form.data.get('Fax', False):
-                resume.fax = ''
-            if not form.data.get('Address1', False):
-                resume.address1 = ''
-            if not form.data.get('Address2', False):
-                resume.address2 = ''
-            if not form.data.get('City', False):
-                resume.city = ''
-            if not form.data.get('State', False):
-                resume.state = ''
-            if not form.data.get('Zipcode', False):
-                resume.zipcode = ''
-            if not form.data.get('Email', False):
-                resume.email = ''
-            if not form.data.get('Region', False):
-                resume.region = ''
-            resume.save()
-
-            # Edit the web accounts associated with the resume
-            for i in range(len(websites)):
-                if not form.data.get('account%d' % i, False):
-                    Resume_Web.objects.filter(
-                        resume=resume,
-                        account=websites['account%d' % i]
-                    ).delete()
-
+            _edit_resume_profile(resume, form)
+            _edit_resume_webs(resume, form, websites)
+            _build_resume_fields(
+                resume,
+                request.user,
+                request.POST.getlist('sections'),
+                request.POST.getlist('entries'),
+                request.POST.getlist('datas')
+            )
             return HttpResponseRedirect(reverse('home'))
     form = ResumeForm(data=data)
-
-    print resume.getResumeFields()
-
+    saved = resume.getResumeFields()
+    for key in saved.iterkeys():
+        sections = sections.exclude(pk=key.section.pk)
     return render(
         request,
         'resume_storage/resume.html',
@@ -111,9 +85,61 @@ def resume_view(request, resume_no):
             'form': form,
             'websites': websites,
             'resume': resume,
-            'sections': sections
+            'sections': sections,
+            'saved': saved,
         }
     )
+
+
+def _edit_resume_profile(resume, form):
+    resume.title = form.cleaned_data['title']
+    if not form.data.get('Middle name', False):
+        resume.middle_name = ''
+    if not form.data.get('Cell', False):
+        resume.cell = ''
+    if not form.data.get('Home', False):
+        resume.home = ''
+    if not form.data.get('Fax', False):
+        resume.fax = ''
+    if not form.data.get('Address1', False):
+        resume.address1 = ''
+    if not form.data.get('Address2', False):
+        resume.address2 = ''
+    if not form.data.get('City', False):
+        resume.city = ''
+    if not form.data.get('State', False):
+        resume.state = ''
+    if not form.data.get('Zipcode', False):
+        resume.zipcode = ''
+    if not form.data.get('Email', False):
+        resume.email = ''
+    if not form.data.get('Region', False):
+        resume.region = ''
+    resume.save()
+
+
+def _edit_resume_webs(resume, form, websites):
+    for i in range(len(websites)):
+        if not form.data.get('account%d' % i, False):
+            Resume_Web.objects.filter(
+                resume=resume,
+                account=websites['account%d' % i]
+            ).delete()
+
+
+def _build_resume_fields(resume, usr, sect_list, ent_list, dat_list):
+    sect_dict = {}
+    for title in sect_list:
+        sect = Section.objects.get(user=usr, title=title)
+        ent_dict = {}
+        for ent_title in ent_list:
+            ent = Entry.objects.get(section=sect, title=ent_title)
+            dat_rtn_list = []
+            for text in dat_list:
+                dat_rtn_list.append(Data.objects.get(entry=ent, text=text))
+            ent_dict[ent] = dat_rtn_list
+        sect_dict[sect] = ent_dict
+    resume.setResumeFields(sect_dict)
 
 
 @login_required
