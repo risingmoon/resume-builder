@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required, permission_required
 from outline.models import Profile, Web, Section, Entry, Data
 from outline.forms import ProfileForm, SectionForm, EntryForm, DataForm
 from django.forms.models import inlineformset_factory, model_to_dict
 from django import forms
+from django.core.exceptions import PermissionDenied
 
 
 def stub_view(request, *args, **kwargs):
@@ -48,9 +49,15 @@ def outline(request):
     )
 
 
-# @permission_required('outline.add_entry', 'outline.change_entry')
-# def section(request, section_no):
-#     section = 
+@permission_required('outline.add_entry', 'outline.change_entry')
+def section(request, section_no):
+    try:
+        section = Section.objects.get(pk=section_no)
+    except Section.DoesNotExist:
+        raise Http404
+    if section.user != request.user:
+        raise PermissionDenied
+    
 
 
 @permission_required('outline.change_profile')

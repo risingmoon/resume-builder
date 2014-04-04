@@ -48,6 +48,8 @@ def resume_view(request, resume_no):
         resume = Resume.objects.get(pk=resume_no)
     except Resume.DoesNotExist:
         raise Http404
+    if resume.user != request.user:
+        raise PermissionDenied
     data = model_to_dict(resume)
     data.pop('title')
     accts = Resume_Web.objects.filter(resume=resume)

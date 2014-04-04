@@ -24,8 +24,18 @@ urlpatterns = patterns(
         name='outline',
         ),
     url(
-        r'^edit/$',
-        'stub_view',
-        name='edit',
+        r'^section/(\d+)/$',
+        'section',
+        name='section',
         ),
+    url(
+        r'^entry/(\d+)/$',
+        'entry',
+        name='entry',
+        ),
+    # url(
+    #     r'^edit/$',
+    #     'stub_view',
+    #     name='edit',
+    #     ),
 )
