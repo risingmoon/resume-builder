@@ -75,9 +75,12 @@ def resume_view(request, resume_no):
             )
             return HttpResponseRedirect(reverse('home'))
     form = ResumeForm(data=data)
-    saved = resume.getResumeFields()
-    for key in saved.iterkeys():
-        sections = sections.exclude(pk=key.section.pk)
+    saved_dict, saved = resume.getResumeFields(), []
+    for key, val in saved_dict.iteritems():
+        saved.append(key.section)
+        for k, v in val.iteritems():
+            saved.append(k.entry)
+            saved.extend(v)
     return render(
         request,
         'resume_storage/resume.html',
