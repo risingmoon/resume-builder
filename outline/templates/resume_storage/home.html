@@ -23,7 +23,7 @@
         <a href="{% url 'resume_storage.views.resume_view' resume.pk %}">
         <img src="{% static "outline/images/document-icon.png" %}" alt="resume" width="100"/></a>
         <a href="{% url 'resume_storage.views.print_resume' resume.pk %}">Print this resume</a>
-        <!-- SHOULD USE CHECKBOX -->
+        {# FIX: USE CHECKBOX #}
         <a href="{% url 'resume_storage.views.delete_resume' resume.pk %}">Delete this resume</a>
     </div>
 {% endfor %}
