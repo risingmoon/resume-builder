@@ -2,7 +2,6 @@
 __pycache__/
 *.py[cod]
 
-settings.py
 settings2.py
 
 # C extensions
