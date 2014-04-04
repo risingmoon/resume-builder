@@ -21,10 +21,17 @@ SECRET_KEY = "Justin's Social Security Number"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = []
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'testing@example.com'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Application definition
@@ -98,14 +105,5 @@ ACCOUNT_ACTIVATION_DAYS = 5
 
 LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/home'
-
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = 'testing@example.com'
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SOUTH_TESTS_MIGRATE = False
