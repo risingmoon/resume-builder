@@ -82,6 +82,10 @@ def section(request, section_no):
         )
 
 
+def entry(request):
+    pass
+
+
 @permission_required('outline.change_profile')
 def profile(request):
     prof = Profile.objects.get(user=request.user)
