@@ -1,0 +1,17 @@
+{% extends 'outline/base.html' %}
+
+{% block title %}Edit Section{% endblock %}
+
+{% block content %}
+<p>Section Edit page</p>
+
+<form action="{% url 'outline.views.section' pk %}" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    {{ formset.management_form }}
+    {% for form in formset %}
+    {{ form}}
+    {%endfor%}
+    <input type="submit" value="Save changes"/>
+</form>
+
+{% endblock %}

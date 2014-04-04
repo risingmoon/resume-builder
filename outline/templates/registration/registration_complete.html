@@ -1,10 +1,15 @@
 {% extends 'outline/base.html' %}
 
-{% block title %}Registration{% endblock %}
+{% block title %} Registration{% endblock %}
+{% load staticfiles %}
+{% block css %}<link href="{% static "outline/css/starter-template.css" %}"  rel="stylesheet">{% endblock %}
 
 {% block content %}
 
-<h3>Step one Complete!</h3>
-<p>Next, check your email</p>
+
+<div class="starter-template">
+  <h1>Registration Complete!</h1>
+  <p class="lead">An email has been sent to you. Click on the link to activate your account!</p>
+</div>
 
 {% endblock %}

@@ -19,6 +19,11 @@ urlpatterns = patterns(
         name='profile',
         ),
     url(
+        r'^outline/$',
+        'outline',
+        name='outline',
+        ),
+    url(
         r'^edit/$',
         'stub_view',
         name='edit',

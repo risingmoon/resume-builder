@@ -1,0 +1,55 @@
+{% extends 'outline/base.html' %}
+
+{% block title %}Edit Outline{% endblock %}
+{% load staticfiles %}
+{% block css %}<link href="{% static "outline/css/outline.css" %}" rel="stylesheet"> {% endblock %}
+
+{% block content %}
+<div class="starter-template">
+    <h1>Outline</h1>
+    <p class="lead">Please fill out your Resume Outline</p>
+    <div class="profile">
+    <h1 class="name">{{ profile.first_name }} {{ prof.middle_name }} {{ profile.last_name }}</h1>
+    <p class="cell">{{ profile.cell }}</p>
+    <p class="home">{{ profile.home }}</p>
+    <p class="fax">{{ profile.fax }}</p>
+    <p class="address1">{{ profile.address1 }}</p>
+    <p class="address1">{{ profile.address2 }}</p>
+    <p class="city-state-zip">{{ profile.city }}, {{ prof.state }} {{ profile.zipcode }}</p>
+    <p class="email">{{ profile.email }}</p>
+    <p class="region">{{ profile.region }}</p>
+    {% for web in web_set %}
+    <p class="account">{{ web.account }}</p>
+    {% endfor %}
+    </div>
+
+    {% for sect in sections %}
+    <div class="section" id="{{ sect.title }}">
+    <h2>{{ sect.title }}</h2>
+    <hr/>
+    {% if sect.description %}
+    <p class="section description">{{sect.description}}<p>
+    {% endif %}
+    {% for ent in sect.entry_set.all %}
+        <div class="entry" id="{{ sect.title }}">
+            {% if 'D' in ent.display %}
+                {% if ent.start_date %}
+            <h3>{{ ent.title }}: {{ent.subtitle}}, {{ent.city}}, {{ent.state}}, {{ent.date_string}}</h3>
+                {% else %}
+            <h3>{{ ent.title }}: {{ent.delimited}}</h3>
+                {% endif %}
+            {% else %}
+            <h3>{{ ent.title }}
+                <div class="entry" id="{{ sect.title }}">
+                {{ent.limited}}</h3>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}

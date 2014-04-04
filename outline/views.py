@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required, permission_required
-from outline.models import Profile, Web, Section, Entry, Data
-from outline.forms import ProfileForm, WebForm
-from django.forms.models import inlineformset_factory
+from outline.models import Profile, Web, Section
+from outline.forms import ProfileForm
+from django.forms.models import inlineformset_factory, model_to_dict
+from django import forms
 
 
 def stub_view(request, *args, **kwargs):
@@ -19,9 +20,71 @@ def stub_view(request, *args, **kwargs):
 
 
 @permission_required('outline.change_profile')
+def outline(request):
+    
+    profile_model = Profile.objects.get(user=request.user)
+    profile = model_to_dict(profile_model)
+    web_set = Web.objects.filter(profile=profile_model)
+    
+    # resume = Resume.objects.get(pk=resume_no)
+    # data = model_to_dict(resume)
+    # data.pop('title')
+    # accts = Resume_Web.objects.filter(resume=resume)
+    # websites = {}
+    # for i in range(len(accts)):
+    #     websites.update({'account%d' % i: accts[i].account})
+    sections = Section.objects.filter(user=request.user).prefetch_related()
+    # if request.method == 'POST':
+    #     data.update(request.POST)
+    #     form = ResumeForm(data)
+    #     form.data['title'] = form.data['title'][0]
+    #     if form.is_valid():
+    #         _edit_resume_profile(resume, form)
+    #         _edit_resume_webs(resume, form, websites)
+    #         _build_resume_fields(
+    #             resume,
+    #             request.user,
+    #             request.POST.getlist('sections'),
+    #             request.POST.getlist('entries'),
+    #             request.POST.getlist('datas')
+    #         )
+    #         return HttpResponseRedirect(reverse('home'))
+    # form = ResumeForm(data=data)
+    # saved = resume.getResumeFields()
+    # for key in saved.iterkeys():
+    #     sections = sections.exclude(pk=key.section.pk)
+    # return render(
+    #     request,
+    #     'resume_storage/resume.html',
+    #     {
+    #         'form': form,
+    #         'websites': websites,
+    #         'resume': resume,
+    #         'sections': sections,
+    #         'saved': saved,
+    #     }
+    # )
+    # import pdb;pdb.set_trace()
+    context = {
+        'profile': profile,
+        'web_set': web_set,
+        'sections': sections}
+    return render(
+        request,
+        'outline/outline.html',
+        context,
+    )
+
+
+@permission_required('outline.change_profile')
 def profile(request):
     prof = Profile.objects.get(user=request.user)
-    WebFormSet = inlineformset_factory(Profile, Web, extra=1)
+    WebFormSet = inlineformset_factory(
+        Profile, Web, extra=1,
+        widgets={'account': forms.TextInput(attrs={
+            'class': 'col-sm-4 form-control',
+            'placeholder': 'Account'}
+        )})
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=prof)
         formset = WebFormSet(request.POST, instance=prof)

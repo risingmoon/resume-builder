@@ -1,10 +1,13 @@
 {% extends 'outline/base.html' %}
 
 {% block title %}Activation Successful{% endblock %}
+{% load staticfiles %}
+{% block css %}<link href="{% static "outline/css/starter-template.css" %}"  rel="stylesheet">{% endblock %}
 
 {% block content %}
-
-<h3>Your account has been successfully activated!</h3>
-<a href="/accounts/login">Login now</a><a> and get resume-ing!</a>
-
+<div class="starter-template">
+  <h1>Success!</h1>
+  <p class="lead">Your account has been successfully activated!</p>
+  <a href="/accounts/login">Login now</a><a> and get resume-ing!</a>
+</div>
 {% endblock %}

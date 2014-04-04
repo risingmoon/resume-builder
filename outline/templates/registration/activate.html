@@ -1,10 +1,16 @@
 {% extends 'outline/base.html' %}
 
-{% block title %}Activation Failed{% endblock %}
+{% block title %} Activation Fail{% endblock %}
+{% load staticfiles %}
+{% block css %}<link href="{% static "outline/css/starter-template.css" %}"  rel="stylesheet">{% endblock %}
 
 {% block content %}
 
-<p>We don't recognize that activation key</p>
-<p>You should be more careful when writing your resume</p>
+
+<div class="starter-template">
+  <h1>Uh...</h1>
+  <p class="lead">We don't recognize that activation key</p>
+  <p>You should be more careful when writing your resume</p>
+</div>
 
 {% endblock %}
