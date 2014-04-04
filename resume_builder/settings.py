@@ -97,7 +97,7 @@ STATIC_ROOT = './static/'
 ACCOUNT_ACTIVATION_DAYS = 5
 
 LOGIN_URL = '/accounts/login'
-LOGIN_REDIRECT_URL = '/resume_storage/home'
+LOGIN_REDIRECT_URL = '/home'
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
