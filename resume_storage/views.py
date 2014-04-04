@@ -75,12 +75,7 @@ def resume_view(request, resume_no):
             )
             return HttpResponseRedirect(reverse('home'))
     form = ResumeForm(data=data)
-    saved_dict, saved = resume.getResumeFields(), []
-    for key, val in saved_dict.iteritems():
-        saved.append(key.section)
-        for k, v in val.iteritems():
-            saved.append(k.entry)
-            saved.extend(v)
+    saved = _build_saved(resume)
     return render(
         request,
         'resume_storage/resume.html',
@@ -133,16 +128,35 @@ def _edit_resume_webs(resume, form, websites):
 def _build_resume_fields(resume, usr, sect_list, ent_list, dat_list):
     sect_dict = {}
     for title in sect_list:
-        sect = Section.objects.get(user=usr, title=title)
-        ent_dict = {}
-        for ent_title in ent_list:
-            ent = Entry.objects.get(section=sect, title=ent_title)
-            dat_rtn_list = []
-            for text in dat_list:
-                dat_rtn_list.append(Data.objects.get(entry=ent, text=text))
-            ent_dict[ent] = dat_rtn_list
-        sect_dict[sect] = ent_dict
+        try:
+            sect = Section.objects.get(user=usr, title=title)
+            ent_dict = {}
+            for ent_title in ent_list:
+                try:
+                    ent = Entry.objects.get(section=sect, title=ent_title)
+                    dat_rtn_list = []
+                    for text in dat_list:
+                        try:
+                            dat_rtn_list.append(Data.objects.get(entry=ent, text=text))
+                        except Data.DoesNotExist:
+                            pass
+                    ent_dict[ent] = dat_rtn_list
+                except Entry.DoesNotExist:
+                    pass
+            sect_dict[sect] = ent_dict
+        except Section.DoesNotExist:
+            pass
     resume.setResumeFields(sect_dict)
+
+
+def _build_saved(resume):
+    saved_dict, saved = resume.getResumeFields(), []
+    for key, val in saved_dict.iteritems():
+        saved.append(key.section)
+        for k, v in val.iteritems():
+            saved.append(k.entry)
+            saved.extend(v)
+    return saved
 
 
 @login_required
