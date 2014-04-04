@@ -34,7 +34,6 @@ def writeResumePDF(resumeEntry, outputFile):
     #begin with the resume's header data, piece-by-piece
     HeaderData = []
     for column in [resumeEntry.middle_initial(),
-                   resumeEntry.title,
                    resumeEntry.email, ]:
         if column != '':
             HeaderData.append([column])
@@ -100,6 +99,15 @@ def writeResumePDF(resumeEntry, outputFile):
             Document.append(Table(entryHeader,
                                   colWidths=[doc.width/2, doc.width/2],
                                   style=headerStyle))
+            for item in [entry.entry.contact, entry.entry.description]:
+                if item != '':
+                    Document.append(Paragraph(item, styles['Normal']))
+            if entry.entry.display == 'L':
+                Document.append(Paragraph(entry.listed('-\t'),
+                                          styles['Normal']))
+            else:  # remaining option is display set to 'D' for delimited
+                Document.append(Paragraph('\t'+entry.delimited(),
+                                          styles['Normal']))
             Document.append(Spacer(height=0.25*inch, width=1))
 
     doc.build(Document)
