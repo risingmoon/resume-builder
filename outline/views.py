@@ -46,7 +46,7 @@ def outline(request):
         request,
         'outline/outline.html',
         context,
-    )
+        )
 
 
 @permission_required('outline.add_entry', 'outline.change_entry')
@@ -57,7 +57,29 @@ def section(request, section_no):
         raise Http404
     if section.user != request.user:
         raise PermissionDenied
-    
+    if request.method == 'POST':
+        form = EntryForm(request.POST)
+        if form.is_valid():
+            ent = Entry(
+                title=form.cleaned_data['title'],
+                subtitle=form.cleaned_data['subtitle'],
+                start_date=form.cleaned_data['start_date'],
+                end_date=form.cleaned_data['end_date'],
+                present=form.cleaned_data['present'],
+                city=form.cleaned_data['city'],
+                state=form.cleaned_data['state'],
+                contact=form.cleaned_data['contact'],
+                description=form.cleaned_data['description'],
+                display=form.cleaned_data['display'],
+                )
+            ent.save()
+            return HttpResponseRedirect(reverse('outline'))
+    context = {'section', section, 'form', EntryForm()}
+    return render(
+        request,
+        'outline/section.html',
+        context,
+        )
 
 
 @permission_required('outline.change_profile')
