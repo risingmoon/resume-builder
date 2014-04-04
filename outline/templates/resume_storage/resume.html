@@ -16,31 +16,19 @@
 
     <h3>Resume Information</h3>
 
-    {% for s_sect, ent_dict in saved.iteritems %}
-        <input type="checkbox" name="sections" id="sect{{ s_sect.section.pk }}" value="{{ s_sect.section.title }}" checked>
-        <label for="sect{{ s_sect.section.pk }}"><b>{{ s_sect.section.title }}</b></label><br>
-        <a>{{ s_sect.section.description }}</a><br>
-        {% for s_ent, dat_list in ent_dict.iteritems %}
-            <input type="checkbox" name="entries" id="ent{{ s_ent.entry.pk }}" value="{{ s_ent.entry.title }}" checked>
-            <label for="ent{{ s_ent.entry.pk }}"><a>{{ s_ent.entry.title }}</a></label><br>
-            <a>{% if s_ent.entry.subtitle %}({{ s_ent.entry.subtitle}}){% endif %}</a><br>
-            {% for dat in dat_list %}
-                <input type="checkbox" name="datas" id="data{{ dat.pk }}" value="{{ dat.text }}" checked>
-                <label for="data{{ dat.pk }}"><a>{{ dat.text }}</a></label><br>
-            {% endfor %}
-        {% endfor %}
-    {% endfor %}
-
     {% for sect in sections %}
-        <input type="checkbox" name="sections" id="sect{{ sect.pk }}" value="{{ sect.title }}">
+        <input type="checkbox" name="sections" id="sect{{ sect.pk }}" value="{{ sect.title }}"
+                    {% if sect in saved %}checked{% endif %}>
         <label for="sect{{ sect.pk }}"><b>{{ sect.title }}</b></label><br>
         <a>{{ sect.description }}</a><br>
         {% for ent in sect.entry_set.all %}
-            <input type="checkbox" name="entries" id="ent{{ ent.pk }}" value="{{ ent.title }}">
+            <input type="checkbox" name="entries" id="ent{{ ent.pk }}" value="{{ ent.title }}"
+                        {% if ent in saved %}checked{% endif %}>
             <label for="ent{{ ent.pk }}"><a>{{ ent.title }}</a></label><br>
             <a>{% if ent.subtitle %}({{ ent.subtitle}}){% endif %}</a><br>
             {% for dat in ent.data_set.all %}
-                <input type="checkbox" name="datas" id="data{{ dat.pk }}" value="{{ dat.text }}">
+                <input type="checkbox" name="datas" id="data{{ dat.pk }}" value="{{ dat.text }}"
+                            {% if dat in saved %}checked{% endif %}>
                 <label for="data{{ dat.pk }}"><a>{{ dat.text }}</a></label><br>
             {% endfor %}
         {% endfor %}
