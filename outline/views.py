@@ -83,6 +83,7 @@ def section(request, section_no):
         )
 
 
+@permission_required('outline.add_data', 'outline.change_data')
 def entry(request, entry_no):
     try:
         entry = Entry.objects.get(pk=entry_no)

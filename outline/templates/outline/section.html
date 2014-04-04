@@ -19,7 +19,7 @@
         {% else %}
         <h3>{{ ent.title }}
             <div class="entry" id="{{ ent.title }}">
-            {{ent.listed}}</h3>
+            {{ ent.listed|linebreaksbr }}</h3>
             <a href="{% url 'outline.views.entry' ent.pk %}"><b>Edit</b></a>
             </div>
         {% endif %}
