@@ -76,7 +76,9 @@ class Entry(models.Model):
     DISPLAY_CHOICES = (
         ("L", "List"),
         ("D", "Delimited"))
-    display = models.CharField(max_length=1, choices=DISPLAY_CHOICES, default="L")
+    display = models.CharField(max_length=1,
+                               choices=DISPLAY_CHOICES,
+                               default="L")
 
     def __unicode__(self):
         return unicode(self.title)

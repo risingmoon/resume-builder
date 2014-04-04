@@ -72,3 +72,32 @@ class Saved_Entry(models.Model):
     section = models.ForeignKey(Saved_Section)
     entry = models.ForeignKey(Entry)
     dataset = models.ManyToManyField(Data)
+
+    def delimited(self):
+        return ', '.join(
+            [item.text for item in self.dataset.all()])
+
+    def listed(self, char):
+        return '\n'.join(
+            [char + item.text for item in self.dataset.all()])
+
+    def cityState(self):
+        result = self.entry.city
+        if self.entry.state != '':
+            if result != '':
+                result += ', '
+        result += self.entry.state
+        return result
+
+    def date_string(self, num):
+        format = {0: "%B %Y", 1: "%b %Y", 2: "%x"}
+        if self.entry.start_date and self.entry.end_date:
+            dat_str = [
+                self.entry.start_date.strftime(format[num]),
+                self.entry.end_date.strftime(format[num])]
+            return "-".join(dat_str)
+        elif self.entry.start_date and self.entry.present:
+            dat_str = [
+                self.entry.start_date.strftime(format[num]),
+                "Present"]
+            return "-".join(dat_str)
