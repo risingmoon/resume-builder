@@ -19,6 +19,8 @@ def front_view(request):
 
 @login_required
 def home_view(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('front'))
     all_resumes = Resume.objects.all().prefetch_related()
     resumes = all_resumes.filter(user=request.user)
     context = {'resumes': resumes, }
@@ -54,20 +56,8 @@ def resume_view(request, resume_no):
         websites.update({'account%d' % i: accts[i].account})
     sections = Section.objects.filter(user=request.user).prefetch_related()
     if request.method == 'POST':
-        data.update(request.POST)
-        form = ResumeForm(data)
-        form.data['title'] = form.data['title'][0]
-        if form.is_valid():
-            _edit_resume_profile(resume, form)
-            _edit_resume_webs(resume, form, websites)
-            _build_resume_fields(
-                resume,
-                request.user,
-                request.POST.getlist('sections'),
-                request.POST.getlist('entries'),
-                request.POST.getlist('datas')
-            )
-            return HttpResponseRedirect(reverse('home'))
+        _save_resume(request, resume, data, websites)
+        return HttpResponseRedirect(reverse('home'))
     form = ResumeForm(data=data)
     saved = _build_saved(resume)
     return render(
@@ -81,6 +71,22 @@ def resume_view(request, resume_no):
             'saved': saved,
         }
     )
+
+
+def _save_resume(request, resume, data, websites):
+    data.update(request.POST)
+    form = ResumeForm(data)
+    form.data['title'] = form.data['title'][0]
+    if form.is_valid():
+        _edit_resume_profile(resume, form)
+        _edit_resume_webs(resume, form, websites)
+        _build_resume_fields(
+            resume,
+            request.user,
+            request.POST.getlist('sections'),
+            request.POST.getlist('entries'),
+            request.POST.getlist('datas')
+        )
 
 
 def _edit_resume_profile(resume, form):
