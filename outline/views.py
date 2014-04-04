@@ -93,7 +93,10 @@ def entry(request, entry_no):
     if request.method == 'POST':
         form = DataForm(request.POST)
         if form.is_valid():
-            dat = Data(text=form.cleaned_data['text'])
+            dat = Data(
+                text=form.cleaned_data['text'],
+                entry=entry,
+                )
             dat.save()
             return HttpResponseRedirect(reverse(
                 'section',

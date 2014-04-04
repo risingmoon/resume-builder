@@ -5,11 +5,11 @@
 {% block content %}
 <p>Entry Edit page</p>
 
-<form action="{% url 'outline.views.section' section.pk %}" method="post" class="form-horizontal" role="form">{% csrf_token %}
+<form action="{% url 'outline.views.entry' entry.pk %}" method="post" class="form-horizontal" role="form">{% csrf_token %}
 <div class="entry" id="{{ entry.title }}">
     {% if 'D' in entry.display %}
         {% if entry.start_date %}
-    <h3>{{ entrt.title }}: {{entrt.subtitle}}, {{entry.city}}, {{entry.state}}, {{entry.date_string}}</h3>
+    <h3>{{ entry.title }}: {{entry.subtitle}}, {{entry.city}}, {{entry.state}}, {{entry.date_string}}</h3>
         {% else %}
     <h3>{{ entry.title }}: {{entry.delimited}}</h3>
         {% endif %}

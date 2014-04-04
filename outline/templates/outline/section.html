@@ -5,19 +5,22 @@
 {% block content %}
 <p>Section Edit page</p>
 
-<form action="{% url 'outline.views.entry' entry.pk %}" method="post" class="form-horizontal" role="form">{% csrf_token %}
+<form action="{% url 'outline.views.section' section.pk %}" method="post" class="form-horizontal" role="form">{% csrf_token %}
 {% for ent in section.entry_set.all %}
     <div class="entry" id="{{ ent.title }}">
         {% if 'D' in ent.display %}
             {% if ent.start_date %}
         <h3>{{ ent.title }}: {{ent.subtitle}}, {{ent.city}}, {{ent.state}}, {{ent.date_string}}</h3>
+        <a href="{% url 'outline.views.entry' ent.pk %}"><b>Edit</b></a>
             {% else %}
         <h3>{{ ent.title }}: {{ent.delimited}}</h3>
+        <a href="{% url 'outline.views.entry' ent.pk %}"><b>Edit</b></a>
             {% endif %}
         {% else %}
         <h3>{{ ent.title }}
             <div class="entry" id="{{ ent.title }}">
             {{ent.listed}}</h3>
+            <a href="{% url 'outline.views.entry' ent.pk %}"><b>Edit</b></a>
             </div>
         {% endif %}
     </div>
