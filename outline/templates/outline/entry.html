@@ -5,9 +5,33 @@
 {% block content %}
 <p>Entry Edit page</p>
 
-<form action="{% url 'outline.views.entry' pk %}" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save changes"/>
+<form action="{% url 'outline.views.section' section.pk %}" method="post" class="form-horizontal" role="form">{% csrf_token %}
+<div class="entry" id="{{ entry.title }}">
+    {% if 'D' in entry.display %}
+        {% if entry.start_date %}
+    <h3>{{ entrt.title }}: {{entrt.subtitle}}, {{entry.city}}, {{entry.state}}, {{entry.date_string}}</h3>
+        {% else %}
+    <h3>{{ entry.title }}: {{entry.delimited}}</h3>
+        {% endif %}
+    {% else %}
+    <h3>{{ entry.title }}
+        <div class="entry" id="{{ ent.title }}">
+        {{entry.listed}}</h3>
+        </div>
+    {% endif %}
+</div>
+
+<div class="form-group">
+    <div class="col-sm-offset-4 col-sm-4">
+    {{ form.as_p }} 
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Save</button>
+    </div>
+</div>
 </form>
 
 {% endblock %}

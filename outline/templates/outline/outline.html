@@ -33,7 +33,7 @@
         <p class="section description">{{sect.description}}<p>
         {% endif %}
             {% for ent in sect.entry_set.all %}
-                <div class="entry" id="{{ sect.title }}">
+                <div class="entry" id="{{ ent.title }}">
                     {% if 'D' in ent.display %}
                         {% if ent.start_date %}
                     <h3>{{ ent.title }}: {{ent.subtitle}}, {{ent.city}}, {{ent.state}}, {{ent.date_string}}</h3>
@@ -42,7 +42,7 @@
                         {% endif %}
                     {% else %}
                     <h3>{{ ent.title }}
-                        <div class="entry" id="{{ sect.title }}">
+                        <div class="entry" id="{{ ent.title }}">
                         {{ent.listed}}</h3>
                         </div>
                     {% endif %}
