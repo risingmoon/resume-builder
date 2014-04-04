@@ -55,7 +55,7 @@ class Web(models.Model):
 
 class Section(models.Model):
     title = models.CharField(max_length=50)
-    description = models.CharField(max_length=50, blank=True)
+    description = models.TextField(max_length=50, blank=True)
     user = models.ForeignKey(User)
 
     def __unicode__(self):
@@ -72,15 +72,16 @@ class Entry(models.Model):
     state = models.CharField(max_length=50, blank=True)
     contact = models.CharField(max_length=50, blank=True)
     #Change to TextField
-    description = models.CharField(max_length=50, blank=True)
+    description = models.TextField(max_length=50, blank=True)
     section = models.ForeignKey('Section')
     #Add NULL SECTION
     DISPLAY_CHOICES = (
+        ("N", "Neither"),
         ("L", "List"),
         ("D", "Delimited"))
     display = models.CharField(max_length=1,
                                choices=DISPLAY_CHOICES,
-                               default="L")
+                               default="N")
 
     def __unicode__(self):
         return unicode(self.title)
