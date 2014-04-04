@@ -10,17 +10,14 @@
     <div class="entry" id="{{ ent.title }}">
         {% if 'D' in ent.display %}
             {% if ent.start_date %}
-        <h3>{{ ent.title }}: {{ent.subtitle}}, {{ent.city}}, {{ent.state}}, {{ent.date_string}}</h3>
-        <a href="{% url 'outline.views.entry' ent.pk %}"><b>Edit</b></a>
+        <h3><a href="{% url 'outline.views.entry' ent.pk %}">{{ ent.title }}</a>: {{ent.subtitle}}, {{ent.city}}, {{ent.state}}, {{ent.date_string}}</h3>
             {% else %}
-        <h3>{{ ent.title }}: {{ent.delimited}}</h3>
-        <a href="{% url 'outline.views.entry' ent.pk %}"><b>Edit</b></a>
+        <h3><a href="{% url 'outline.views.entry' ent.pk %}">{{ ent.title }}</a>: {{ent.delimited}}</h3>
             {% endif %}
         {% else %}
-        <h3>{{ ent.title }}
+        <h3><a href="{% url 'outline.views.entry' ent.pk %}">{{ ent.title }}</a>
             <div class="entry" id="{{ ent.title }}">
             {{ ent.listed|linebreaksbr }}</h3>
-            <a href="{% url 'outline.views.entry' ent.pk %}"><b>Edit</b></a>
             </div>
         {% endif %}
     </div>

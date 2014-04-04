@@ -46,6 +46,7 @@
             <li class="active"><a href="{% url 'resume_storage.views.home_view' %}">Home</a></li>
             <li><a href="{% url 'outline.views.profile' %}">Profile</a></li>
             <li><a href="{% url 'outline.views.outline' %}">Outline</a></li>
+            <li><a href="{% url 'resume_storage.views.create_resume' %}">New Resume</a></li>
             {% block menu %}
             {% endblock %}
             <li><a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
