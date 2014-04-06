@@ -2,6 +2,8 @@ from django.test import TestCase
 from outline.models import Section, Entry, Data
 from models import Resume, Resume_Web, Saved_Section, Saved_Entry
 from django.contrib.auth.models import User
+from django.test import Client
+from django.core.urlresolvers import reverse
 
 
 class ResumeStorageTestCase(TestCase):
@@ -65,3 +67,17 @@ class ResumeStorageTestCase(TestCase):
             assert eachSection.section in fieldDict.keys()
             for eachEntry in Saved_Entry.objects.filter(section=eachSection):
                 assert eachEntry.entry in fieldDict[eachSection.section].keys()
+
+
+class TestViews(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.client.login(username='admin', password='admin')
+
+    def tearDown(self):
+        self.client.logout()
+
+    def test_front_logged_out(self):
+        self.client.logout()
+        resp = self.client.get(reverse('index'))
+        self.assertContains(resp, 'Resume Storage Front page')
