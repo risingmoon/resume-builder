@@ -74,7 +74,7 @@ class TestViews(TestCase):
 
     def setUp(self):
         self.client = Client()
-        print self.client.login(username='tester', password='test')
+        self.client.login(username='admin', password='admin')
 
     def tearDown(self):
         self.client.logout()
@@ -87,3 +87,22 @@ class TestViews(TestCase):
     def test_front_logged_in(self):
         resp = self.client.get(reverse('index'), follow=True)
         self.assertContains(resp, 'Print this resume')
+
+    def test_home_logged_out(self):
+        self.client.logout()
+        resp = self.client.get(reverse('home'), follow=True)
+        self.assertContains(resp, 'Please log in')
+
+    def test_home_logged_in(self):
+        resp = self.client.get(reverse('home'))
+        self.assertContains(resp, 'Print this resume')
+
+    def test_create(self):
+        resp = self.client.get(reverse('create_resume'), follow=True)
+        self.assertContains(resp, 'Edit Resume')
+        Resume.objects.get(pk=43)
+
+    def test_resume_view(self):
+        resp = self.client.get(reverse('resume_view', args=(40,)), follow=True)
+        self.assertContains(resp, 'New Resume')
+        self.assertContains(resp, 'Joseph')
