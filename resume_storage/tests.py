@@ -70,6 +70,8 @@ class ResumeStorageTestCase(TestCase):
 
 
 class TestViews(TestCase):
+    fixtures = ['test_fixture.json', ]
+
     def setUp(self):
         self.client = Client()
         self.client.login(username='admin', password='admin')
@@ -81,3 +83,8 @@ class TestViews(TestCase):
         self.client.logout()
         resp = self.client.get(reverse('index'))
         self.assertContains(resp, 'Resume Storage Front page')
+
+    def test_front_logged_in(self):
+        resp = self.client.get(reverse('index'), follow=True)
+        print str(resp)
+        self.assertContains(resp, 'Print this resume')

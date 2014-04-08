@@ -8,31 +8,31 @@
 {% endblock %}
 {% block content %}
 {% if resumes %}
-<div class="starter-template">
-  <h1>Resume Storage</h1>
-  <p class="lead">This is where we will store our resume templates.</p>
-</div>
+  <div class="starter-template">
+    <h1>Resume Storage</h1>
+    <p class="lead">This is where we will store our resume templates.</p>
+  </div>
 
-{% for resume in resumes %}
-    <div class="col-md-2 resume"> 
-        {% if resume.title %}
-        <p>{{ resume.title }}</p>
-        {% else %}
-        <p>Untitled</p>
-        {% endif %}
-        <a href="{% url 'resume_storage.views.resume_view' resume.pk %}">
-        <img src="{% static "outline/images/document-icon.png" %}" alt="resume" width="100"/></a>
-        <a href="{% url 'resume_storage.views.print_resume' resume.pk %}">Print this resume</a>
-        {# FIX: USE CHECKBOX #}
-        <a href="{% url 'resume_storage.views.delete_resume' resume.pk %}">Delete this resume</a>
-    </div>
-{% endfor %}
-{% else %}
-<div class="starter-template">
-  <h1>Started</h1>
-  <p class="lead">You don't have any resumes, so let's get you started!</p>
-  <p> Start by clicking on the "Profile" on the top naviation window</p>
-</div>
+  {% for resume in resumes %}
+      <div class="col-md-2 resume"> 
+          {% if resume.title %}
+          <p>{{ resume.title }}</p>
+          {% else %}
+          <p>Untitled</p>
+          {% endif %}
+          <a href="{% url 'resume_storage.views.resume_view' resume.pk %}">
+          <img src="{% static "outline/images/document-icon.png" %}" alt="resume" width="100"/></a>
+          <a href="{% url 'resume_storage.views.print_resume' resume.pk %}">Print this resume</a>
+          {# FIX: USE CHECKBOX #}
+          <a href="{% url 'resume_storage.views.delete_resume' resume.pk %}">Delete this resume</a>
+      </div>
+  {% endfor %}
+  {% else %}
+  <div class="starter-template">
+    <h1>Started</h1>
+    <p class="lead">You don't have any resumes, so let's get you started!</p>
+    <p> Start by clicking on the "Profile" on the top naviation window</p>
+  </div>
 
 {% endif %}
 
