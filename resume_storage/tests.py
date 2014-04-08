@@ -1,9 +1,10 @@
 from django.test import TestCase
 from outline.models import Section, Entry, Data
 from models import Resume, Saved_Section, Saved_Entry
-from django.contrib.auth.models import User, Group, Permission
+from django.contrib.auth.models import User
 from django.test import Client
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseForbidden, HttpResponseNotFound
 
 
 class ResumeStorageTestCase(TestCase):
@@ -106,3 +107,11 @@ class TestViews(TestCase):
         resp = self.client.get(reverse('resume_view', args=(40,)), follow=True)
         self.assertContains(resp, 'New Resume')
         self.assertContains(resp, 'Joseph')
+
+    def test_other_users_resume(self):
+        resp = self.client.get(reverse('resume_view', args=(36,)), follow=True)
+        self.assertIsInstance(resp, HttpResponseForbidden)
+
+    def test_no_resume(self):
+        resp = self.client.get(reverse('resume_view', args=(45,)), follow=True)
+        self.assertIsInstance(resp, HttpResponseNotFound)
