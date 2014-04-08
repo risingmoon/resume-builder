@@ -1,7 +1,7 @@
 from django.test import TestCase
 from outline.models import Section, Entry, Data
-from models import Resume, Resume_Web, Saved_Section, Saved_Entry
-from django.contrib.auth.models import User
+from models import Resume, Saved_Section, Saved_Entry
+from django.contrib.auth.models import User, Group, Permission
 from django.test import Client
 from django.core.urlresolvers import reverse
 
@@ -74,7 +74,7 @@ class TestViews(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.client.login(username='admin', password='admin')
+        print self.client.login(username='tester', password='test')
 
     def tearDown(self):
         self.client.logout()
@@ -86,5 +86,4 @@ class TestViews(TestCase):
 
     def test_front_logged_in(self):
         resp = self.client.get(reverse('index'), follow=True)
-        print str(resp)
         self.assertContains(resp, 'Print this resume')

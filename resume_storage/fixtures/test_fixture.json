@@ -1,1 +1,905 @@
-[{"pk": 1, "model": "auth.group", "fields": {"name": "Activated", "permissions": [34, 35, 36, 31, 32, 33, 49, 50, 51, 28, 29, 30, 22, 23, 24, 37, 38, 39, 52, 53, 54, 43, 44, 45, 40, 41, 42]}}, {"pk": 1, "model": "auth.user", "fields": {"username": "admin", "first_name": "", "last_name": "", "is_active": true, "is_superuser": true, "is_staff": true, "last_login": "2014-04-04T04:09:25.647", "groups": [], "user_permissions": [], "password": "pbkdf2_sha256$12000$OqO4ArmljJiP$4CJfpuIhevQfykXWXRRuDW6LlHYlGmR5R4k96b9Jo6s=", "email": "markcharyk@gmail.com", "date_joined": "2014-03-31T21:32:07.787"}}, {"pk": 2, "model": "auth.user", "fields": {"username": "mark", "first_name": "", "last_name": "", "is_active": true, "is_superuser": false, "is_staff": false, "last_login": "2014-04-01T21:40:05.953", "groups": [], "user_permissions": [], "password": "pbkdf2_sha256$12000$ik2eWUscekJT$mV0bLPqYvcFLeeRVucxX1I6xmEMCBLFDWvgV3DhhTo8=", "email": "markcharyk@gmail.com", "date_joined": "2014-04-01T01:59:31.138"}}, {"pk": 3, "model": "auth.user", "fields": {"username": "justin", "first_name": "", "last_name": "", "is_active": true, "is_superuser": false, "is_staff": false, "last_login": "2014-04-01T22:11:22.180", "groups": [], "user_permissions": [], "password": "pbkdf2_sha256$12000$kZaPASbOiAl7$NNYphUENWEZKyZCBBofP8c7n+wFnL46pq1KFZVoD7ic=", "email": "testtest@test.test", "date_joined": "2014-04-01T22:08:12.611"}}, {"pk": 7, "model": "auth.user", "fields": {"username": "tester", "first_name": "", "last_name": "", "is_active": true, "is_superuser": false, "is_staff": false, "last_login": "2014-04-04T03:51:56.070", "groups": [1], "user_permissions": [], "password": "pbkdf2_sha256$12000$AOMOGdRHoc5H$ARagFZvFRL1Dr69jX4+sYpU3LeSSr09HjQiBrZWajV4=", "email": "test@testytest.com", "date_joined": "2014-04-02T01:51:09.444"}}, {"pk": 8, "model": "auth.user", "fields": {"username": "tester2", "first_name": "", "last_name": "", "is_active": true, "is_superuser": false, "is_staff": false, "last_login": "2014-04-03T15:59:35.609", "groups": [1], "user_permissions": [], "password": "pbkdf2_sha256$12000$tZamzGhK8wcO$pNaq/AYGX6etXXGpyDx6T/lSpR9Pz1Slkf/ihB8j2ho=", "email": "test@testytest.com", "date_joined": "2014-04-03T15:59:15.294"}}, {"pk": "oqea9vjj0sx0nu8wsixj2jtjzhcrf71b", "model": "sessions.session", "fields": {"expire_date": "2014-04-18T04:09:25.671", "session_data": "Yzg5NmJjZjEwZTliOGNjNjcwYTM5N2IzODYyYmQ5NWZkOWFhZjg5NDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0="}}, {"pk": "yguguq5wzuqocupvloqbrhe1mt9kiju7", "model": "sessions.session", "fields": {"expire_date": "2014-04-15T17:22:46.921", "session_data": "MGQxOTNiZWRhYmQ5MmUxOTk2YTUyOGY2NTAyNWJlMGVkZmZkN2FjODp7fQ=="}}, {"pk": 1, "model": "south.migrationhistory", "fields": {"applied": "2014-03-31T22:05:46.541", "app_name": "outline", "migration": "0001_initial"}}, {"pk": 2, "model": "south.migrationhistory", "fields": {"applied": "2014-03-31T22:06:21.923", "app_name": "resume_storage", "migration": "0001_initial"}}, {"pk": 3, "model": "south.migrationhistory", "fields": {"applied": "2014-04-01T16:37:19.137", "app_name": "resume_storage", "migration": "0002_auto__add_field_resume_user__chg_field_resume_header__add_unique_resum"}}, {"pk": 4, "model": "south.migrationhistory", "fields": {"applied": "2014-04-01T21:37:55.872", "app_name": "outline", "migration": "0002_auto__del_header__add_profile"}}, {"pk": 5, "model": "south.migrationhistory", "fields": {"applied": "2014-04-01T21:38:09.113", "app_name": "resume_storage", "migration": "0003_auto__add_resume_web__del_field_resume_header__add_field_resume_first_"}}, {"pk": 6, "model": "south.migrationhistory", "fields": {"applied": "2014-04-02T16:23:50.723", "app_name": "outline", "migration": "0003_auto__chg_field_profile_city__chg_field_profile_middle_name__chg_field"}}, {"pk": 7, "model": "south.migrationhistory", "fields": {"applied": "2014-04-02T17:50:57.633", "app_name": "outline", "migration": "0004_auto__chg_field_profile_user__add_unique_profile_user__add_field_web_p"}}, {"pk": 2, "model": "outline.profile", "fields": {"city": "Seattle", "first_name": "Mark", "last_name": "Charyk", "middle_name": "Joseph", "address1": "4040 26th Ave SW", "address2": "105", "fax": "", "zipcode": "98106", "cell": "(509) 499-6577", "state": "Washington", "user": 1, "home": "(509) 499-6577", "region": "Greater Seatle", "email": "markcharyk@gmail.com"}}, {"pk": 7, "model": "outline.profile", "fields": {"city": "", "first_name": "tester", "last_name": "Testerman", "middle_name": "middle", "address1": "This should be here", "address2": "Hi", "fax": "", "zipcode": "77777", "cell": "", "state": "", "user": 7, "home": "", "region": "", "email": "test@testytest.com"}}, {"pk": 8, "model": "outline.profile", "fields": {"city": "", "first_name": "tester2", "last_name": "LastName", "middle_name": "", "address1": "", "address2": "", "fax": "", "zipcode": "", "cell": "", "state": "", "user": 8, "home": "", "region": "", "email": "test@testytest.com"}}, {"pk": 1, "model": "outline.web", "fields": {"profile": 7, "account": "www.testerweb.com"}}, {"pk": 3, "model": "outline.web", "fields": {"profile": 2, "account": "www.markcharyk.com"}}, {"pk": 6, "model": "outline.web", "fields": {"profile": 7, "account": "anothertest.com"}}, {"pk": 12, "model": "outline.web", "fields": {"profile": 2, "account": "www.github.com/markcharyk"}}, {"pk": 14, "model": "outline.web", "fields": {"profile": 2, "account": "www.linkedin.com/i/markcharyk"}}, {"pk": 1, "model": "outline.section", "fields": {"user": 7, "description": "A section for testing of stuff", "title": "Test Section"}}, {"pk": 2, "model": "outline.section", "fields": {"user": 7, "description": "Another section for testing", "title": "Other Section"}}, {"pk": 3, "model": "outline.section", "fields": {"user": 1, "description": "Some jobs I did", "title": "Work Experience"}}, {"pk": 4, "model": "outline.section", "fields": {"user": 1, "description": "Some schooling I did", "title": "Education"}}, {"pk": 5, "model": "outline.section", "fields": {"user": 1, "description": "Stuff I'm relatively good at", "title": "Skills"}}, {"pk": 6, "model": "outline.section", "fields": {"user": 1, "description": "", "title": "Certifications"}}, {"pk": 1, "model": "outline.entry", "fields": {"city": "", "subtitle": "An entry for testing", "description": "", "end_date": null, "title": "Test Entry", "section": 1, "display": "L", "state": "", "contact": "", "start_date": null, "present": null}}, {"pk": 2, "model": "outline.entry", "fields": {"city": "", "subtitle": "", "description": "", "end_date": null, "title": "Other Entry", "section": 2, "display": "L", "state": "", "contact": "", "start_date": null, "present": null}}, {"pk": 3, "model": "outline.entry", "fields": {"city": "", "subtitle": "", "description": "I did so much damn coding", "end_date": null, "title": "CodeFellows", "section": 4, "display": "D", "state": "", "contact": "", "start_date": null, "present": null}}, {"pk": 4, "model": "outline.entry", "fields": {"city": "Evanston", "subtitle": "Such prestige", "description": "I met my wife while I was there", "end_date": null, "title": "Northwestern University", "section": 4, "display": "L", "state": "Illinois", "contact": "", "start_date": null, "present": null}}, {"pk": 6, "model": "outline.entry", "fields": {"city": "", "subtitle": "Blerg", "description": "", "end_date": null, "title": "Landon IP", "section": 3, "display": "L", "state": "", "contact": "", "start_date": null, "present": null}}, {"pk": 7, "model": "outline.entry", "fields": {"city": "", "subtitle": "A little better", "description": "", "end_date": null, "title": "Cardinal IP", "section": 3, "display": "L", "state": "", "contact": "", "start_date": null, "present": null}}, {"pk": 9, "model": "outline.entry", "fields": {"city": "", "subtitle": "", "description": "Registered to practice in front of the USPTO", "end_date": null, "title": "USPTO Registration", "section": 6, "display": "D", "state": "", "contact": "", "start_date": null, "present": null}}, {"pk": 10, "model": "outline.entry", "fields": {"city": "", "subtitle": "Certification in badassery", "description": "", "end_date": null, "title": "Badass", "section": 6, "display": "L", "state": "", "contact": "", "start_date": null, "present": true}}, {"pk": 1, "model": "outline.data", "fields": {"text": "Test Data 1", "entry": 1}}, {"pk": 2, "model": "outline.data", "fields": {"text": "Test Data 2", "entry": 1}}, {"pk": 3, "model": "outline.data", "fields": {"text": "Test Data 3", "entry": 1}}, {"pk": 4, "model": "outline.data", "fields": {"text": "Did some patents and stuff", "entry": 6}}, {"pk": 5, "model": "outline.data", "fields": {"text": "Working remotely", "entry": 6}}, {"pk": 6, "model": "outline.data", "fields": {"text": "Python", "entry": 3}}, {"pk": 7, "model": "outline.data", "fields": {"text": "CSS Suxxx", "entry": 3}}, {"pk": 9, "model": "outline.data", "fields": {"text": "67620", "entry": 9}}, {"pk": 10, "model": "outline.data", "fields": {"text": "Took a level as well", "entry": 10}}, {"pk": 6, "model": "resume_storage.resume", "fields": {"city": "Somewhere", "first_name": "Test", "last_name": "Er", "middle_name": "", "title": "TestResume", "address1": "", "address2": "", "fax": "", "zipcode": "98106", "cell": "", "state": "", "user": 7, "home": "", "region": "", "email": "test@testytest.com"}}, {"pk": 36, "model": "resume_storage.resume", "fields": {"city": "", "first_name": "tester", "last_name": "Testerman", "middle_name": "middle", "title": "New Resume", "address1": "This should be here", "address2": "Hi", "fax": "", "zipcode": "77777", "cell": "", "state": "", "user": 7, "home": "", "region": "", "email": "test@testytest.com"}}, {"pk": 39, "model": "resume_storage.resume", "fields": {"city": "", "first_name": "Mark", "last_name": "Charyk", "middle_name": "", "title": "New Resume", "address1": "", "address2": "", "fax": "", "zipcode": "", "cell": "", "state": "", "user": 1, "home": "", "region": "", "email": ""}}, {"pk": 40, "model": "resume_storage.resume", "fields": {"city": "Seattle", "first_name": "Mark", "last_name": "Charyk", "middle_name": "Joseph", "title": "New Resume", "address1": "4040 26th Ave SW", "address2": "105", "fax": "", "zipcode": "98106", "cell": "(509) 499-6577", "state": "Washington", "user": 1, "home": "(509) 499-6577", "region": "Greater Seatle", "email": "markcharyk@gmail.com"}}, {"pk": 41, "model": "resume_storage.resume", "fields": {"city": "Seattle", "first_name": "Mark", "last_name": "Charyk", "middle_name": "Joseph", "title": "New Resume", "address1": "4040 26th Ave SW", "address2": "105", "fax": "", "zipcode": "98106", "cell": "(509) 499-6577", "state": "Washington", "user": 1, "home": "(509) 499-6577", "region": "Greater Seatle", "email": "markcharyk@gmail.com"}}, {"pk": 42, "model": "resume_storage.resume", "fields": {"city": "Seattle", "first_name": "Mark", "last_name": "Charyk", "middle_name": "Joseph", "title": "New Resume", "address1": "4040 26th Ave SW", "address2": "105", "fax": "", "zipcode": "98106", "cell": "(509) 499-6577", "state": "Washington", "user": 1, "home": "(509) 499-6577", "region": "Greater Seatle", "email": "markcharyk@gmail.com"}}, {"pk": 15, "model": "resume_storage.resume_web", "fields": {"account": "www.testerweb.com", "resume": 36}}, {"pk": 16, "model": "resume_storage.resume_web", "fields": {"account": "anothertest.com", "resume": 36}}, {"pk": 21, "model": "resume_storage.resume_web", "fields": {"account": "www.markcharyk.com", "resume": 40}}, {"pk": 22, "model": "resume_storage.resume_web", "fields": {"account": "www.github.com/markcharyk", "resume": 40}}, {"pk": 23, "model": "resume_storage.resume_web", "fields": {"account": "www.markcharyk.com", "resume": 41}}, {"pk": 24, "model": "resume_storage.resume_web", "fields": {"account": "www.github.com/markcharyk", "resume": 41}}, {"pk": 25, "model": "resume_storage.resume_web", "fields": {"account": "www.linkedin.com/i/markcharyk", "resume": 41}}, {"pk": 26, "model": "resume_storage.resume_web", "fields": {"account": "www.markcharyk.com", "resume": 42}}, {"pk": 27, "model": "resume_storage.resume_web", "fields": {"account": "www.github.com/markcharyk", "resume": 42}}, {"pk": 28, "model": "resume_storage.resume_web", "fields": {"account": "www.linkedin.com/i/markcharyk", "resume": 42}}, {"pk": 33, "model": "resume_storage.saved_section", "fields": {"section": 1, "resume": 6}}, {"pk": 40, "model": "resume_storage.saved_section", "fields": {"section": 1, "resume": 36}}, {"pk": 41, "model": "resume_storage.saved_section", "fields": {"section": 2, "resume": 36}}, {"pk": 63, "model": "resume_storage.saved_section", "fields": {"section": 3, "resume": 40}}, {"pk": 64, "model": "resume_storage.saved_section", "fields": {"section": 4, "resume": 40}}, {"pk": 65, "model": "resume_storage.saved_section", "fields": {"section": 5, "resume": 40}}, {"pk": 66, "model": "resume_storage.saved_section", "fields": {"section": 6, "resume": 40}}, {"pk": 74, "model": "resume_storage.saved_section", "fields": {"section": 3, "resume": 39}}, {"pk": 75, "model": "resume_storage.saved_section", "fields": {"section": 4, "resume": 39}}, {"pk": 76, "model": "resume_storage.saved_section", "fields": {"section": 5, "resume": 39}}, {"pk": 77, "model": "resume_storage.saved_section", "fields": {"section": 6, "resume": 39}}, {"pk": 29, "model": "resume_storage.saved_entry", "fields": {"entry": 1, "section": 40, "dataset": [1, 3]}}, {"pk": 30, "model": "resume_storage.saved_entry", "fields": {"entry": 2, "section": 41, "dataset": []}}, {"pk": 60, "model": "resume_storage.saved_entry", "fields": {"entry": 6, "section": 63, "dataset": [4, 5]}}, {"pk": 61, "model": "resume_storage.saved_entry", "fields": {"entry": 7, "section": 63, "dataset": []}}, {"pk": 62, "model": "resume_storage.saved_entry", "fields": {"entry": 3, "section": 64, "dataset": [6, 7]}}, {"pk": 63, "model": "resume_storage.saved_entry", "fields": {"entry": 4, "section": 64, "dataset": []}}, {"pk": 64, "model": "resume_storage.saved_entry", "fields": {"entry": 9, "section": 66, "dataset": [9]}}, {"pk": 65, "model": "resume_storage.saved_entry", "fields": {"entry": 10, "section": 66, "dataset": []}}, {"pk": 76, "model": "resume_storage.saved_entry", "fields": {"entry": 6, "section": 74, "dataset": [4, 5]}}, {"pk": 77, "model": "resume_storage.saved_entry", "fields": {"entry": 7, "section": 74, "dataset": []}}, {"pk": 78, "model": "resume_storage.saved_entry", "fields": {"entry": 3, "section": 75, "dataset": [6, 7]}}, {"pk": 79, "model": "resume_storage.saved_entry", "fields": {"entry": 4, "section": 75, "dataset": []}}, {"pk": 80, "model": "resume_storage.saved_entry", "fields": {"entry": 9, "section": 77, "dataset": [9]}}, {"pk": 81, "model": "resume_storage.saved_entry", "fields": {"entry": 10, "section": 77, "dataset": []}}, {"pk": 1, "model": "registration.registrationprofile", "fields": {"activation_key": "ALREADY_ACTIVATED", "user": 2}}, {"pk": 2, "model": "registration.registrationprofile", "fields": {"activation_key": "ALREADY_ACTIVATED", "user": 3}}, {"pk": 6, "model": "registration.registrationprofile", "fields": {"activation_key": "ALREADY_ACTIVATED", "user": 7}}, {"pk": 7, "model": "registration.registrationprofile", "fields": {"activation_key": "ALREADY_ACTIVATED", "user": 8}}, {"pk": 2, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-01T18:42:46.160", "object_repr": "Resume object", "object_id": "1", "change_message": "", "user": 1, "content_type": 13}}, {"pk": 3, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-01T19:23:25.559", "object_repr": "Resume object", "object_id": "2", "change_message": "", "user": 1, "content_type": 13}}, {"pk": 4, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-01T19:30:33.986", "object_repr": "Resume object", "object_id": "3", "change_message": "", "user": 1, "content_type": 13}}, {"pk": 6, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-01T19:31:58.194", "object_repr": "Resume object", "object_id": "4", "change_message": "", "user": 1, "content_type": 13}}, {"pk": 7, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-01T22:09:55.223", "object_repr": "Resume object", "object_id": "5", "change_message": "", "user": 1, "content_type": 13}}, {"pk": 8, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-01T22:54:02.380", "object_repr": "Profile object", "object_id": "2", "change_message": "", "user": 1, "content_type": 17}}, {"pk": 9, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T01:13:19.288", "object_repr": "Activated", "object_id": "1", "change_message": "", "user": 1, "content_type": 3}}, {"pk": 10, "model": "admin.logentry", "fields": {"action_flag": 3, "action_time": "2014-04-02T01:40:03.754", "object_repr": " ", "object_id": "4", "change_message": "", "user": 1, "content_type": 17}}, {"pk": 11, "model": "admin.logentry", "fields": {"action_flag": 3, "action_time": "2014-04-02T01:40:04.121", "object_repr": " ", "object_id": "3", "change_message": "", "user": 1, "content_type": 17}}, {"pk": 12, "model": "admin.logentry", "fields": {"action_flag": 3, "action_time": "2014-04-02T01:41:19.345", "object_repr": "newuser", "object_id": "4", "change_message": "", "user": 1, "content_type": 4}}, {"pk": 13, "model": "admin.logentry", "fields": {"action_flag": 3, "action_time": "2014-04-02T01:50:26.799", "object_repr": "tester2 ", "object_id": "6", "change_message": "", "user": 1, "content_type": 17}}, {"pk": 14, "model": "admin.logentry", "fields": {"action_flag": 3, "action_time": "2014-04-02T01:50:27.248", "object_repr": "tester2 ", "object_id": "5", "change_message": "", "user": 1, "content_type": 17}}, {"pk": 15, "model": "admin.logentry", "fields": {"action_flag": 3, "action_time": "2014-04-02T01:50:43.482", "object_repr": "tester", "object_id": "5", "change_message": "", "user": 1, "content_type": 4}}, {"pk": 16, "model": "admin.logentry", "fields": {"action_flag": 3, "action_time": "2014-04-02T01:50:44.252", "object_repr": "tester2", "object_id": "6", "change_message": "", "user": 1, "content_type": 4}}, {"pk": 17, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T03:50:08.111", "object_repr": "Resume object", "object_id": "6", "change_message": "", "user": 1, "content_type": 13}}, {"pk": 18, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T04:03:27.168", "object_repr": "Test Section", "object_id": "1", "change_message": "", "user": 1, "content_type": 10}}, {"pk": 19, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T04:03:44.047", "object_repr": "Saved_Section object", "object_id": "1", "change_message": "", "user": 1, "content_type": 14}}, {"pk": 20, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T16:27:55.952", "object_repr": "Test Entry", "object_id": "1", "change_message": "", "user": 1, "content_type": 11}}, {"pk": 21, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T16:28:47.933", "object_repr": "Data object", "object_id": "1", "change_message": "", "user": 1, "content_type": 12}}, {"pk": 22, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T16:28:55.068", "object_repr": "Data object", "object_id": "2", "change_message": "", "user": 1, "content_type": 12}}, {"pk": 23, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T16:29:02.021", "object_repr": "Data object", "object_id": "3", "change_message": "", "user": 1, "content_type": 12}}, {"pk": 24, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T16:29:56.729", "object_repr": "Saved_Entry object", "object_id": "1", "change_message": "", "user": 1, "content_type": 15}}, {"pk": 25, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T17:59:21.271", "object_repr": "Web object", "object_id": "1", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 26, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T17:59:44.350", "object_repr": "Web object", "object_id": "2", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 27, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T17:59:53.072", "object_repr": "Web object", "object_id": "3", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 28, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T20:11:27.738", "object_repr": "Web object", "object_id": "7", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 29, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T20:11:34.795", "object_repr": "Web object", "object_id": "8", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 30, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T20:11:41.297", "object_repr": "Web object", "object_id": "9", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 31, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-02T20:11:47.954", "object_repr": "Web object", "object_id": "10", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 32, "model": "admin.logentry", "fields": {"action_flag": 3, "action_time": "2014-04-02T21:31:59.101", "object_repr": "Resume object", "object_id": "8", "change_message": "", "user": 1, "content_type": 13}}, {"pk": 33, "model": "admin.logentry", "fields": {"action_flag": 2, "action_time": "2014-04-03T04:48:53.520", "object_repr": "Resume object", "object_id": "24", "change_message": "Changed title.", "user": 1, "content_type": 13}}, {"pk": 34, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-03T20:11:33.281", "object_repr": "Other Section", "object_id": "2", "change_message": "", "user": 1, "content_type": 10}}, {"pk": 35, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-03T20:13:08.004", "object_repr": "Other Entry", "object_id": "2", "change_message": "", "user": 1, "content_type": 11}}, {"pk": 36, "model": "admin.logentry", "fields": {"action_flag": 2, "action_time": "2014-04-03T20:35:50.786", "object_repr": "Saved_Section object", "object_id": "1", "change_message": "No fields changed.", "user": 1, "content_type": 14}}, {"pk": 37, "model": "admin.logentry", "fields": {"action_flag": 3, "action_time": "2014-04-03T20:36:23.425", "object_repr": "Resume object", "object_id": "31", "change_message": "", "user": 1, "content_type": 13}}, {"pk": 38, "model": "admin.logentry", "fields": {"action_flag": 3, "action_time": "2014-04-03T20:36:28.352", "object_repr": "Resume object", "object_id": "24", "change_message": "", "user": 1, "content_type": 13}}, {"pk": 39, "model": "admin.logentry", "fields": {"action_flag": 3, "action_time": "2014-04-03T20:36:37.339", "object_repr": "Resume object", "object_id": "12", "change_message": "", "user": 1, "content_type": 13}}, {"pk": 40, "model": "admin.logentry", "fields": {"action_flag": 2, "action_time": "2014-04-03T20:36:53.063", "object_repr": "Saved_Section object", "object_id": "1", "change_message": "No fields changed.", "user": 1, "content_type": 14}}, {"pk": 41, "model": "admin.logentry", "fields": {"action_flag": 2, "action_time": "2014-04-03T20:37:45.116", "object_repr": "Saved_Entry object", "object_id": "1", "change_message": "No fields changed.", "user": 1, "content_type": 15}}, {"pk": 42, "model": "admin.logentry", "fields": {"action_flag": 2, "action_time": "2014-04-04T04:11:45.912", "object_repr": "Other Section", "object_id": "2", "change_message": "No fields changed.", "user": 1, "content_type": 10}}, {"pk": 43, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-04T04:12:04.624", "object_repr": "Work Experience", "object_id": "3", "change_message": "", "user": 1, "content_type": 10}}, {"pk": 44, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-04T04:12:24.073", "object_repr": "Education", "object_id": "4", "change_message": "", "user": 1, "content_type": 10}}, {"pk": 45, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-04T04:13:35.330", "object_repr": "CodeFellows", "object_id": "3", "change_message": "", "user": 1, "content_type": 11}}, {"pk": 46, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-04T04:14:35.193", "object_repr": "Northwestern University", "object_id": "4", "change_message": "", "user": 1, "content_type": 11}}, {"pk": 47, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-04T04:14:36.068", "object_repr": "Northwestern University", "object_id": "5", "change_message": "", "user": 1, "content_type": 11}}, {"pk": 48, "model": "admin.logentry", "fields": {"action_flag": 3, "action_time": "2014-04-04T04:14:49.484", "object_repr": "Northwestern University", "object_id": "5", "change_message": "", "user": 1, "content_type": 11}}, {"pk": 49, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-04T04:15:23.954", "object_repr": "Landon IP", "object_id": "6", "change_message": "", "user": 1, "content_type": 11}}, {"pk": 50, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-04T04:16:01.186", "object_repr": "Cardinal IP", "object_id": "7", "change_message": "", "user": 1, "content_type": 11}}, {"pk": 51, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-04T04:16:39.282", "object_repr": "Data object", "object_id": "4", "change_message": "", "user": 1, "content_type": 12}}, {"pk": 52, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-04T04:17:22.616", "object_repr": "Data object", "object_id": "5", "change_message": "", "user": 1, "content_type": 12}}, {"pk": 53, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-04T04:17:42.953", "object_repr": "Data object", "object_id": "6", "change_message": "", "user": 1, "content_type": 12}}, {"pk": 54, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-04T04:18:01.209", "object_repr": "Data object", "object_id": "7", "change_message": "", "user": 1, "content_type": 12}}, {"pk": 55, "model": "admin.logentry", "fields": {"action_flag": 2, "action_time": "2014-04-04T04:18:24.785", "object_repr": "CodeFellows", "object_id": "3", "change_message": "Changed display.", "user": 1, "content_type": 11}}, {"pk": 56, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2014-04-04T16:05:13.597", "object_repr": "Resume object", "object_id": "39", "change_message": "", "user": 1, "content_type": 13}}]
+[
+{
+    "pk": 1, 
+    "model": "outline.web", 
+    "fields": {
+        "profile": 7, 
+        "account": "www.testerweb.com"
+    }
+},
+{
+    "pk": 3, 
+    "model": "outline.web", 
+    "fields": {
+        "profile": 2, 
+        "account": "www.markcharyk.com"
+    }
+},
+{
+    "pk": 6, 
+    "model": "outline.web", 
+    "fields": {
+        "profile": 7, 
+        "account": "anothertest.com"
+    }
+},
+{
+    "pk": 12, 
+    "model": "outline.web", 
+    "fields": {
+        "profile": 2, 
+        "account": "www.github.com/markcharyk"
+    }
+},
+{
+    "pk": 14, 
+    "model": "outline.web", 
+    "fields": {
+        "profile": 2, 
+        "account": "www.linkedin.com/i/markcharyk"
+    }
+},
+{
+    "pk": 1, 
+    "model": "outline.entry", 
+    "fields": {
+        "city": "", 
+        "subtitle": "An entry for testing", 
+        "description": "", 
+        "end_date": null, 
+        "title": "Test Entry", 
+        "section": 1, 
+        "display": "L", 
+        "state": "", 
+        "contact": "", 
+        "start_date": null, 
+        "present": null
+    }
+},
+{
+    "pk": 2, 
+    "model": "outline.entry", 
+    "fields": {
+        "city": "", 
+        "subtitle": "", 
+        "description": "", 
+        "end_date": null, 
+        "title": "Other Entry", 
+        "section": 2, 
+        "display": "L", 
+        "state": "", 
+        "contact": "", 
+        "start_date": null, 
+        "present": null
+    }
+},
+{
+    "pk": 3, 
+    "model": "outline.entry", 
+    "fields": {
+        "city": "", 
+        "subtitle": "", 
+        "description": "I did so much damn coding", 
+        "end_date": null, 
+        "title": "CodeFellows", 
+        "section": 4, 
+        "display": "D", 
+        "state": "", 
+        "contact": "", 
+        "start_date": null, 
+        "present": null
+    }
+},
+{
+    "pk": 4, 
+    "model": "outline.entry", 
+    "fields": {
+        "city": "Evanston", 
+        "subtitle": "Such prestige", 
+        "description": "I met my wife while I was there", 
+        "end_date": null, 
+        "title": "Northwestern University", 
+        "section": 4, 
+        "display": "L", 
+        "state": "Illinois", 
+        "contact": "", 
+        "start_date": null, 
+        "present": null
+    }
+},
+{
+    "pk": 6, 
+    "model": "outline.entry", 
+    "fields": {
+        "city": "", 
+        "subtitle": "Blerg", 
+        "description": "", 
+        "end_date": null, 
+        "title": "Landon IP", 
+        "section": 3, 
+        "display": "L", 
+        "state": "", 
+        "contact": "", 
+        "start_date": null, 
+        "present": null
+    }
+},
+{
+    "pk": 7, 
+    "model": "outline.entry", 
+    "fields": {
+        "city": "", 
+        "subtitle": "A little better", 
+        "description": "", 
+        "end_date": null, 
+        "title": "Cardinal IP", 
+        "section": 3, 
+        "display": "L", 
+        "state": "", 
+        "contact": "", 
+        "start_date": null, 
+        "present": null
+    }
+},
+{
+    "pk": 9, 
+    "model": "outline.entry", 
+    "fields": {
+        "city": "", 
+        "subtitle": "", 
+        "description": "Registered to practice in front of the USPTO", 
+        "end_date": null, 
+        "title": "USPTO Registration", 
+        "section": 6, 
+        "display": "D", 
+        "state": "", 
+        "contact": "", 
+        "start_date": null, 
+        "present": null
+    }
+},
+{
+    "pk": 10, 
+    "model": "outline.entry", 
+    "fields": {
+        "city": "", 
+        "subtitle": "Certification in badassery", 
+        "description": "", 
+        "end_date": null, 
+        "title": "Badass", 
+        "section": 6, 
+        "display": "L", 
+        "state": "", 
+        "contact": "", 
+        "start_date": null, 
+        "present": true
+    }
+},
+{
+    "pk": 1, 
+    "model": "outline.data", 
+    "fields": {
+        "text": "Test Data 1", 
+        "entry": 1
+    }
+},
+{
+    "pk": 2, 
+    "model": "outline.data", 
+    "fields": {
+        "text": "Test Data 2", 
+        "entry": 1
+    }
+},
+{
+    "pk": 3, 
+    "model": "outline.data", 
+    "fields": {
+        "text": "Test Data 3", 
+        "entry": 1
+    }
+},
+{
+    "pk": 4, 
+    "model": "outline.data", 
+    "fields": {
+        "text": "Did some patents and stuff", 
+        "entry": 6
+    }
+},
+{
+    "pk": 5, 
+    "model": "outline.data", 
+    "fields": {
+        "text": "Working remotely", 
+        "entry": 6
+    }
+},
+{
+    "pk": 6, 
+    "model": "outline.data", 
+    "fields": {
+        "text": "Python", 
+        "entry": 3
+    }
+},
+{
+    "pk": 7, 
+    "model": "outline.data", 
+    "fields": {
+        "text": "CSS Suxxx", 
+        "entry": 3
+    }
+},
+{
+    "pk": 9, 
+    "model": "outline.data", 
+    "fields": {
+        "text": "67620", 
+        "entry": 9
+    }
+},
+{
+    "pk": 10, 
+    "model": "outline.data", 
+    "fields": {
+        "text": "Took a level as well", 
+        "entry": 10
+    }
+},
+{
+    "pk": 15, 
+    "model": "resume_storage.resume_web", 
+    "fields": {
+        "account": "www.testerweb.com", 
+        "resume": 36
+    }
+},
+{
+    "pk": 16, 
+    "model": "resume_storage.resume_web", 
+    "fields": {
+        "account": "anothertest.com", 
+        "resume": 36
+    }
+},
+{
+    "pk": 21, 
+    "model": "resume_storage.resume_web", 
+    "fields": {
+        "account": "www.markcharyk.com", 
+        "resume": 40
+    }
+},
+{
+    "pk": 22, 
+    "model": "resume_storage.resume_web", 
+    "fields": {
+        "account": "www.github.com/markcharyk", 
+        "resume": 40
+    }
+},
+{
+    "pk": 23, 
+    "model": "resume_storage.resume_web", 
+    "fields": {
+        "account": "www.markcharyk.com", 
+        "resume": 41
+    }
+},
+{
+    "pk": 24, 
+    "model": "resume_storage.resume_web", 
+    "fields": {
+        "account": "www.github.com/markcharyk", 
+        "resume": 41
+    }
+},
+{
+    "pk": 25, 
+    "model": "resume_storage.resume_web", 
+    "fields": {
+        "account": "www.linkedin.com/i/markcharyk", 
+        "resume": 41
+    }
+},
+{
+    "pk": 26, 
+    "model": "resume_storage.resume_web", 
+    "fields": {
+        "account": "www.markcharyk.com", 
+        "resume": 42
+    }
+},
+{
+    "pk": 27, 
+    "model": "resume_storage.resume_web", 
+    "fields": {
+        "account": "www.github.com/markcharyk", 
+        "resume": 42
+    }
+},
+{
+    "pk": 28, 
+    "model": "resume_storage.resume_web", 
+    "fields": {
+        "account": "www.linkedin.com/i/markcharyk", 
+        "resume": 42
+    }
+},
+{
+    "pk": 33, 
+    "model": "resume_storage.saved_section", 
+    "fields": {
+        "section": 1, 
+        "resume": 6
+    }
+},
+{
+    "pk": 40, 
+    "model": "resume_storage.saved_section", 
+    "fields": {
+        "section": 1, 
+        "resume": 36
+    }
+},
+{
+    "pk": 41, 
+    "model": "resume_storage.saved_section", 
+    "fields": {
+        "section": 2, 
+        "resume": 36
+    }
+},
+{
+    "pk": 63, 
+    "model": "resume_storage.saved_section", 
+    "fields": {
+        "section": 3, 
+        "resume": 40
+    }
+},
+{
+    "pk": 64, 
+    "model": "resume_storage.saved_section", 
+    "fields": {
+        "section": 4, 
+        "resume": 40
+    }
+},
+{
+    "pk": 65, 
+    "model": "resume_storage.saved_section", 
+    "fields": {
+        "section": 5, 
+        "resume": 40
+    }
+},
+{
+    "pk": 66, 
+    "model": "resume_storage.saved_section", 
+    "fields": {
+        "section": 6, 
+        "resume": 40
+    }
+},
+{
+    "pk": 74, 
+    "model": "resume_storage.saved_section", 
+    "fields": {
+        "section": 3, 
+        "resume": 39
+    }
+},
+{
+    "pk": 75, 
+    "model": "resume_storage.saved_section", 
+    "fields": {
+        "section": 4, 
+        "resume": 39
+    }
+},
+{
+    "pk": 76, 
+    "model": "resume_storage.saved_section", 
+    "fields": {
+        "section": 5, 
+        "resume": 39
+    }
+},
+{
+    "pk": 77, 
+    "model": "resume_storage.saved_section", 
+    "fields": {
+        "section": 6, 
+        "resume": 39
+    }
+},
+{
+    "pk": 29, 
+    "model": "resume_storage.saved_entry", 
+    "fields": {
+        "entry": 1, 
+        "section": 40, 
+        "dataset": [
+            1, 
+            3
+        ]
+    }
+},
+{
+    "pk": 30, 
+    "model": "resume_storage.saved_entry", 
+    "fields": {
+        "entry": 2, 
+        "section": 41, 
+        "dataset": []
+    }
+},
+{
+    "pk": 60, 
+    "model": "resume_storage.saved_entry", 
+    "fields": {
+        "entry": 6, 
+        "section": 63, 
+        "dataset": [
+            4, 
+            5
+        ]
+    }
+},
+{
+    "pk": 61, 
+    "model": "resume_storage.saved_entry", 
+    "fields": {
+        "entry": 7, 
+        "section": 63, 
+        "dataset": []
+    }
+},
+{
+    "pk": 62, 
+    "model": "resume_storage.saved_entry", 
+    "fields": {
+        "entry": 3, 
+        "section": 64, 
+        "dataset": [
+            6, 
+            7
+        ]
+    }
+},
+{
+    "pk": 63, 
+    "model": "resume_storage.saved_entry", 
+    "fields": {
+        "entry": 4, 
+        "section": 64, 
+        "dataset": []
+    }
+},
+{
+    "pk": 64, 
+    "model": "resume_storage.saved_entry", 
+    "fields": {
+        "entry": 9, 
+        "section": 66, 
+        "dataset": [
+            9
+        ]
+    }
+},
+{
+    "pk": 65, 
+    "model": "resume_storage.saved_entry", 
+    "fields": {
+        "entry": 10, 
+        "section": 66, 
+        "dataset": []
+    }
+},
+{
+    "pk": 76, 
+    "model": "resume_storage.saved_entry", 
+    "fields": {
+        "entry": 6, 
+        "section": 74, 
+        "dataset": [
+            4, 
+            5
+        ]
+    }
+},
+{
+    "pk": 77, 
+    "model": "resume_storage.saved_entry", 
+    "fields": {
+        "entry": 7, 
+        "section": 74, 
+        "dataset": []
+    }
+},
+{
+    "pk": 78, 
+    "model": "resume_storage.saved_entry", 
+    "fields": {
+        "entry": 3, 
+        "section": 75, 
+        "dataset": [
+            6, 
+            7
+        ]
+    }
+},
+{
+    "pk": 79, 
+    "model": "resume_storage.saved_entry", 
+    "fields": {
+        "entry": 4, 
+        "section": 75, 
+        "dataset": []
+    }
+},
+{
+    "pk": 80, 
+    "model": "resume_storage.saved_entry", 
+    "fields": {
+        "entry": 9, 
+        "section": 77, 
+        "dataset": [
+            9
+        ]
+    }
+},
+{
+    "pk": 81, 
+    "model": "resume_storage.saved_entry", 
+    "fields": {
+        "entry": 10, 
+        "section": 77, 
+        "dataset": []
+    }
+},
+{
+    "pk": 1, 
+    "model": "auth.group", 
+    "fields": {
+        "name": "Activated", 
+        "permissions": []
+    }
+},
+{
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "admin", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2014-04-04T04:09:25.647", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$OqO4ArmljJiP$4CJfpuIhevQfykXWXRRuDW6LlHYlGmR5R4k96b9Jo6s=", 
+        "email": "markcharyk@gmail.com", 
+        "date_joined": "2014-03-31T21:32:07.787"
+    }
+},
+{
+    "pk": 2, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "mark", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2014-04-01T21:40:05.953", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$ik2eWUscekJT$mV0bLPqYvcFLeeRVucxX1I6xmEMCBLFDWvgV3DhhTo8=", 
+        "email": "markcharyk@gmail.com", 
+        "date_joined": "2014-04-01T01:59:31.138"
+    }
+},
+{
+    "pk": 3, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "justin", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2014-04-01T22:11:22.180", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$kZaPASbOiAl7$NNYphUENWEZKyZCBBofP8c7n+wFnL46pq1KFZVoD7ic=", 
+        "email": "testtest@test.test", 
+        "date_joined": "2014-04-01T22:08:12.611"
+    }
+},
+{
+    "pk": 7, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "tester", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2014-04-04T03:51:56.070", 
+        "groups": [
+            1
+        ], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$AOMOGdRHoc5H$ARagFZvFRL1Dr69jX4+sYpU3LeSSr09HjQiBrZWajV4=", 
+        "email": "test@testytest.com", 
+        "date_joined": "2014-04-02T01:51:09.444"
+    }
+},
+{
+    "pk": 8, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "tester2", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2014-04-03T15:59:35.609", 
+        "groups": [
+            1
+        ], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$tZamzGhK8wcO$pNaq/AYGX6etXXGpyDx6T/lSpR9Pz1Slkf/ihB8j2ho=", 
+        "email": "test@testytest.com", 
+        "date_joined": "2014-04-03T15:59:15.294"
+    }
+},
+{
+    "pk": 2, 
+    "model": "outline.profile", 
+    "fields": {
+        "city": "Seattle", 
+        "first_name": "Mark", 
+        "last_name": "Charyk", 
+        "middle_name": "Joseph", 
+        "address1": "4040 26th Ave SW", 
+        "address2": "105", 
+        "fax": "", 
+        "zipcode": "98106", 
+        "cell": "(509) 499-6577", 
+        "state": "Washington", 
+        "user": 1, 
+        "home": "(509) 499-6577", 
+        "region": "Greater Seatle", 
+        "email": "markcharyk@gmail.com"
+    }
+},
+{
+    "pk": 7, 
+    "model": "outline.profile", 
+    "fields": {
+        "city": "", 
+        "first_name": "tester", 
+        "last_name": "Testerman", 
+        "middle_name": "middle", 
+        "address1": "This should be here", 
+        "address2": "Hi", 
+        "fax": "", 
+        "zipcode": "77777", 
+        "cell": "", 
+        "state": "", 
+        "user": 7, 
+        "home": "", 
+        "region": "", 
+        "email": "test@testytest.com"
+    }
+},
+{
+    "pk": 8, 
+    "model": "outline.profile", 
+    "fields": {
+        "city": "", 
+        "first_name": "tester2", 
+        "last_name": "LastName", 
+        "middle_name": "", 
+        "address1": "", 
+        "address2": "", 
+        "fax": "", 
+        "zipcode": "", 
+        "cell": "", 
+        "state": "", 
+        "user": 8, 
+        "home": "", 
+        "region": "", 
+        "email": "test@testytest.com"
+    }
+},
+{
+    "pk": 1, 
+    "model": "outline.section", 
+    "fields": {
+        "user": 7, 
+        "description": "A section for testing of stuff", 
+        "title": "Test Section"
+    }
+},
+{
+    "pk": 2, 
+    "model": "outline.section", 
+    "fields": {
+        "user": 7, 
+        "description": "Another section for testing", 
+        "title": "Other Section"
+    }
+},
+{
+    "pk": 3, 
+    "model": "outline.section", 
+    "fields": {
+        "user": 1, 
+        "description": "Some jobs I did", 
+        "title": "Work Experience"
+    }
+},
+{
+    "pk": 4, 
+    "model": "outline.section", 
+    "fields": {
+        "user": 1, 
+        "description": "Some schooling I did", 
+        "title": "Education"
+    }
+},
+{
+    "pk": 5, 
+    "model": "outline.section", 
+    "fields": {
+        "user": 1, 
+        "description": "Stuff I'm relatively good at", 
+        "title": "Skills"
+    }
+},
+{
+    "pk": 6, 
+    "model": "outline.section", 
+    "fields": {
+        "user": 1, 
+        "description": "", 
+        "title": "Certifications"
+    }
+},
+{
+    "pk": 6, 
+    "model": "resume_storage.resume", 
+    "fields": {
+        "city": "Somewhere", 
+        "first_name": "Test", 
+        "last_name": "Er", 
+        "middle_name": "", 
+        "title": "TestResume", 
+        "address1": "", 
+        "address2": "", 
+        "fax": "", 
+        "zipcode": "98106", 
+        "cell": "", 
+        "state": "", 
+        "user": 7, 
+        "home": "", 
+        "region": "", 
+        "email": "test@testytest.com"
+    }
+},
+{
+    "pk": 36, 
+    "model": "resume_storage.resume", 
+    "fields": {
+        "city": "", 
+        "first_name": "tester", 
+        "last_name": "Testerman", 
+        "middle_name": "middle", 
+        "title": "New Resume", 
+        "address1": "This should be here", 
+        "address2": "Hi", 
+        "fax": "", 
+        "zipcode": "77777", 
+        "cell": "", 
+        "state": "", 
+        "user": 7, 
+        "home": "", 
+        "region": "", 
+        "email": "test@testytest.com"
+    }
+},
+{
+    "pk": 39, 
+    "model": "resume_storage.resume", 
+    "fields": {
+        "city": "", 
+        "first_name": "Mark", 
+        "last_name": "Charyk", 
+        "middle_name": "", 
+        "title": "New Resume", 
+        "address1": "", 
+        "address2": "", 
+        "fax": "", 
+        "zipcode": "", 
+        "cell": "", 
+        "state": "", 
+        "user": 1, 
+        "home": "", 
+        "region": "", 
+        "email": ""
+    }
+},
+{
+    "pk": 40, 
+    "model": "resume_storage.resume", 
+    "fields": {
+        "city": "Seattle", 
+        "first_name": "Mark", 
+        "last_name": "Charyk", 
+        "middle_name": "Joseph", 
+        "title": "New Resume", 
+        "address1": "4040 26th Ave SW", 
+        "address2": "105", 
+        "fax": "", 
+        "zipcode": "98106", 
+        "cell": "(509) 499-6577", 
+        "state": "Washington", 
+        "user": 1, 
+        "home": "(509) 499-6577", 
+        "region": "Greater Seatle", 
+        "email": "markcharyk@gmail.com"
+    }
+},
+{
+    "pk": 41, 
+    "model": "resume_storage.resume", 
+    "fields": {
+        "city": "Seattle", 
+        "first_name": "Mark", 
+        "last_name": "Charyk", 
+        "middle_name": "Joseph", 
+        "title": "New Resume", 
+        "address1": "4040 26th Ave SW", 
+        "address2": "105", 
+        "fax": "", 
+        "zipcode": "98106", 
+        "cell": "(509) 499-6577", 
+        "state": "Washington", 
+        "user": 1, 
+        "home": "(509) 499-6577", 
+        "region": "Greater Seatle", 
+        "email": "markcharyk@gmail.com"
+    }
+},
+{
+    "pk": 42, 
+    "model": "resume_storage.resume", 
+    "fields": {
+        "city": "Seattle", 
+        "first_name": "Mark", 
+        "last_name": "Charyk", 
+        "middle_name": "Joseph", 
+        "title": "New Resume", 
+        "address1": "4040 26th Ave SW", 
+        "address2": "105", 
+        "fax": "", 
+        "zipcode": "98106", 
+        "cell": "(509) 499-6577", 
+        "state": "Washington", 
+        "user": 1, 
+        "home": "(509) 499-6577", 
+        "region": "Greater Seatle", 
+        "email": "markcharyk@gmail.com"
+    }
+}
+]
