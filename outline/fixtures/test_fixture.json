@@ -562,6 +562,14 @@
 },
 {
     "pk": 1, 
+    "model": "auth.group", 
+    "fields": {
+        "name": "Activated", 
+        "permissions": []
+    }
+},
+{
+    "pk": 1, 
     "model": "auth.user", 
     "fields": {
         "username": "admin", 
