@@ -115,3 +115,16 @@ class TestViews(TestCase):
     def test_no_resume(self):
         resp = self.client.get(reverse('resume_view', args=(45,)), follow=True)
         self.assertIsInstance(resp, HttpResponseNotFound)
+
+    def test_resume_post_sparse(self):
+        self.client.post(reverse('resume_view', args=(40,)), {
+            'First Name': True,
+            'Last Name': True,
+            'title': 'NewER Resume',
+            })
+        resum = Resume.objects.get(pk=40)
+        self.assertEqual(resum.title, 'NewER Resume')
+        self.assertEqual(resum.cell, '')
+        self.assertEqual(resum.fax, '')
+        self.assertEqual(resum.first_name, 'Mark')
+        self.assertEqual(resum.last_name, 'Charyk')
