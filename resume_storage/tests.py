@@ -151,3 +151,12 @@ class TestViews(TestCase):
         self.assertEqual(resum.middle_name, 'Joseph')
         self.assertEqual(resum.city, 'Seattle')
         self.assertEqual(resum.fax, '')
+
+    def test_resume_post_sans_req(self):
+        self.client.post(reverse('resume_view', args=(40,)), {
+            'title': 'New Resume',
+            'First Name': True,
+            })
+        resum = Resume.objects.get(pk=40)
+        self.assertEqual(resum.first_name, 'Mark')
+        self.assertEqual(resum.last_name, 'Charyk')
