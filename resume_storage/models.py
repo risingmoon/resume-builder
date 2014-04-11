@@ -26,7 +26,6 @@ class Resume(models.Model):
     def middle_initial(self):
         "Returns full name with middle initial"
         if self.middle_name:
-             # pdb.set_trace()
             return unicode(' '.join([
                 self.first_name,
                 self.middle_name[0] + '.',

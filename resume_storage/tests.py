@@ -128,3 +128,26 @@ class TestViews(TestCase):
         self.assertEqual(resum.fax, '')
         self.assertEqual(resum.first_name, 'Mark')
         self.assertEqual(resum.last_name, 'Charyk')
+
+    def test_resume_post_surfeit(self):
+        self.client.post(reverse('resume_view', args=(40,)), {
+            'title': 'New Resume',
+            'First Name': True,
+            'Last Name': True,
+            'Middle name': True,
+            'Cell': True,
+            'Home': True,
+            'Address1': True,
+            'Address2': True,
+            'City': True,
+            'State': True,
+            'Zipcode': True,
+            'Email': True,
+            'Region': True,
+            })
+        resum = Resume.objects.get(pk=40)
+        self.assertEqual(resum.title, 'New Resume')
+        self.assertEqual(resum.cell, '(555) 555-6577')
+        self.assertEqual(resum.middle_name, 'Joseph')
+        self.assertEqual(resum.city, 'Seattle')
+        self.assertEqual(resum.fax, '')
