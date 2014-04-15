@@ -162,6 +162,19 @@ class TestViews(TestCase):
         self.assertEqual(resum.last_name, 'Charyk')
 
     def test_delete(self):
-        resp = self.client.get(reverse('delete_resume', args=(40,)))
+        resp = self.client.get(reverse('delete_resume', args=(40,)), follow=True)
         self.assertContains(resp, "Are you sure")
         self.assertContains(resp, "delete New Resume")
+
+    def test_delete_no_resume(self):
+        resp = self.client.get(reverse('delete_resume', args=(44,)), follow=True)
+        self.assertIsInstance(resp, HttpResponseNotFound)
+
+    def test_delete_no_user(self):
+        self.client.logout()
+        resp = self.client.get(reverse('delete_resume', args=(40,)), follow=True)
+        self.assertContains(resp, 'Please log in')
+
+    def test_delete_not_yours(self):
+        resp = self.client.get(reverse('delete_resume', args=(36,)), follow=True)
+        self.assertIsInstance(resp, HttpResponseForbidden)
