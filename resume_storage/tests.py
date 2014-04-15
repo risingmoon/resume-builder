@@ -160,3 +160,8 @@ class TestViews(TestCase):
         resum = Resume.objects.get(pk=40)
         self.assertEqual(resum.first_name, 'Mark')
         self.assertEqual(resum.last_name, 'Charyk')
+
+    def test_delete(self):
+        resp = self.client.get(reverse('delete_resume', args=(40,)))
+        self.assertContains(resp, "Are you sure")
+        self.assertContains(resp, "delete New Resume")
