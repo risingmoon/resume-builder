@@ -178,3 +178,23 @@ class TestViews(TestCase):
     def test_delete_not_yours(self):
         resp = self.client.get(reverse('delete_resume', args=(36,)), follow=True)
         self.assertIsInstance(resp, HttpResponseForbidden)
+
+    def test_real_delete(self):
+        resp = self.client.get(reverse('real_delete', args=(40,)), follow=True)
+        self.assertContains(resp, 'Print this resume')
+        self.assertContains(resp, 'Delete this resume')
+        with self.assertRaises(Resume.DoesNotExist):
+            Resume.objects.get(pk=40)
+
+    def test_real_delete_no_resume(self):
+        resp = self.client.get(reverse('real_delete', args=(44,)), follow=True)
+        self.assertIsInstance(resp, HttpResponseNotFound)
+
+    def test_real_delete_no_user(self):
+        self.client.logout()
+        resp = self.client.get(reverse('real_delete', args=(40,)), follow=True)
+        self.assertContains(resp, 'Please log in')
+
+    def test_real_delete_not_yours(self):
+        resp = self.client.get(reverse('real_delete', args=(36,)), follow=True)
+        self.assertIsInstance(resp, HttpResponseForbidden)
